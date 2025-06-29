@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { AddProject } from './add-project/add-project';
 import { Home } from './home/home';
 import { NotFound } from './not-found/not-found';
+import { ProjectInfo } from './project-info/project-info';
 
 export const routes: Routes = [
   {
@@ -9,8 +9,8 @@ export const routes: Routes = [
     component: Home,
   },
   {
-    path: 'add-project',
-    component: AddProject,
+    path: 'project-info',
+    component: ProjectInfo,
   },
   {
     path: '**',
