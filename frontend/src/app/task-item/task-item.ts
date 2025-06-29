@@ -4,11 +4,12 @@ import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 
 @Component({
-  selector: 'app-task-list',
+  selector: 'app-task-item',
+  standalone: true,
   imports: [MatButtonModule, MatCardModule],
-  templateUrl: './task-list.html',
-  styleUrl: './task-list.css',
+  templateUrl: './task-item.html',
+  styleUrl: './task-item.css',
 })
-export class TaskList {
+export class TaskItem {
   task = input.required<Task>();
 }

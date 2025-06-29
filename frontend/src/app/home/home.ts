@@ -1,12 +1,12 @@
 import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TaskList } from '../task-list/task-list';
+import { TaskItem } from '../task-item/task-item';
 import { Task } from '../task';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, TaskList],
+  imports: [CommonModule, TaskItem],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
