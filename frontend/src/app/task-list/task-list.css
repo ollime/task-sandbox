@@ -1,0 +1,18 @@
+.task-item {
+  background-color: transparent;
+  padding: 20px;
+  display: flex;
+  vertical-align: center;
+  align-items: center;
+}
+
+#task-list {
+  width: 100%;
+  display: flex;
+}
+
+.task-label,
+.task-img {
+  padding: 0px;
+  margin: 8px;
+}

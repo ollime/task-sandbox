@@ -1,1 +1,4 @@
-@import "tailwindcss";
+html {
+  background-color: #a9927d;
+  padding-left: 20px;
+}

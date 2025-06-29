@@ -1,0 +1,31 @@
+<div id="task-list">
+  <mat-card class="task-item" appearance="outlined">
+    <div class="task-img">
+      <svg width="70" height="60">
+        <rect
+          x="0"
+          y="10"
+          width="50"
+          height="50"
+          stroke="#fa3838"
+          stroke-width="0"
+          fill="#957C75"
+        />
+        <polygon
+          points="50,10 70,0 70,50 50,60"
+          stroke="#fa3838"
+          stroke-width="0"
+          fill="#533C3F"
+        />
+        <polygon
+          points="0,10 20,0 70,0, 50,10"
+          stroke="#fa3838"
+          stroke-width="0"
+          fill="#C1B2AE"
+        />
+      </svg>
+    </div>
+
+    <p class="task-label">{{ task().projectName }}</p>
+  </mat-card>
+</div>
