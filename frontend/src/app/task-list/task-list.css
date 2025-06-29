@@ -4,11 +4,8 @@
   display: flex;
   vertical-align: center;
   align-items: center;
-}
-
-#task-list {
-  width: 100%;
-  display: flex;
+  flex: 1;
+  width: fit-content;
 }
 
 .task-label,

@@ -8,13 +8,39 @@ import { Task } from '../task';
   standalone: true,
   imports: [CommonModule, TaskList],
   templateUrl: './home.html',
-  styleUrl: './../app.css',
+  styleUrl: './home.css',
 })
 export class Home {
-  task: Task = {
-    projectName: 'Test Project',
-    size: 'SM',
-    icon: 'none',
-    subtasks: [],
-  };
+  taskList: Task[] = [
+    {
+      projectName: 'Test Project',
+      size: 'SM',
+      icon: 'none',
+      subtasks: [],
+    },
+    {
+      projectName: 'another test',
+      size: 'SM',
+      icon: 'none',
+      subtasks: [],
+    },
+    {
+      projectName: 'test',
+      size: 'SM',
+      icon: 'none',
+      subtasks: [],
+    },
+    {
+      projectName: 'fourth proj',
+      size: 'SM',
+      icon: 'none',
+      subtasks: [],
+    },
+    {
+      projectName: 'final',
+      size: 'SM',
+      icon: 'none',
+      subtasks: [],
+    },
+  ];
 }
