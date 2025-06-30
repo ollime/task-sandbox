@@ -6,6 +6,7 @@ import {
   MatCardSubtitle,
   MatCardContent,
 } from '@angular/material/card';
+import { ProgressBar } from '../progress-bar/progress-bar';
 
 @Component({
   selector: 'app-project-card',
@@ -15,6 +16,7 @@ import {
     MatCardTitle,
     MatCardSubtitle,
     MatCardContent,
+    ProgressBar,
   ],
   templateUrl: './project-card.html',
   styleUrl: './project-card.css',
