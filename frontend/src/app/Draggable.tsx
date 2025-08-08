@@ -9,6 +9,7 @@ type DraggableProps = {
   children: ReactNode;
   position: Coordinates;
   color?: string;
+  isActive: boolean;
 };
 
 export default function Draggable({
@@ -16,6 +17,7 @@ export default function Draggable({
   children,
   position,
   color = "#0398fc",
+  isActive,
 }: DraggableProps) {
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
@@ -40,6 +42,7 @@ export default function Draggable({
       ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
       : undefined,
     touchAction: "none",
+    zIndex: isActive ? 1000 : 1,
   };
 
   return (

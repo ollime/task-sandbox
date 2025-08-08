@@ -5,11 +5,17 @@ interface CardProps {
   position: Coordinates;
   label: string;
   color?: string;
+  activeId: string;
 }
 
-export default function Card({ position, label, color }: CardProps) {
+export default function Card({ position, label, color, activeId }: CardProps) {
   return (
-    <Draggable id={label} position={position} color={color}>
+    <Draggable
+      id={label}
+      position={position}
+      color={color}
+      isActive={label === activeId}
+    >
       <div>{label}</div>
     </Draggable>
   );

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { DndContext, DragEndEvent } from "@dnd-kit/core";
+import { DndContext, DragEndEvent, DragStartEvent } from "@dnd-kit/core";
 import { restrictToParentElement } from "@dnd-kit/modifiers";
 
 import Footer from "./footer";
@@ -14,6 +14,7 @@ interface Card {
 }
 
 export default function Home() {
+  const [activeId, setActiveId] = useState<string>();
   const [data, setData] = useState<Array<Card>>([
     { label: "Card 1", x: 0, y: 0, color: "#fca503" },
     { label: "Card 2", x: 0, y: 0, color: "#fc3503" },
@@ -32,23 +33,31 @@ export default function Home() {
     );
   }
 
+  /** Sets activeId so that active card is visually moved to the top */
+  function handleDragStart(event: DragStartEvent) {
+    const { active } = event;
+    setActiveId(String(active.id));
+  }
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] min-h-screen p-8">
+    <div className="font-sans grid grid-rows-[20px_1fr_20px] min-h-screen px-8 py-4">
       <main className="flex flex-col gap-8 row-start-2 w-full max-w-screen-md mx-auto">
         <DndContext
+          onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
           modifiers={[restrictToParentElement]}
         >
           <div
-            style={{
-              position: "relative",
-              width: 500,
-              height: 500,
-              border: "2px solid #888",
-              margin: "40px auto",
-              borderRadius: 8,
-              userSelect: "none",
-            }}
+            className="relative flex flex-1 border-2 border-white rounded-md"
+            // style={{
+            //   position: "relative",
+            //   width: 500,
+            //   height: 500,
+            //   border: "2px solid #888",
+            //   margin: "40px auto",
+            //   borderRadius: 8,
+            //   userSelect: "none",
+            // }}
           >
             {data.map((card) => (
               <Card
@@ -56,12 +65,13 @@ export default function Home() {
                 label={card.label}
                 color={card.color ?? undefined}
                 position={{ x: card.x, y: card.y }}
+                activeId={activeId ?? ""}
               />
             ))}
           </div>
         </DndContext>
+        <Footer />
       </main>
-      <Footer />
     </div>
   );
 }
