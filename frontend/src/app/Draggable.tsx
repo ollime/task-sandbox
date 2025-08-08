@@ -10,6 +10,7 @@ type DraggableProps = {
   position: Coordinates;
   color?: string;
   isActive: boolean;
+  draggable?: boolean;
 };
 
 export default function Draggable({
@@ -18,6 +19,7 @@ export default function Draggable({
   position,
   color = "#0398fc",
   isActive,
+  draggable = true,
 }: DraggableProps) {
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
@@ -33,7 +35,7 @@ export default function Draggable({
     justifyContent: "center",
     alignItems: "center",
     userSelect: "none",
-    cursor: "grab",
+    cursor: draggable ? "move" : "default",
     top: position.y,
     left: position.x,
     transform: transform
@@ -44,7 +46,12 @@ export default function Draggable({
   };
 
   return (
-    <button ref={setNodeRef} style={style} {...listeners} {...attributes}>
+    <button
+      ref={setNodeRef}
+      style={style}
+      {...(draggable ? listeners : {})}
+      {...attributes}
+    >
       {children}
     </button>
   );
