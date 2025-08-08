@@ -17,6 +17,7 @@ export default function ContextMenu({
 }: ContextMenuProps) {
   const [size, setSize] = useState<string>(currentSize ?? "smSquare");
   const liStyles = "p-2 hover:cursor-pointer hover:bg-black";
+  const radioStyles = "m-2 scale-140";
   const styles: React.CSSProperties = {
     position: "absolute",
     width: "200px",
@@ -27,15 +28,22 @@ export default function ContextMenu({
   };
 
   const radioBtns: React.ReactNode = Object.keys(sizePreset).map((item) => (
-    <div key={item} onClick={() => handleClickRadio(item)}>
+    <div
+      key={item}
+      onClick={() => handleClickRadio(item)}
+      className="flex flex-row"
+    >
       <input
         type="radio"
         name="size"
         id={item}
         value={item}
         defaultChecked={item === size}
+        className={radioStyles}
       />
-      <label htmlFor={item}>{item}</label>
+      <label htmlFor={item} className="flex flex-1">
+        {isValidSizeKey(item) ? sizePreset[item].label : item}
+      </label>
     </div>
   ));
 
@@ -54,7 +62,7 @@ export default function ContextMenu({
     <div style={styles} className="rounded-lg" role="menu">
       <ul role="menu">
         <li className={`${liStyles} rounded-t-lg`} role="menuitem">
-          Size
+          <p className="mb-2">Size</p>
           {radioBtns}
         </li>
         <li className={liStyles} role="menuitem">
