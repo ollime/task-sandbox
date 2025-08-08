@@ -5,6 +5,8 @@ import { restrictToParentElement } from "@dnd-kit/modifiers";
 
 import Footer from "./footer";
 import Card from "./card";
+import { sizePreset } from "./card.types";
+import { Coordinates } from "@dnd-kit/core/dist/types";
 
 interface Card {
   label: string;
@@ -13,14 +15,26 @@ interface Card {
   width?: number;
   height?: number;
   color?: string;
+  size: Coordinates;
 }
 
 export default function Home() {
   const [activeId, setActiveId] = useState<string>();
   const [data, setData] = useState<Array<Card>>([
-    { label: "Card 1", x: 0, y: 0, color: "#fca503", width: 50, height: 50 },
-    { label: "Card 2", x: 0, y: 0, color: "#fc3503" },
-    { label: "Card 3", x: 0, y: 0, height: 100, width: 200 },
+    {
+      label: "Card 1",
+      x: 0,
+      y: 0,
+      color: "#fca503",
+      size: sizePreset.smRect,
+    },
+    { label: "Card 2", x: 0, y: 0, color: "#fc3503", size: sizePreset.lgRect },
+    {
+      label: "Card 3",
+      x: 0,
+      y: 0,
+      size: sizePreset.lgSquare,
+    },
   ]);
 
   /** Updates position data for card when being dragged */
@@ -60,7 +74,7 @@ export default function Home() {
                 size={
                   card.width && card.height
                     ? { x: card.width, y: card.height }
-                    : undefined
+                    : card.size
                 }
               />
             ))}
