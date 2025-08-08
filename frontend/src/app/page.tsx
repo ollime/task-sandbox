@@ -7,6 +7,7 @@ import Footer from "./footer";
 import Card from "./card";
 import { sizePreset } from "./card.types";
 import { Coordinates } from "@dnd-kit/core/dist/types";
+import { ContextMenuProvider } from "@/hooks/ContextMenuProvider";
 
 interface Card {
   label: string;
@@ -58,28 +59,30 @@ export default function Home() {
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] min-h-screen px-8 py-4">
       <main className="flex flex-col gap-8 row-start-2 w-full max-w-screen-md mx-auto">
-        <DndContext
-          onDragStart={handleDragStart}
-          onDragEnd={handleDragEnd}
-          modifiers={[restrictToParentElement]}
-        >
-          <div className="relative flex flex-1 border-2 border-white rounded-md">
-            {data.map((card) => (
-              <Card
-                key={card.label}
-                label={card.label}
-                color={card.color ?? undefined}
-                position={{ x: card.x, y: card.y }}
-                activeId={activeId ?? ""}
-                size={
-                  card.width && card.height
-                    ? { x: card.width, y: card.height }
-                    : card.size
-                }
-              />
-            ))}
-          </div>
-        </DndContext>
+        <ContextMenuProvider>
+          <DndContext
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
+            modifiers={[restrictToParentElement]}
+          >
+            <div className="relative flex flex-1 border-2 border-white rounded-md">
+              {data.map((card) => (
+                <Card
+                  key={card.label}
+                  label={card.label}
+                  color={card.color ?? undefined}
+                  position={{ x: card.x, y: card.y }}
+                  activeId={activeId ?? ""}
+                  size={
+                    card.width && card.height
+                      ? { x: card.width, y: card.height }
+                      : card.size
+                  }
+                />
+              ))}
+            </div>
+          </DndContext>
+        </ContextMenuProvider>
         <Footer />
       </main>
     </div>

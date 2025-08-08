@@ -42,7 +42,7 @@ export default function Draggable({
       ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
       : undefined,
     touchAction: "none",
-    zIndex: isActive ? 1000 : 1,
+    zIndex: isActive ? 100 : 0,
   };
 
   return (

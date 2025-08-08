@@ -2,7 +2,8 @@ import Draggable from "./Draggable";
 import { Coordinates } from "@dnd-kit/core/dist/types";
 
 import ContextMenu from "./ContextMenu";
-import useContextMenu from "../hooks/useContextMenu";
+import { useContextMenu } from "@/hooks/ContextMenuProvider";
+import { sizePreset } from "./card.types";
 
 interface CardProps {
   position: Coordinates;
@@ -22,7 +23,7 @@ export default function Card({
   const { clicked, setClicked, points, setPoints } = useContextMenu();
   function handleOpenMenu(evt: React.MouseEvent) {
     evt.preventDefault();
-    setClicked(!clicked);
+    setClicked(label);
     setPoints({
       x: evt.pageX - position.x - 50,
       y: evt.pageY - position.y - 50,
@@ -44,8 +45,14 @@ export default function Card({
       >
         {label}
       </div>
-      {clicked ? (
-        <ContextMenu top={points.y} left={points.x}></ContextMenu>
+      {clicked === label ? (
+        <ContextMenu
+          top={points.y}
+          left={points.x}
+          currentSize={
+            Object.entries(sizePreset).find(([_, val]) => val === size)?.[0]
+          }
+        ></ContextMenu>
       ) : (
         ""
       )}
