@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { sizePreset } from "./card.types";
+import { Coordinates } from "@dnd-kit/core/dist/types";
 
 interface ContextMenuProps {
   top: number;
   left: number;
   currentSize?: string;
+  setCardSize: (size: Coordinates) => void;
 }
 
 export default function ContextMenu({
   top,
   left,
   currentSize,
+  setCardSize,
 }: ContextMenuProps) {
   const [size, setSize] = useState<string>(currentSize ?? "smSquare");
   const liStyles = "p-2 hover:cursor-pointer hover:bg-black";
@@ -36,8 +39,15 @@ export default function ContextMenu({
     </div>
   ));
 
+  function isValidSizeKey(key: string): key is keyof typeof sizePreset {
+    return key in sizePreset;
+  }
+
   function handleClickRadio(newSize: string) {
-    setSize(newSize);
+    if (isValidSizeKey(newSize)) {
+      setCardSize(sizePreset[newSize]);
+      setSize(newSize);
+    }
   }
 
   return (

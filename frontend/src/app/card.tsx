@@ -1,3 +1,5 @@
+"use client";
+import { useState } from "react";
 import Draggable from "./Draggable";
 import { Coordinates } from "@dnd-kit/core/dist/types";
 
@@ -22,6 +24,7 @@ export default function Card({
   size,
   setActiveId,
 }: CardProps) {
+  const [cardSize, setCardSize] = useState<Coordinates>(size);
   const { clicked, setClicked, points, setPoints } = useContextMenu();
   function handleOpenMenu(evt: React.MouseEvent) {
     evt.preventDefault();
@@ -31,6 +34,10 @@ export default function Card({
       y: evt.pageY - position.y - 50,
     });
     setActiveId(label);
+  }
+
+  function handleSetCardSize(value: Coordinates) {
+    setCardSize(value);
   }
 
   return (
@@ -43,7 +50,7 @@ export default function Card({
     >
       <div
         className="flex flex-1 items-center justify-center"
-        style={{ height: size.y, width: size.x }}
+        style={{ height: cardSize.y, width: cardSize.x }}
         onContextMenu={(evt) => handleOpenMenu(evt)}
       >
         {label}
@@ -53,8 +60,9 @@ export default function Card({
           top={points.y}
           left={points.x}
           currentSize={
-            Object.entries(sizePreset).find(([_, val]) => val === size)?.[0]
+            Object.entries(sizePreset).find(([_, val]) => val === cardSize)?.[0]
           }
+          setCardSize={handleSetCardSize}
         ></ContextMenu>
       ) : (
         ""
