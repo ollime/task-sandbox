@@ -10,20 +10,22 @@ interface Card {
   label: string;
   x: number;
   y: number;
+  width?: number;
+  height?: number;
   color?: string;
 }
 
 export default function Home() {
   const [activeId, setActiveId] = useState<string>();
   const [data, setData] = useState<Array<Card>>([
-    { label: "Card 1", x: 0, y: 0, color: "#fca503" },
+    { label: "Card 1", x: 0, y: 0, color: "#fca503", width: 50, height: 50 },
     { label: "Card 2", x: 0, y: 0, color: "#fc3503" },
-    { label: "Card 3", x: 0, y: 0 },
+    { label: "Card 3", x: 0, y: 0, height: 100, width: 200 },
   ]);
 
+  /** Updates position data for card when being dragged */
   function handleDragEnd(event: DragEndEvent) {
     const { active, delta } = event;
-
     setData(
       data.map((card: Card) =>
         card.label === active.id
@@ -47,18 +49,7 @@ export default function Home() {
           onDragEnd={handleDragEnd}
           modifiers={[restrictToParentElement]}
         >
-          <div
-            className="relative flex flex-1 border-2 border-white rounded-md"
-            // style={{
-            //   position: "relative",
-            //   width: 500,
-            //   height: 500,
-            //   border: "2px solid #888",
-            //   margin: "40px auto",
-            //   borderRadius: 8,
-            //   userSelect: "none",
-            // }}
-          >
+          <div className="relative flex flex-1 border-2 border-white rounded-md">
             {data.map((card) => (
               <Card
                 key={card.label}
@@ -66,6 +57,11 @@ export default function Home() {
                 color={card.color ?? undefined}
                 position={{ x: card.x, y: card.y }}
                 activeId={activeId ?? ""}
+                size={
+                  card.width && card.height
+                    ? { x: card.width, y: card.height }
+                    : undefined
+                }
               />
             ))}
           </div>

@@ -26,8 +26,6 @@ export default function Draggable({
 
   const style: React.CSSProperties = {
     position: "absolute",
-    width: 100,
-    height: 100,
     borderRadius: 8,
     backgroundColor: isDragging ? darkenHex(color, 20) : color,
     color: "white",
