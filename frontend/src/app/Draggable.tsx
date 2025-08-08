@@ -1,18 +1,22 @@
 import React, { ReactNode } from "react";
 import { useDraggable } from "@dnd-kit/core";
+import { Coordinates } from "@dnd-kit/core/dist/types";
 
-interface Coordinates {
-  x: number;
-  y: number;
-}
+import { darkenHex } from "./color";
 
 type DraggableProps = {
   id: string;
   children: ReactNode;
   position: Coordinates;
+  color?: string;
 };
 
-export default function Draggable({ id, children, position }: DraggableProps) {
+export default function Draggable({
+  id,
+  children,
+  position,
+  color = "#0398fc",
+}: DraggableProps) {
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
       id: id,
@@ -23,7 +27,7 @@ export default function Draggable({ id, children, position }: DraggableProps) {
     width: 100,
     height: 100,
     borderRadius: 8,
-    backgroundColor: isDragging ? "#1e40af" : "#2563eb",
+    backgroundColor: isDragging ? darkenHex(color, 20) : color,
     color: "white",
     display: "flex",
     justifyContent: "center",

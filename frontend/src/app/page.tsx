@@ -10,12 +10,13 @@ interface Card {
   label: string;
   x: number;
   y: number;
+  color?: string;
 }
 
 export default function Home() {
   const [data, setData] = useState<Array<Card>>([
-    { label: "Card 1", x: 0, y: 0 },
-    { label: "Card 2", x: 0, y: 0 },
+    { label: "Card 1", x: 0, y: 0, color: "#fca503" },
+    { label: "Card 2", x: 0, y: 0, color: "#fc3503" },
     { label: "Card 3", x: 0, y: 0 },
   ]);
 
@@ -53,6 +54,7 @@ export default function Home() {
               <Card
                 key={card.label}
                 label={card.label}
+                color={card.color ?? undefined}
                 position={{ x: card.x, y: card.y }}
               />
             ))}
