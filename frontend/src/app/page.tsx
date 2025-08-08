@@ -73,6 +73,7 @@ export default function Home() {
                   color={card.color ?? undefined}
                   position={{ x: card.x, y: card.y }}
                   activeId={activeId ?? ""}
+                  setActiveId={setActiveId}
                   size={
                     card.width && card.height
                       ? { x: card.width, y: card.height }

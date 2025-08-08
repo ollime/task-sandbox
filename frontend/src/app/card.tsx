@@ -11,6 +11,7 @@ interface CardProps {
   label: string;
   color?: string;
   activeId: string;
+  setActiveId: (value: string) => void;
 }
 
 export default function Card({
@@ -19,6 +20,7 @@ export default function Card({
   color,
   activeId,
   size,
+  setActiveId,
 }: CardProps) {
   const { clicked, setClicked, points, setPoints } = useContextMenu();
   function handleOpenMenu(evt: React.MouseEvent) {
@@ -28,6 +30,7 @@ export default function Card({
       x: evt.pageX - position.x - 50,
       y: evt.pageY - position.y - 50,
     });
+    setActiveId(label);
   }
 
   return (
