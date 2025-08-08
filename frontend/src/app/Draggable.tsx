@@ -7,14 +7,15 @@ interface Coordinates {
 }
 
 type DraggableProps = {
+  id: string;
   children: ReactNode;
   position: Coordinates;
 };
 
-export default function Draggable({ children, position }: DraggableProps) {
+export default function Draggable({ id, children, position }: DraggableProps) {
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
-      id: "draggable",
+      id: id,
     });
 
   const style: React.CSSProperties = {
