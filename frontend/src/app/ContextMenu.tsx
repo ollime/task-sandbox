@@ -22,10 +22,6 @@ export default function ContextMenu({
   const [size, setSize] = useState<string | undefined>(
     currentSize ?? undefined
   );
-  const [color, setColor] = useState<string | undefined>(
-    currentColor ?? undefined
-  );
-
   const liStyles = "p-2 hover:cursor-pointer hover:bg-black";
   const radioStyles = "m-2 scale-140";
   const styles: React.CSSProperties = {
@@ -69,7 +65,7 @@ export default function ContextMenu({
         type="radio"
         name="color"
         id={item}
-        defaultChecked={item === size}
+        defaultChecked={colorPreset[item] === currentColor}
         className={radioStyles}
         value={colorPreset[item]}
       />
@@ -85,7 +81,6 @@ export default function ContextMenu({
 
   function handleUpdateColor(newColor: ColorKeys) {
     setCardColor(colorPreset[newColor]);
-    setColor(newColor);
   }
 
   function handleUpdateSize(newSize: string) {
