@@ -50,6 +50,7 @@ export default function Card({
         className="flex flex-1 items-center justify-center"
         style={{ height: cardSize.y, width: cardSize.x }}
         onContextMenu={(evt) => handleOpenMenu(evt)}
+        onDoubleClick={(evt) => handleOpenMenu(evt)}
       >
         {label}
       </div>
