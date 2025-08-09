@@ -3,7 +3,7 @@ import React, { ReactNode } from "react";
 import { useDraggable } from "@dnd-kit/core";
 import { Coordinates } from "@dnd-kit/core/dist/types";
 
-import { darkenHex } from "./color";
+import { darkenHex } from "./../utils/color";
 
 type DraggableProps = {
   id: string;

@@ -3,11 +3,11 @@ import { useState } from "react";
 import { DndContext, DragEndEvent, DragStartEvent } from "@dnd-kit/core";
 import { restrictToParentElement } from "@dnd-kit/modifiers";
 
-import Footer from "./footer";
-import Card from "./card";
-import { colorPreset, sizePreset } from "./card.types";
+import Footer from "./../components/footer";
+import Card from "./../components/card";
+import { colorPreset, sizePreset } from "./../utils/card.types";
 import { Coordinates } from "@dnd-kit/core/dist/types";
-import { ContextMenuProvider } from "@/hooks/ContextMenuProvider";
+import { ContextMenuProvider } from "@/utils/ContextMenuProvider";
 
 interface Card {
   label: string;
