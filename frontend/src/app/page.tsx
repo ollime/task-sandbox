@@ -72,21 +72,23 @@ export default function Home() {
             modifiers={[restrictToParentElement]}
           >
             <div className={styles.grid} style={gridBackgroundStyle}>
-              {data.map((card) => (
-                <Card
-                  key={card.label}
-                  label={card.label}
-                  color={card.color ?? undefined}
-                  position={{ x: card.x, y: card.y }}
-                  activeId={activeId ?? ""}
-                  setActiveId={setActiveId}
-                  size={
-                    card.width && card.height
-                      ? { x: card.width, y: card.height }
-                      : card.size
-                  }
-                />
-              ))}
+              <div className={styles.draggable}>
+                {data.map((card) => (
+                  <Card
+                    key={card.label}
+                    label={card.label}
+                    color={card.color ?? undefined}
+                    position={{ x: card.x, y: card.y }}
+                    activeId={activeId ?? ""}
+                    setActiveId={setActiveId}
+                    size={
+                      card.width && card.height
+                        ? { x: card.width, y: card.height }
+                        : card.size
+                    }
+                  />
+                ))}
+              </div>
             </div>
           </DndContext>
         </ContextMenuProvider>
@@ -100,6 +102,7 @@ const styles = {
   root: "font-sans grid grid-rows-[20px_1fr_20px] min-h-screen px-8 py-4",
   main: "flex flex-col gap-8 row-start-2 w-full max-w-screen-md mx-auto",
   grid: "relative flex flex-1 border-2 border-white rounded-md",
+  draggable: "relative flex flex-1 rounded-md p-2",
 };
 
 /** Adds background gridlines */

@@ -1,3 +1,4 @@
+"use client";
 import React, { ReactNode } from "react";
 import { useDraggable } from "@dnd-kit/core";
 import { Coordinates } from "@dnd-kit/core/dist/types";
