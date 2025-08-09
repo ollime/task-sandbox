@@ -23,10 +23,10 @@ export default function ContextMenu({
     currentSize ?? undefined
   );
   const liStyles = "p-2 hover:cursor-pointer hover:bg-black";
-  const radioStyles = "m-2 scale-160";
+  const radioStyles = "m-1 mr-2 scale-160";
   const styles: React.CSSProperties = {
     position: "absolute",
-    width: "200px",
+    minWidth: "250px",
     backgroundColor: "#383838",
     top: top,
     left: left,
