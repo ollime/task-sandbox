@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { sizePreset } from "./card.types";
+import { ColorKeys, colorPreset, sizePreset } from "./card.types";
 import { Coordinates } from "@dnd-kit/core/dist/types";
 
 interface ContextMenuProps {
@@ -7,6 +7,8 @@ interface ContextMenuProps {
   left: number;
   currentSize?: string;
   setCardSize: (size: Coordinates) => void;
+  currentColor: string;
+  setCardColor: (color: string) => void;
 }
 
 export default function ContextMenu({
@@ -14,8 +16,16 @@ export default function ContextMenu({
   left,
   currentSize,
   setCardSize,
+  currentColor,
+  setCardColor,
 }: ContextMenuProps) {
-  const [size, setSize] = useState<string>(currentSize ?? "smSquare");
+  const [size, setSize] = useState<string | undefined>(
+    currentSize ?? undefined
+  );
+  const [color, setColor] = useState<string | undefined>(
+    currentColor ?? undefined
+  );
+
   const liStyles = "p-2 hover:cursor-pointer hover:bg-black";
   const radioStyles = "m-2 scale-140";
   const styles: React.CSSProperties = {
@@ -30,7 +40,7 @@ export default function ContextMenu({
   const radioBtns: React.ReactNode = Object.keys(sizePreset).map((item) => (
     <div
       key={item}
-      onClick={() => handleClickRadio(item)}
+      onClick={() => handleUpdateSize(item)}
       className="flex flex-row"
     >
       <input
@@ -47,11 +57,38 @@ export default function ContextMenu({
     </div>
   ));
 
+  const colorBtns: React.ReactNode = (
+    Object.keys(colorPreset) as ColorKeys[]
+  ).map((item) => (
+    <div
+      key={item}
+      onClick={() => handleUpdateColor(item)}
+      className="flex flex-row"
+    >
+      <input
+        type="radio"
+        name="color"
+        id={item}
+        defaultChecked={item === size}
+        className={radioStyles}
+        value={colorPreset[item]}
+      />
+      <label htmlFor={item} className="flex flex-1">
+        {item}
+      </label>
+    </div>
+  ));
+
   function isValidSizeKey(key: string): key is keyof typeof sizePreset {
     return key in sizePreset;
   }
 
-  function handleClickRadio(newSize: string) {
+  function handleUpdateColor(newColor: ColorKeys) {
+    setCardColor(colorPreset[newColor]);
+    setColor(newColor);
+  }
+
+  function handleUpdateSize(newSize: string) {
     if (isValidSizeKey(newSize)) {
       setCardSize(sizePreset[newSize]);
       setSize(newSize);
@@ -66,7 +103,11 @@ export default function ContextMenu({
           {radioBtns}
         </li>
         <li className={liStyles} role="menuitem">
-          Color
+          <p className="mb-2">Color</p>
+          {colorBtns}
+        </li>
+        <li className={liStyles} role="menuitem">
+          Rename
         </li>
         <li className={liStyles} role="menuitem">
           Delete

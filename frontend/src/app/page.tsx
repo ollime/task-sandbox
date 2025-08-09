@@ -5,7 +5,7 @@ import { restrictToParentElement } from "@dnd-kit/modifiers";
 
 import Footer from "./footer";
 import Card from "./card";
-import { sizePreset } from "./card.types";
+import { colorPreset, sizePreset } from "./card.types";
 import { Coordinates } from "@dnd-kit/core/dist/types";
 import { ContextMenuProvider } from "@/hooks/ContextMenuProvider";
 
@@ -26,10 +26,16 @@ export default function Home() {
       label: "Card 1",
       x: 0,
       y: 0,
-      color: "#fca503",
+      color: colorPreset.green,
       size: sizePreset.smRect,
     },
-    { label: "Card 2", x: 0, y: 0, color: "#fc3503", size: sizePreset.lgRect },
+    {
+      label: "Card 2",
+      x: 0,
+      y: 0,
+      color: colorPreset.red,
+      size: sizePreset.lgRect,
+    },
     {
       label: "Card 3",
       x: 0,
@@ -57,15 +63,15 @@ export default function Home() {
   }
 
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] min-h-screen px-8 py-4">
-      <main className="flex flex-col gap-8 row-start-2 w-full max-w-screen-md mx-auto">
+    <div className={styles.root}>
+      <main className={styles.main}>
         <ContextMenuProvider>
           <DndContext
             onDragStart={handleDragStart}
             onDragEnd={handleDragEnd}
             modifiers={[restrictToParentElement]}
           >
-            <div className="relative flex flex-1 border-2 border-white rounded-md">
+            <div className={styles.grid} style={gridBackgroundStyle}>
               {data.map((card) => (
                 <Card
                   key={card.label}
@@ -89,3 +95,29 @@ export default function Home() {
     </div>
   );
 }
+
+const styles = {
+  root: "font-sans grid grid-rows-[20px_1fr_20px] min-h-screen px-8 py-4",
+  main: "flex flex-col gap-8 row-start-2 w-full max-w-screen-md mx-auto",
+  grid: "relative flex flex-1 border-2 border-white rounded-md",
+};
+
+/** Adds background gridlines */
+const gridBackgroundStyle = {
+  backgroundImage: `
+    repeating-linear-gradient(
+      to right,
+      #505050,
+      #505050 1px,
+      transparent 1px,
+      transparent 50px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      #505050,
+      #505050 1px,
+      transparent 1px,
+      transparent 50px
+    )
+  `,
+};

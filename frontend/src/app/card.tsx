@@ -5,7 +5,7 @@ import { Coordinates } from "@dnd-kit/core/dist/types";
 
 import ContextMenu from "./ContextMenu";
 import { useContextMenu } from "@/hooks/ContextMenuProvider";
-import { sizePreset } from "./card.types";
+import { colorPreset, sizePreset } from "./card.types";
 
 interface CardProps {
   position: Coordinates;
@@ -25,6 +25,8 @@ export default function Card({
   setActiveId,
 }: CardProps) {
   const [cardSize, setCardSize] = useState<Coordinates>(size);
+  const [cardColor, setCardColor] = useState<string>(color ?? colorPreset.blue);
+
   const { clicked, setClicked, points, setPoints } = useContextMenu();
   function handleOpenMenu(evt: React.MouseEvent) {
     evt.preventDefault();
@@ -36,15 +38,11 @@ export default function Card({
     setActiveId(label);
   }
 
-  function handleSetCardSize(value: Coordinates) {
-    setCardSize(value);
-  }
-
   return (
     <Draggable
       id={label}
       position={position}
-      color={color}
+      color={cardColor}
       isActive={label === activeId}
       draggable={!clicked}
     >
@@ -62,7 +60,9 @@ export default function Card({
           currentSize={
             Object.entries(sizePreset).find(([_, val]) => val === cardSize)?.[0]
           }
-          setCardSize={handleSetCardSize}
+          setCardSize={setCardSize}
+          currentColor={cardColor}
+          setCardColor={setCardColor}
         ></ContextMenu>
       ) : (
         ""
