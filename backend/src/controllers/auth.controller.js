@@ -1,6 +1,5 @@
 import { User } from "../models/user.model.js";
 
-// implement generateAccessAndRefreshTokens
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
     const user = awaitUser.findById(userId);
@@ -20,7 +19,6 @@ const generateAccessAndRefreshTokens = async (userId) => {
 };
 
 // registering a user
-
 const registerUser = async (req, res) => {
   try {
     const { username } = req.body;
