@@ -6,12 +6,29 @@
 
 A task organization app
 
+### Features
+
 - **Stack your tasks:** visually see how many tasks you have
 - **Drag and drop interface:** convenient and easy to use with the help of the `dnd-kit` React package
 - **Context menus:** right click for card options and customization
 - **Set different task sizes:** larger cards require more attention
 - **Workspaces:** easily move tasks between different screens
+- **Labels:** add freely draggable text to the screen
 
 ## Local development
 
-Instructions for installing app
+- Clone the repo: `git clone https://github.com/ollime/productive-app`
+- Install dependencies: `npm install`
+- Add the following to the `.env` file:
+
+```
+MONGODB_URI=mongodb+srv://[username:password@]host/[database][?options]
+
+ACCESS_TOKEN_SECRET=secret
+ACCESS_TOKEN_EXPIRY=15m
+
+ACCESS_REFRESH_SECRET=secret
+ACCESS_REFRESH_EXPIRY=1d
+```
+
+- Run the server: `npm run dev`
