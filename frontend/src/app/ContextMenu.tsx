@@ -23,7 +23,7 @@ export default function ContextMenu({
     currentSize ?? undefined
   );
   const liStyles = "p-2 hover:cursor-pointer hover:bg-black";
-  const radioStyles = "m-2 scale-140";
+  const radioStyles = "m-2 scale-160";
   const styles: React.CSSProperties = {
     position: "absolute",
     width: "200px",
@@ -33,12 +33,9 @@ export default function ContextMenu({
     zIndex: 1000,
   };
 
+  /** Size buttons */
   const radioBtns: React.ReactNode = Object.keys(sizePreset).map((item) => (
-    <div
-      key={item}
-      onClick={() => handleUpdateSize(item)}
-      className="flex flex-row"
-    >
+    <div key={item} className="flex flex-row">
       <input
         type="radio"
         name="size"
@@ -46,6 +43,7 @@ export default function ContextMenu({
         value={item}
         defaultChecked={item === size}
         className={radioStyles}
+        onClick={() => handleUpdateSize(item)}
       />
       <label htmlFor={item} className="flex flex-1">
         {isValidSizeKey(item) ? sizePreset[item].label : item}
@@ -53,14 +51,11 @@ export default function ContextMenu({
     </div>
   ));
 
+  /** Color buttons */
   const colorBtns: React.ReactNode = (
     Object.keys(colorPreset) as ColorKeys[]
   ).map((item) => (
-    <div
-      key={item}
-      onClick={() => handleUpdateColor(item)}
-      className="flex flex-row"
-    >
+    <div key={item} className="flex-row inline-block">
       <input
         type="radio"
         name="color"
@@ -68,10 +63,11 @@ export default function ContextMenu({
         defaultChecked={colorPreset[item] === currentColor}
         className={radioStyles}
         value={colorPreset[item]}
+        style={{
+          accentColor: colorPreset[item],
+        }}
+        onClick={() => handleUpdateColor(item)}
       />
-      <label htmlFor={item} className="flex flex-1">
-        {item}
-      </label>
     </div>
   ));
 
