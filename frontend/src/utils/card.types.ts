@@ -1,3 +1,12 @@
+import { Coordinates } from "@dnd-kit/core/dist/types";
+
+export interface CardData {
+  label: string;
+  color: string;
+  size: string;
+  position: Coordinates;
+}
+
 export const sizePreset = {
   smRect: { x: 150, y: 50, label: "1.5x0.5 rect" },
   smSquare: { x: 100, y: 100, label: "1x1 square" },

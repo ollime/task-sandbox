@@ -1,11 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DndContext, DragEndEvent, DragStartEvent } from "@dnd-kit/core";
 import { restrictToParentElement } from "@dnd-kit/modifiers";
 
 import Footer from "./../components/footer";
 import Card from "./../components/card";
-import { colorPreset, sizePreset } from "./../utils/card.types";
+import { CardData, colorPreset, sizePreset } from "./../utils/card.types";
 import { Coordinates } from "@dnd-kit/core/dist/types";
 import { ContextMenuProvider } from "@/utils/ContextMenuProvider";
 
@@ -43,6 +43,44 @@ export default function Home() {
       size: sizePreset.lgSquare,
     },
   ]);
+
+  useEffect(() => {
+    /** loads initial data */
+    async function getCardData() {
+      try {
+        const res = await fetch("/api/cards");
+        const data = await res.json();
+        console.log(data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    /** adds a new card */
+    async function sendCardData(taskData: CardData) {
+      console.log(JSON.stringify(taskData));
+      try {
+        await fetch("/api/cards", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(taskData),
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    const newTask: CardData = {
+      label: "Test Card",
+      color: colorPreset.red,
+      size: "lgSquare",
+      position: { x: 0, y: 0 },
+    };
+    sendCardData(newTask);
+    getCardData();
+  }, []);
 
   /** Updates position data for card when being dragged */
   function handleDragEnd(event: DragEndEvent) {

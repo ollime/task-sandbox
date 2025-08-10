@@ -1,17 +1,37 @@
-import clientPromise from "../../../lib/mongodb";
+import { connectToDatabase } from "../../../lib/mongodb";
 import { NextRequest, NextResponse } from "next/server";
+import { Task } from "../../../models/task.model";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
-    const client = await clientPromise;
-    const db = client.db("database");
-    const cards = await db.collection("tasks").find({}).toArray();
+    await connectToDatabase();
+    const cards = await Task.find({});
     return NextResponse.json(cards);
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(err);
     return NextResponse.json(
       { error: "Internal Server Error" },
       { status: 500 }
     );
+  }
+}
+
+export async function POST(req: NextRequest) {
+  try {
+    const body = await req.json();
+    if (!body.label) {
+      return NextResponse.json(
+        { error: "Missing required fields" },
+        { status: 400 }
+      );
+    }
+
+    const newTask = new Task(body);
+    const savedTask = await newTask.save();
+
+    return NextResponse.json(savedTask);
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json({ error: "Bad Request" }, { status: 400 });
   }
 }
