@@ -5,42 +5,33 @@ import { restrictToParentElement } from "@dnd-kit/modifiers";
 
 import Footer from "./../components/footer";
 import Card from "./../components/card";
-import { CardData, colorPreset, sizePreset } from "./../utils/card.types";
-import { Coordinates } from "@dnd-kit/core/dist/types";
+import {
+  CardData,
+  colorPreset,
+  SizeKeys,
+  sizePreset,
+} from "./../utils/card.types";
 import { ContextMenuProvider } from "@/utils/ContextMenuProvider";
-
-interface Card {
-  label: string;
-  x: number;
-  y: number;
-  width?: number;
-  height?: number;
-  color?: string;
-  size: Coordinates;
-}
 
 export default function Home() {
   const [activeId, setActiveId] = useState<string>();
-  const [data, setData] = useState<Array<Card>>([
+  const [data, setData] = useState<Array<CardData>>([
     {
       label: "Card 1",
-      x: 0,
-      y: 0,
+      position: { x: 0, y: 0 },
       color: colorPreset.green,
-      size: sizePreset.smRect,
+      size: "smRect",
     },
     {
       label: "Card 2",
-      x: 0,
-      y: 0,
+      position: { x: 0, y: 0 },
       color: colorPreset.red,
-      size: sizePreset.lgRect,
+      size: "lgRect",
     },
     {
       label: "Card 3",
-      x: 0,
-      y: 0,
-      size: sizePreset.lgSquare,
+      position: { x: 0, y: 0 },
+      size: "lgSquare",
     },
   ]);
 
@@ -48,9 +39,16 @@ export default function Home() {
     /** loads initial data */
     async function getCardData() {
       try {
-        const res = await fetch("/api/cards");
-        const data = await res.json();
-        console.log(data);
+        await fetch("/api/cards")
+          .then((res) => {
+            return res.json();
+          })
+          .then((json) => {
+            /** Save to local app state */
+            for (const card of json) {
+              data.push(card);
+            }
+          });
       } catch (err) {
         console.log(err);
       }
@@ -72,13 +70,13 @@ export default function Home() {
       }
     }
 
-    const newTask: CardData = {
-      label: "Test Card",
-      color: colorPreset.red,
-      size: "lgSquare",
-      position: { x: 0, y: 0 },
-    };
-    sendCardData(newTask);
+    // const newTask: CardData = {
+    //   label: "Test Card",
+    //   color: colorPreset.red,
+    //   size: "lgSquare",
+    //   position: { x: 0, y: 0 },
+    // };
+    // sendCardData(newTask);
     getCardData();
   }, []);
 
@@ -86,9 +84,15 @@ export default function Home() {
   function handleDragEnd(event: DragEndEvent) {
     const { active, delta } = event;
     setData(
-      data.map((card: Card) =>
+      data.map((card: CardData) =>
         card.label === active.id
-          ? { ...card, x: card.x + delta.x, y: card.y + delta.y }
+          ? {
+              ...card,
+              position: {
+                x: card.position.x + delta.x,
+                y: card.position.y + delta.y,
+              },
+            }
           : card
       )
     );
@@ -115,15 +119,11 @@ export default function Home() {
                   <Card
                     key={card.label}
                     label={card.label}
-                    color={card.color ?? undefined}
-                    position={{ x: card.x, y: card.y }}
+                    color={card.color}
+                    position={card.position}
                     activeId={activeId ?? ""}
                     setActiveId={setActiveId}
-                    size={
-                      card.width && card.height
-                        ? { x: card.width, y: card.height }
-                        : card.size
-                    }
+                    size={sizePreset[card.size as SizeKeys]}
                   />
                 ))}
               </div>
