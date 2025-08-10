@@ -1,6 +1,6 @@
 import { connectToDatabase } from "../../../lib/mongodb";
 import { NextRequest, NextResponse } from "next/server";
-import { Task } from "../../../models/task.model";
+import { Task } from "../../../models/cards.model";
 
 export async function GET() {
   try {
@@ -19,16 +19,11 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    if (!body.label) {
-      return NextResponse.json(
-        { error: "Missing required fields" },
-        { status: 400 }
-      );
-    }
+    await connectToDatabase();
+    console.log(body);
 
     const newTask = new Task(body);
     const savedTask = await newTask.save();
-
     return NextResponse.json(savedTask);
   } catch (err) {
     console.error(err);
