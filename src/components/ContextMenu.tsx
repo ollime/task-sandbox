@@ -24,6 +24,7 @@ export default function ContextMenu({
   );
   const liStyles = "p-2 hover:cursor-pointer hover:bg-black";
   const radioStyles = "m-1 mr-2 scale-160";
+  const radioButtonStyles = "hover:bg-neutral-400 bg-neutral-500 rounded-lg px-2 py-1 hover:cursor-pointer";
   const styles: React.CSSProperties = {
     position: "absolute",
     minWidth: "250px",
@@ -35,17 +36,16 @@ export default function ContextMenu({
 
   /** Size buttons */
   const radioBtns: React.ReactNode = Object.keys(sizePreset).map((item) => (
-    <div key={item} className="flex flex-row">
+    <div key={item} className="flex flex-row my-1" onClick={() => handleUpdateSize(item)}>
       <input
         type="radio"
         name="size"
         id={item}
         value={item}
         defaultChecked={item === size}
-        className={radioStyles}
-        onClick={() => handleUpdateSize(item)}
+        className={`${radioStyles} appearance-none`}
       />
-      <label htmlFor={item} className="flex flex-1">
+      <label htmlFor={item} className={radioButtonStyles}>
         {isValidSizeKey(item) ? sizePreset[item].label : item}
       </label>
     </div>
@@ -61,11 +61,12 @@ export default function ContextMenu({
         name="color"
         id={item}
         defaultChecked={colorPreset[item] === currentColor}
-        className={radioStyles}
+        className={`${radioStyles} hover:cursor-pointer`}
         value={colorPreset[item]}
         style={{
           accentColor: colorPreset[item],
         }}
+        title={item}
         onClick={() => handleUpdateColor(item)}
       />
     </div>
@@ -89,11 +90,13 @@ export default function ContextMenu({
   return (
     <div style={styles} className="rounded-lg" role="menu">
       <ul role="menu">
-        <li className={`${liStyles} rounded-t-lg`} role="menuitem">
+        <li className={`p-2 hover:bg-black rounded-t-lg`} role="menuitem">
           <p className="mb-2">Size</p>
-          {radioBtns}
+          <div className="flex flex-row flex-wrap align-center">
+            {radioBtns}
+          </div>
         </li>
-        <li className={liStyles} role="menuitem">
+        <li className={`p-2 hover:bg-black rounded-t-lg`} role="menuitem">
           <p className="mb-2">Color</p>
           {colorBtns}
         </li>

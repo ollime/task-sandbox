@@ -16,12 +16,12 @@ export type SizeKeys =
   | "lgSquare";
 
 export const sizePreset = {
-  smRect: { x: 150, y: 50, label: "1.5x0.5 rect" },
-  smSquare: { x: 100, y: 100, label: "1x1 square" },
-  mdRect: { x: 200, y: 100, label: "2x1 rect" },
-  lgRect: { x: 300, y: 100, label: "3x1 rect" },
-  mdSquare: { x: 200, y: 200, label: "2x2 square" },
-  lgSquare: { x: 300, y: 300, label: "3x3 square" },
+  smRect: { x: 150, y: 50, label: "1.5x0.5" },
+  smSquare: { x: 100, y: 100, label: "1x1" },
+  mdRect: { x: 200, y: 100, label: "2x1" },
+  lgRect: { x: 300, y: 100, label: "3x1" },
+  mdSquare: { x: 200, y: 200, label: "2x2" },
+  lgSquare: { x: 300, y: 300, label: "3x3" },
 };
 
 export type ColorKeys =
