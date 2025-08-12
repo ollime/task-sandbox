@@ -1,8 +1,9 @@
 'use client'
 import { ContextMenuProvider } from '@/utils/ContextMenuProvider'
-import Footer from '@/components/footer'
-import Grid from '@/components/grid'
 import { StylesProvider } from '@/utils/StylesProvider'
+import Footer from '@/components/footer'
+import Header from '@/components/title'
+import Grid from '@/components/grid'
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <StylesProvider>
         <div className={styles.root}>
           <main className={styles.main}>
+            <Header className="flex sm:hidden" />
             <Grid />
             <Footer />
           </main>
@@ -20,6 +22,6 @@ export default function Home() {
 }
 
 const styles = {
-  root: 'font-sans grid grid-rows-[20px_1fr_20px] min-h-screen px-8 py-4',
-  main: 'flex flex-col gap-8 row-start-2 w-full mx-auto',
+  root: 'font-sans grid grid-rows-[20px_1fr_20px] min-h-screen px-8 py-2 pt-0',
+  main: 'flex flex-col gap-4 row-start-2 w-full mx-auto',
 }
