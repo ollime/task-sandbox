@@ -2,16 +2,19 @@
 import { ContextMenuProvider } from '@/utils/ContextMenuProvider'
 import Footer from '@/components/footer'
 import Grid from '@/components/grid'
+import { StylesProvider } from '@/utils/StylesProvider'
 
 export default function Home() {
   return (
     <ContextMenuProvider>
-      <div className={styles.root}>
-        <main className={styles.main}>
-          <Grid />
-          <Footer />
-        </main>
-      </div>
+      <StylesProvider>
+        <div className={styles.root}>
+          <main className={styles.main}>
+            <Grid />
+            <Footer />
+          </main>
+        </div>
+      </StylesProvider>
     </ContextMenuProvider>
   )
 }

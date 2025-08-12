@@ -10,6 +10,8 @@ interface ContextMenuProps {
   addNewCard: (data: CardData) => void
   cardCount: number
   setClicked: (value: string) => void // to close the menu
+  cardShape: cardShapeType
+  setCardShape: (value: cardShapeType) => void
 }
 
 export default function GridMenu({
@@ -20,11 +22,13 @@ export default function GridMenu({
   addNewCard,
   cardCount,
   setClicked,
+  cardShape,
+  setCardShape,
 }: ContextMenuProps) {
   const [size, setSize] = useState<gridSizeType | undefined>(
     gridSpacing ?? undefined
   )
-  const [shape, setShape] = useState<cardShapeType | undefined>('rounded')
+  const [shape, setShape] = useState<cardShapeType | undefined>(cardShape)
 
   const liStyles = 'p-2 hover:cursor-pointer hover:bg-black'
   const radioStyles = 'm-1 mr-2 scale-160'
@@ -71,6 +75,7 @@ export default function GridMenu({
   }
 
   function handleUpdateShape(newShape: cardShapeType) {
+    setCardShape(newShape)
     setShape(newShape)
   }
 

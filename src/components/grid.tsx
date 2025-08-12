@@ -5,11 +5,13 @@ import { DndContext, DragStartEvent, DragEndEvent } from '@dnd-kit/core'
 import { colorPreset, sizePreset, SizeKeys, CardData } from '@/utils/card.types'
 import { gridSizeType } from '@/utils/grid.types'
 import { useContextMenu } from '@/utils/ContextMenuProvider'
+import { useStyles } from '@/utils/StylesProvider'
 import Card from './card'
 import GridMenu from './GridMenu'
 
 export default function Grid() {
   const { clicked, setClicked, points, setPoints } = useContextMenu()
+  const { shape, setShape } = useStyles()
   const [activeId, setActiveId] = useState<string>()
   const [gridSpacing, setGridSpacing] = useState<string>('1.0')
 
@@ -161,7 +163,9 @@ export default function Grid() {
           setGridSpacing={setGridSpacing}
           addNewCard={sendCardData}
           cardCount={data.length}
-          setClicked={setClicked}></GridMenu>
+          setClicked={setClicked}
+          cardShape={shape}
+          setCardShape={setShape}></GridMenu>
       ) : (
         ''
       )}
