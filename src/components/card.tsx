@@ -15,6 +15,7 @@ interface CardProps {
   activeId: string
   setActiveId: (value: string) => void
   cardId: string
+  rotation?: number
 }
 
 export default function Card({
@@ -25,6 +26,7 @@ export default function Card({
   size,
   setActiveId,
   cardId,
+  rotation,
 }: CardProps) {
   const [cardSize, setCardSize] = useState<Coordinates>(size)
   const [cardColor, setCardColor] = useState<string>(color ?? colorPreset.blue)
@@ -50,7 +52,11 @@ export default function Card({
       <div
         id={label}
         className="flex flex-1 items-center justify-center"
-        style={{ height: cardSize.y, width: cardSize.x }}
+        style={{
+          height: cardSize.y,
+          width: cardSize.x,
+          transform: `rotate(${rotation}deg)`,
+        }}
         onContextMenu={(evt) => handleOpenMenu(evt)}
         onDoubleClick={(evt) => handleOpenMenu(evt)}>
         {label}

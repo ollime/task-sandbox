@@ -52,6 +52,7 @@ export default function Grid() {
       label: 'Card 3',
       position: { x: 0, y: 0 },
       size: 'lgSquare',
+      rotation: 90,
     },
   ])
 

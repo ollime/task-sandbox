@@ -6,6 +6,7 @@ export interface CardData {
   size: string
   position: Coordinates
   _id?: string
+  rotation?: number
 }
 
 export type SizeKeys =
