@@ -1,11 +1,11 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Draggable from './Draggable'
 import { Coordinates } from '@dnd-kit/core/dist/types'
 
 import ContextMenu from './ContextMenu'
 import { useContextMenu } from '@/contexts/ContextMenuProvider'
-import { colorPreset, sizePreset } from '../types/card.types'
+import { CardData, colorPreset, sizePreset } from '../types/card.types'
 import { Task } from '@mui/icons-material'
 
 interface CardProps {
@@ -34,16 +34,50 @@ export default function Card({
   const [cardSize, setCardSize] = useState<Coordinates>(size)
   const [cardColor, setCardColor] = useState<string>(color ?? colorPreset.blue)
   const [cardRotation, setCardRotation] = useState<boolean>(rotation ?? false)
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
+  const sizeString =
+    Object.entries(sizePreset).find(([_, val]) => val === cardSize)?.[0] ?? ''
 
   const { clicked, setClicked, points, setPoints } = useContextMenu()
   function handleOpenMenu(evt: React.MouseEvent) {
     evt.preventDefault()
     setClicked(label)
+    setIsMenuOpen(true)
     setPoints({
       x: evt.pageX - position.x - 50,
       y: evt.pageY - position.y - 50,
     })
     setActiveId(label)
+  }
+
+  useEffect(() => {
+    if (isMenuOpen && clicked === '') {
+      // update card if the menu was open but closed
+      setIsMenuOpen(false)
+      sendCardData({
+        label,
+        color: cardColor,
+        size: sizeString,
+        position,
+        rotated: cardRotation,
+        _id: cardId,
+      })
+    }
+  }, [clicked])
+
+  /** update card data */
+  async function sendCardData(taskData: CardData) {
+    try {
+      await fetch(`/api/cards/${taskData._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(taskData),
+      })
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   return (
@@ -68,9 +102,7 @@ export default function Card({
         <ContextMenu
           top={points.y}
           left={points.x}
-          currentSize={
-            Object.entries(sizePreset).find(([_, val]) => val === cardSize)?.[0]
-          }
+          currentSize={sizeString}
           setCardSize={setCardSize}
           currentColor={cardColor}
           setCardColor={setCardColor}

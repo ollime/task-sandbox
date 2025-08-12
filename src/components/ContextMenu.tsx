@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ColorKeys, colorPreset, sizePreset } from '../types/card.types'
 import { Coordinates } from '@dnd-kit/core/dist/types'
 import RotateLeftIcon from '@mui/icons-material/RotateLeft'
@@ -101,6 +101,10 @@ export default function ContextMenu({
 
   function handleRotateCard() {
     setRotate(!rotate)
+  }
+
+  function handleRenameTask() {
+    // rename task
   }
 
   return (
