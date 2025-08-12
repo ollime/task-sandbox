@@ -23,7 +23,7 @@ export default function ContextMenu({
   const liStyles = 'p-2 hover:cursor-pointer hover:bg-black'
   const radioStyles = 'm-1 mr-2 scale-160'
   const radioButtonStyles =
-    'hover:bg-neutral-400 bg-neutral-500 rounded-lg px-2 py-1 hover:cursor-pointer'
+    'hover:bg-neutral-400 hover:text-white rounded-lg px-2 py-1 hover:cursor-pointer'
   const styles: React.CSSProperties = {
     position: 'absolute',
     minWidth: '250px',
@@ -47,7 +47,9 @@ export default function ContextMenu({
         defaultChecked={item === size}
         className={`${radioStyles} appearance-none`}
       />
-      <label htmlFor={item} className={radioButtonStyles}>
+      <label
+        htmlFor={item}
+        className={`${radioButtonStyles} ${item === size ? 'bg-white text-black' : 'bg-neutral-500'}`}>
         {isValidSizeKey(item) ? sizePreset[item].label : item}
       </label>
     </div>
