@@ -2,11 +2,12 @@ import { Coordinates } from '@dnd-kit/core/dist/types'
 
 export interface CardData {
   label: string
-  color?: string
+  color: string
   size: string
   position: Coordinates
   _id?: string
-  rotated?: boolean
+  rotated: boolean
+  striped?: boolean
 }
 
 export type SizeKeys =

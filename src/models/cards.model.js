@@ -9,16 +9,23 @@ const taskSchema = new Schema(
     },
     color: {
       type: String,
+      required: true,
     },
     size: {
       type: String,
+      required: true,
     },
     position: {
       x: { type: Number },
       y: { type: Number },
     },
-    rotation: {
+    rotated: {
       type: Boolean,
+      default: false,
+    },
+    striped: {
+      type: Boolean,
+      default: false,
     },
   },
   {
