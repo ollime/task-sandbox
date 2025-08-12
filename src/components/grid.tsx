@@ -7,6 +7,7 @@ import { CardData } from '@/utils/card.types'
 import Card from './card'
 import { colorPreset, sizePreset, SizeKeys } from '@/utils/card.types'
 import GridMenu from './GridMenu'
+import { gridSizeType } from '@/utils/grid.types'
 
 export default function Grid() {
   const { clicked, setClicked, points, setPoints } = useContextMenu()
@@ -140,7 +141,7 @@ export default function Grid() {
         <GridMenu
           top={points.y}
           left={points.x}
-          gridSpacing={gridSpacing}
+          gridSpacing={gridSpacing as gridSizeType}
           setGridSpacing={setGridSpacing}></GridMenu>
       ) : (
         ''

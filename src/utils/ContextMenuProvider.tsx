@@ -29,7 +29,7 @@ export function ContextMenuProvider({
           'role'
         ) != 'menu'
       ) {
-        setClicked(target.id)
+        setClicked('')
       }
     }
     document.addEventListener('click', handleClick)
