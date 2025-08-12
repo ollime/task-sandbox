@@ -58,20 +58,18 @@ export default function GridMenu({
   return (
     <div style={styles} className="rounded-lg" role="menu">
       <ul role="menu">
-        <li className={`rounded-t-lg p-2 hover:bg-black`} role="menuitem">
+        <div className="p-2 text-center font-bold">Grid settings</div>
+        <li className={`p-2 hover:bg-black`} role="menuitem">
           <p className="mb-2">Grid size</p>
           <div className="align-center flex flex-row flex-wrap">
             {radioBtns}
           </div>
         </li>
         <li className={liStyles} role="menuitem">
-          Rename
-        </li>
-        <li className={liStyles} role="menuitem">
-          Delete
+          New card
         </li>
         <li className={`${liStyles} rounded-b-lg`} role="menuitem">
-          Archive
+          Add label
         </li>
       </ul>
     </div>
