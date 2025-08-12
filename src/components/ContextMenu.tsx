@@ -37,21 +37,9 @@ export default function ContextMenu({
   const radioBtns: React.ReactNode = Object.keys(sizePreset).map((item) => (
     <div
       key={item}
-      className="my-1 flex flex-row"
-      onClick={() => handleUpdateSize(item)}>
-      <input
-        type="radio"
-        name="size"
-        id={item}
-        value={item}
-        defaultChecked={item === size}
-        className={`${radioStyles} appearance-none`}
-      />
-      <label
-        htmlFor={item}
-        className={`${radioButtonStyles} ${item === size ? 'bg-white text-black' : 'bg-neutral-500'}`}>
-        {isValidSizeKey(item) ? sizePreset[item].label : item}
-      </label>
+      onClick={() => handleUpdateSize(item)}
+      className={`${radioButtonStyles} ${item === size ? 'bg-white text-black' : 'bg-neutral-500'} m-1 flex flex-row`}>
+      {isValidSizeKey(item) ? sizePreset[item].label : item}
     </div>
   ))
 

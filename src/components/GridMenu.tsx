@@ -41,21 +41,9 @@ export default function GridMenu({
   const radioBtns: React.ReactNode = gridSizes.map((item) => (
     <div
       key={item}
-      className="my-1 flex flex-row"
-      onClick={() => handleUpdateSize(item as gridSizeType)}>
-      <input
-        type="radio"
-        name="size"
-        id={'size-' + item}
-        value={item}
-        defaultChecked={item === size}
-        className={`${radioStyles} appearance-none`}
-      />
-      <label
-        htmlFor={'size-' + item}
-        className={`${radioButtonStyles} ${item === size ? 'bg-white text-black' : 'bg-neutral-500'}`}>
-        {item}
-      </label>
+      onClick={() => handleUpdateSize(item as gridSizeType)}
+      className={`${radioButtonStyles} ${item === size ? 'bg-white text-black' : 'bg-neutral-500'} m-1 flex flex-row`}>
+      {item}
     </div>
   ))
 
