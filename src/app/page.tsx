@@ -1,4 +1,5 @@
 'use client'
+import { useState } from 'react'
 import { ContextMenuProvider } from '@/contexts/ContextMenuProvider'
 import { StylesProvider } from '@/contexts/StylesProvider'
 import Footer from '@/components/footer'
@@ -6,13 +7,14 @@ import Header from '@/components/title'
 import Grid from '@/components/grid'
 
 export default function Home() {
+  const [currentGrid, setCurrentGrid] = useState<string>('Grid')
   return (
     <ContextMenuProvider>
       <StylesProvider>
         <div className={styles.root}>
           <main className={styles.main}>
-            <Header className="flex sm:hidden" />
-            <Grid />
+            <Header className="flex sm:hidden" gridTitle={currentGrid} />
+            <Grid gridTitle={currentGrid} />
             <Footer />
           </main>
         </div>

@@ -9,7 +9,7 @@ import { useStyles } from '@/contexts/StylesProvider'
 import Card from './card'
 import GridMenu from './GridMenu'
 
-export default function Grid() {
+export default function Grid({ gridTitle }: { gridTitle: string }) {
   const { clicked, setClicked, points, setPoints } = useContextMenu()
   const { gridSpacing, setGridSpacing } = useStyles()
   const [activeId, setActiveId] = useState<string>()
