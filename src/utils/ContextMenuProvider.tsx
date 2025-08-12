@@ -27,6 +27,9 @@ export function ContextMenuProvider({
         target.parentElement?.parentElement?.getAttribute('role') != 'menu' &&
         target.parentElement?.parentElement?.parentElement?.getAttribute(
           'role'
+        ) != 'menu' &&
+        target.parentElement?.parentElement?.parentElement?.parentElement?.getAttribute(
+          'role'
         ) != 'menu'
       ) {
         setClicked('')
