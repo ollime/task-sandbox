@@ -12,6 +12,8 @@ interface ContextMenuProps {
   setCardColor: (color: string) => void
   rotate: boolean
   setRotate: (value: boolean) => void
+  _id: string
+  deleteCard: (id: string) => void
 }
 
 export default function ContextMenu({
@@ -23,6 +25,8 @@ export default function ContextMenu({
   setCardColor,
   rotate,
   setRotate,
+  _id,
+  deleteCard,
 }: ContextMenuProps) {
   const [size, setSize] = useState<string | undefined>(currentSize ?? undefined)
   const liStyles = 'p-2 hover:cursor-pointer hover:bg-black'
@@ -36,6 +40,17 @@ export default function ContextMenu({
     top: top,
     left: left,
     zIndex: 1000,
+  }
+
+  /** deletes a new card from database */
+  async function handleDeleteCard() {
+    try {
+      await fetch(`/api/cards/${_id}`, {
+        method: 'DELETE',
+      })
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   /** Size buttons */
@@ -109,7 +124,13 @@ export default function ContextMenu({
         <li className={liStyles} role="menuitem">
           Rename
         </li>
-        <li className={liStyles} role="menuitem">
+        <li
+          className={liStyles}
+          role="menuitem"
+          onClick={() => {
+            handleDeleteCard()
+            deleteCard(_id)
+          }}>
           Delete
         </li>
         <li className={`${liStyles} rounded-b-lg`} role="menuitem">

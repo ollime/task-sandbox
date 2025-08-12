@@ -35,26 +35,7 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
   `,
   }
 
-  const [data, setData] = useState<Array<CardData>>([
-    {
-      label: 'Card 1',
-      position: { x: 0, y: 0 },
-      color: colorPreset.green,
-      size: 'smRect',
-    },
-    {
-      label: 'Card 2',
-      position: { x: 0, y: 0 },
-      color: colorPreset.red,
-      size: 'lgRect',
-    },
-    {
-      label: 'Card 3',
-      position: { x: 0, y: 0 },
-      size: 'lgSquare',
-      rotated: true,
-    },
-  ])
+  const [data, setData] = useState<Array<CardData>>([])
 
   useEffect(() => {
     /** loads initial data */
@@ -76,6 +57,18 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
     }
     getCardData()
   }, [])
+
+  function deleteCard(taskId: string) {
+    setData(
+      data.filter((item) => {
+        if (item._id) {
+          return taskId !== item._id
+        } else {
+          // getid
+        }
+      })
+    )
+  }
 
   /** adds a new card */
   async function sendCardData(taskData: CardData) {
@@ -153,6 +146,7 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
               size={sizePreset[card.size as SizeKeys]}
               cardId={card._id ?? card.label}
               rotation={card.rotated}
+              deleteCard={deleteCard}
             />
           ))}
         </div>

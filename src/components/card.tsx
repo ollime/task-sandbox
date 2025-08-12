@@ -6,6 +6,7 @@ import { Coordinates } from '@dnd-kit/core/dist/types'
 import ContextMenu from './ContextMenu'
 import { useContextMenu } from '@/contexts/ContextMenuProvider'
 import { colorPreset, sizePreset } from '../types/card.types'
+import { Task } from '@mui/icons-material'
 
 interface CardProps {
   position: Coordinates
@@ -16,6 +17,7 @@ interface CardProps {
   setActiveId: (value: string) => void
   cardId: string
   rotation?: boolean
+  deleteCard: (id: string) => void
 }
 
 export default function Card({
@@ -27,6 +29,7 @@ export default function Card({
   setActiveId,
   cardId,
   rotation,
+  deleteCard,
 }: CardProps) {
   const [cardSize, setCardSize] = useState<Coordinates>(size)
   const [cardColor, setCardColor] = useState<string>(color ?? colorPreset.blue)
@@ -72,7 +75,11 @@ export default function Card({
           currentColor={cardColor}
           setCardColor={setCardColor}
           rotate={cardRotation}
-          setRotate={setCardRotation}></ContextMenu>
+          setRotate={setCardRotation}
+          _id={cardId}
+          deleteCard={() => {
+            deleteCard(cardId)
+          }}></ContextMenu>
       ) : (
         ''
       )}
