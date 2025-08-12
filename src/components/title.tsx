@@ -4,16 +4,24 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 export default function Header({
   className,
   gridTitle,
+  setGridTitleLeft,
+  setGridTitleRight,
 }: {
   className: string
   gridTitle: string
+  setGridTitleLeft: (value: string) => void
+  setGridTitleRight: (value: string) => void
 }) {
   return (
     <div
       className={`flex flex-wrap items-center justify-center space-x-2 ${className}`}>
-      <ChevronLeftIcon fontSize="large" />
+      <div onClick={() => setGridTitleLeft}>
+        <ChevronLeftIcon fontSize="large" />
+      </div>
       <div>{gridTitle}</div>
-      <ChevronRightIcon fontSize="large" />
+      <div onClick={() => setGridTitleRight}>
+        <ChevronRightIcon fontSize="large" />
+      </div>
     </div>
   )
 }

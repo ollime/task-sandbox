@@ -13,7 +13,12 @@ export default function Home() {
       <StylesProvider>
         <div className={styles.root}>
           <main className={styles.main}>
-            <Header className="flex sm:hidden" gridTitle={currentGrid} />
+            <Header
+              className="flex sm:hidden"
+              gridTitle={currentGrid}
+              setGridTitleLeft={setCurrentGrid}
+              setGridTitleRight={setCurrentGrid}
+            />
             <Grid gridTitle={currentGrid} />
             <Footer />
           </main>
