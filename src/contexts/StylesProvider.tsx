@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { cardShapeType, gridSizeType } from './grid.types'
+import { cardShapeType, gridSizeType } from '../types/grid.types'
 
 type StylesType = {
   cardShape: cardShapeType

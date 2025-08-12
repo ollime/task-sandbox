@@ -4,8 +4,8 @@ import Draggable from './Draggable'
 import { Coordinates } from '@dnd-kit/core/dist/types'
 
 import ContextMenu from './ContextMenu'
-import { useContextMenu } from '@/utils/ContextMenuProvider'
-import { colorPreset, sizePreset } from '../utils/card.types'
+import { useContextMenu } from '@/contexts/ContextMenuProvider'
+import { colorPreset, sizePreset } from '../types/card.types'
 
 interface CardProps {
   position: Coordinates

@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { cardShapeType, gridSizeType, gridSizes } from '@/utils/grid.types'
-import { CardData, colorPreset } from '@/utils/card.types'
-import { useStyles } from '@/utils/StylesProvider'
+import { cardShapeType, gridSizeType, gridSizes } from '@/types/grid.types'
+import { CardData, colorPreset } from '@/types/card.types'
+import { useStyles } from '@/contexts/StylesProvider'
 
 interface ContextMenuProps {
   top: number

@@ -1,6 +1,6 @@
 'use client'
-import { ContextMenuProvider } from '@/utils/ContextMenuProvider'
-import { StylesProvider } from '@/utils/StylesProvider'
+import { ContextMenuProvider } from '@/contexts/ContextMenuProvider'
+import { StylesProvider } from '@/contexts/StylesProvider'
 import Footer from '@/components/footer'
 import Header from '@/components/title'
 import Grid from '@/components/grid'
