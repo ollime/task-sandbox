@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ColorKeys, colorPreset, sizePreset } from "./../utils/card.types";
+import { ColorKeys, colorPreset, sizePreset } from "../utils/card.types";
 import { Coordinates } from "@dnd-kit/core/dist/types";
 
 interface ContextMenuProps {

@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import { DndContext, DragEndEvent, DragStartEvent } from "@dnd-kit/core";
 import { restrictToParentElement } from "@dnd-kit/modifiers";
 
-import Footer from "./../components/footer";
-import Card from "./../components/card";
+import Footer from "../components/footer";
+import Card from "../components/card";
 import {
   CardData,
   colorPreset,
   SizeKeys,
   sizePreset,
-} from "./../utils/card.types";
+} from "../utils/card.types";
 import { ContextMenuProvider } from "@/utils/ContextMenuProvider";
 
 export default function Home() {
@@ -87,12 +87,12 @@ export default function Home() {
       data.map((card: CardData) =>
         card.label === active.id
           ? {
-              ...card,
-              position: {
-                x: card.position.x + delta.x,
-                y: card.position.y + delta.y,
-              },
-            }
+            ...card,
+            position: {
+              x: card.position.x + delta.x,
+              y: card.position.y + delta.y,
+            },
+          }
           : card
       )
     );

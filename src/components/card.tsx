@@ -5,7 +5,7 @@ import { Coordinates } from "@dnd-kit/core/dist/types";
 
 import ContextMenu from "./ContextMenu";
 import { useContextMenu } from "@/utils/ContextMenuProvider";
-import { colorPreset, sizePreset } from "./../utils/card.types";
+import { colorPreset, sizePreset } from "../utils/card.types";
 
 interface CardProps {
   position: Coordinates;
