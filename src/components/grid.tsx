@@ -23,14 +23,14 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
       #505050,
       #505050 1px,
       transparent 1px,
-      transparent ${Number(gridSize) * 50}px
+      transparent ${Number(gridSize) * 100}px
     ),
     repeating-linear-gradient(
       to bottom,
       #505050,
       #505050 1px,
       transparent 1px,
-      transparent ${Number(gridSize) * 50}px
+      transparent ${Number(gridSize) * 100}px
     )
   `,
   }
@@ -72,18 +72,19 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
 
   /** adds a new card */
   async function sendCardData(taskData: CardData) {
-    // local app state
-    data.push(taskData)
-
     // fetch function
     try {
-      await fetch('/api/cards', {
+      const res = await fetch('/api/cards', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(taskData),
       })
+      // update local app state
+      const json = await res.json()
+      taskData._id = json._id
+      data.push(taskData)
     } catch (err) {
       console.error(err)
     }

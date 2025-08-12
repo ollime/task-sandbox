@@ -20,8 +20,6 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
     await connectToDatabase()
-    console.log(body)
-
     const newTask = new Task(body)
     const savedTask = await newTask.save()
     return NextResponse.json(savedTask)

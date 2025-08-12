@@ -13,13 +13,13 @@ type StylesType = {
 const StylesContext = createContext<StylesType | null>(null)
 export function StylesProvider({ children }: { children: React.ReactNode }) {
   const [cardShape, setCardShape] = useState<cardShapeType>('rounded')
-  const [gridSpacing, setGridSpacing] = useState<gridSizeType>('1.0')
+  const [gridSpacing, setGridSpacing] = useState<gridSizeType>('0.5')
   const [isDarkMode, setIsDarkMode] = useState<boolean>(true)
 
   useEffect(() => {
     // gets data from local storage
     setCardShape('rounded')
-    setGridSpacing('1.0')
+    setGridSpacing('0.5')
     setIsDarkMode(true)
   }, [])
 
