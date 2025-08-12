@@ -88,7 +88,7 @@ export default function ContextMenu({
             {radioBtns}
           </div>
         </li>
-        <li className={`rounded-t-lg p-2 hover:bg-black`} role="menuitem">
+        <li className={`p-2 hover:bg-black`} role="menuitem">
           <p className="mb-2">Color</p>
           {colorBtns}
         </li>
