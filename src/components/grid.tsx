@@ -14,6 +14,26 @@ export default function Grid() {
   const [activeId, setActiveId] = useState<string>()
   const [gridSpacing, setGridSpacing] = useState<string>('1.0')
 
+  /** Adds background gridlines */
+  const gridBackgroundStyle = {
+    backgroundImage: `
+    repeating-linear-gradient(
+      to right,
+      #505050,
+      #505050 1px,
+      transparent 1px,
+      transparent ${Number(gridSpacing) * 50}px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      #505050,
+      #505050 1px,
+      transparent 1px,
+      transparent ${Number(gridSpacing) * 50}px
+    )
+  `,
+  }
+
   const [data, setData] = useState<Array<CardData>>([
     {
       label: 'Card 1',
@@ -121,7 +141,7 @@ export default function Grid() {
       modifiers={[restrictToParentElement]}>
       <div
         className={styles.grid}
-        style={gridBackgroundStyle}
+        style={gridSpacing === 'none' ? {} : gridBackgroundStyle}
         onContextMenu={(evt) => handleOpenGridMenu(evt)}>
         <div id="grid" className={styles.draggable}>
           {data.map((card) => (
@@ -148,26 +168,6 @@ export default function Grid() {
       )}
     </DndContext>
   )
-}
-
-/** Adds background gridlines */
-const gridBackgroundStyle = {
-  backgroundImage: `
-    repeating-linear-gradient(
-      to right,
-      #505050,
-      #505050 1px,
-      transparent 1px,
-      transparent 50px
-    ),
-    repeating-linear-gradient(
-      to bottom,
-      #505050,
-      #505050 1px,
-      transparent 1px,
-      transparent 50px
-    )
-  `,
 }
 
 const styles = {

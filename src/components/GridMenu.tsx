@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import { ColorKeys, colorPreset, sizePreset } from '../utils/card.types'
-import { Coordinates } from '@dnd-kit/core/dist/types'
 import { gridSizeType, gridSizes } from '@/utils/grid.types'
 
 interface ContextMenuProps {
@@ -61,7 +59,7 @@ export default function GridMenu({
     <div style={styles} className="rounded-lg" role="menu">
       <ul role="menu">
         <li className={`rounded-t-lg p-2 hover:bg-black`} role="menuitem">
-          <p className="mb-2">Size</p>
+          <p className="mb-2">Grid size</p>
           <div className="align-center flex flex-row flex-wrap">
             {radioBtns}
           </div>
