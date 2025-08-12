@@ -1,23 +1,38 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { cardShapeType } from './grid.types'
+import { cardShapeType, gridSizeType } from './grid.types'
 
 type StylesType = {
-  shape: cardShapeType
-  setShape: (value: cardShapeType) => void
+  cardShape: cardShapeType
+  setCardShape: (value: cardShapeType) => void
+  isDarkMode: boolean
+  setIsDarkMode: (value: boolean) => void
+  gridSpacing: gridSizeType
+  setGridSpacing: (value: gridSizeType) => void
 }
 
 const StylesContext = createContext<StylesType | null>(null)
 export function StylesProvider({ children }: { children: React.ReactNode }) {
-  const [shape, setShape] = useState<cardShapeType | null>(null)
+  const [cardShape, setCardShape] = useState<cardShapeType>('rounded')
+  const [gridSpacing, setGridSpacing] = useState<gridSizeType>('1.0')
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(true)
 
   useEffect(() => {
-    // gets shape
-    setShape('rounded')
+    // gets data from local storage
+    setCardShape('rounded')
+    setGridSpacing('1.0')
+    setIsDarkMode(true)
   }, [])
 
   return (
     <StylesContext.Provider
-      value={{ shape: shape ?? 'rounded', setShape: setShape }}>
+      value={{
+        cardShape,
+        setCardShape,
+        isDarkMode,
+        setIsDarkMode,
+        gridSpacing,
+        setGridSpacing,
+      }}>
       {children}
     </StylesContext.Provider>
   )

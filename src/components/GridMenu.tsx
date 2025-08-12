@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { cardShapeType, gridSizeType, gridSizes } from '@/utils/grid.types'
 import { CardData, colorPreset } from '@/utils/card.types'
+import { useStyles } from '@/utils/StylesProvider'
 
 interface ContextMenuProps {
   top: number
@@ -10,8 +11,6 @@ interface ContextMenuProps {
   addNewCard: (data: CardData) => void
   cardCount: number
   setClicked: (value: string) => void // to close the menu
-  cardShape: cardShapeType
-  setCardShape: (value: cardShapeType) => void
 }
 
 export default function GridMenu({
@@ -22,9 +21,8 @@ export default function GridMenu({
   addNewCard,
   cardCount,
   setClicked,
-  cardShape,
-  setCardShape,
 }: ContextMenuProps) {
+  const { cardShape, setCardShape } = useStyles()
   const [size, setSize] = useState<gridSizeType | undefined>(
     gridSpacing ?? undefined
   )

@@ -27,11 +27,11 @@ export default function Draggable({
     useDraggable({
       id: id,
     })
-  const { shape, setShape } = useStyles()
+  const { cardShape, setCardShape } = useStyles()
 
   const style: React.CSSProperties = {
     position: 'absolute',
-    borderRadius: shape === 'rounded' ? 8 : 0,
+    borderRadius: cardShape === 'rounded' ? 8 : 0,
     backgroundColor: isDragging ? darkenHex(color, 20) : color,
     color: 'white',
     display: 'flex',

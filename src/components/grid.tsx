@@ -11,9 +11,9 @@ import GridMenu from './GridMenu'
 
 export default function Grid() {
   const { clicked, setClicked, points, setPoints } = useContextMenu()
-  const { shape, setShape } = useStyles()
+  const { gridSpacing, setGridSpacing } = useStyles()
   const [activeId, setActiveId] = useState<string>()
-  const [gridSpacing, setGridSpacing] = useState<string>('1.0')
+  const [gridSize, setGridSize] = useState<string>(gridSpacing)
 
   /** Adds background gridlines */
   const gridBackgroundStyle = {
@@ -23,14 +23,14 @@ export default function Grid() {
       #505050,
       #505050 1px,
       transparent 1px,
-      transparent ${Number(gridSpacing) * 50}px
+      transparent ${Number(gridSize) * 50}px
     ),
     repeating-linear-gradient(
       to bottom,
       #505050,
       #505050 1px,
       transparent 1px,
-      transparent ${Number(gridSpacing) * 50}px
+      transparent ${Number(gridSize) * 50}px
     )
   `,
   }
@@ -138,7 +138,7 @@ export default function Grid() {
       modifiers={[restrictToParentElement]}>
       <div
         className={styles.grid}
-        style={gridSpacing === 'none' ? {} : gridBackgroundStyle}
+        style={gridSize === 'none' ? {} : gridBackgroundStyle}
         onContextMenu={(evt) => handleOpenGridMenu(evt)}>
         <div id="grid" className={styles.draggable}>
           {data.map((card) => (
@@ -159,13 +159,11 @@ export default function Grid() {
         <GridMenu
           top={points.y}
           left={points.x}
-          gridSpacing={gridSpacing as gridSizeType}
-          setGridSpacing={setGridSpacing}
+          gridSpacing={gridSize as gridSizeType}
+          setGridSpacing={setGridSize}
           addNewCard={sendCardData}
           cardCount={data.length}
-          setClicked={setClicked}
-          cardShape={shape}
-          setCardShape={setShape}></GridMenu>
+          setClicked={setClicked}></GridMenu>
       ) : (
         ''
       )}
