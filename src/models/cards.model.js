@@ -1,4 +1,4 @@
-import { model, models, Schema } from "mongoose";
+import { model, models, Schema } from 'mongoose'
 
 const taskSchema = new Schema(
   {
@@ -17,10 +17,13 @@ const taskSchema = new Schema(
       x: { type: Number },
       y: { type: Number },
     },
+    rotation: {
+      type: Boolean,
+    },
   },
   {
     timestamps: true,
   }
-);
+)
 
-export const Task = models.Task || model("Task", taskSchema);
+export const Task = models.Task || model('Task', taskSchema)
