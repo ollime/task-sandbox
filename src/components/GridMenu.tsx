@@ -55,7 +55,7 @@ export default function GridMenu({
   function handleAddCard() {
     const newTask: CardData = {
       label: 'card ' + cardCount,
-      color: colorPreset.red,
+      color: colorPreset.gray,
       size: 'smRect',
       position: { x: 0, y: 0 },
     }
