@@ -1,64 +1,68 @@
-import { useState } from "react";
-import { ColorKeys, colorPreset, sizePreset } from "../utils/card.types";
-import { Coordinates } from "@dnd-kit/core/dist/types";
-import { gridSizeType, gridSizes } from "@/utils/grid.types";
+import { useState } from 'react'
+import { ColorKeys, colorPreset, sizePreset } from '../utils/card.types'
+import { Coordinates } from '@dnd-kit/core/dist/types'
+import { gridSizeType, gridSizes } from '@/utils/grid.types'
 
 interface ContextMenuProps {
-  top: number;
-  left: number;
-  gridSize?: gridSizeType;
-  setGridSize: (size: gridSizeType) => void;
+  top: number
+  left: number
+  gridSpacing?: gridSizeType
+  setGridSpacing: (size: gridSizeType) => void
 }
 
-export default function ContextMenu({
+export default function GridMenu({
   top,
   left,
-  gridSize,
-  setGridSize,
+  gridSpacing,
+  setGridSpacing,
 }: ContextMenuProps) {
   const [size, setSize] = useState<gridSizeType | undefined>(
-    gridSize ?? undefined
-  );
-  const liStyles = "p-2 hover:cursor-pointer hover:bg-black";
-  const radioStyles = "m-1 mr-2 scale-160";
-  const radioButtonStyles = "hover:bg-neutral-400 bg-neutral-500 rounded-lg px-2 py-1 hover:cursor-pointer";
+    gridSpacing ?? undefined
+  )
+  const liStyles = 'p-2 hover:cursor-pointer hover:bg-black'
+  const radioStyles = 'm-1 mr-2 scale-160'
+  const radioButtonStyles =
+    'hover:bg-neutral-400 bg-neutral-500 rounded-lg px-2 py-1 hover:cursor-pointer'
   const styles: React.CSSProperties = {
-    position: "absolute",
-    minWidth: "250px",
-    backgroundColor: "#383838",
+    position: 'absolute',
+    minWidth: '250px',
+    backgroundColor: '#383838',
     top: top,
     left: left,
     zIndex: 1000,
-  };
+  }
 
   /** Size buttons */
   const radioBtns: React.ReactNode = gridSizes.map((item) => (
-    <div key={item} className="flex flex-row my-1" onClick={() => handleUpdateSize(item as gridSizeType)}>
+    <div
+      key={item}
+      className="my-1 flex flex-row"
+      onClick={() => handleUpdateSize(item as gridSizeType)}>
       <input
         type="radio"
         name="size"
-        id={"size-" + item}
+        id={'size-' + item}
         value={item}
         defaultChecked={item === size}
         className={`${radioStyles} appearance-none`}
       />
-      <label htmlFor={"size-" + item} className={radioButtonStyles}>
-        {item} units
+      <label htmlFor={'size-' + item} className={radioButtonStyles}>
+        {item}
       </label>
     </div>
-  ));
+  ))
 
   function handleUpdateSize(newSize: gridSizeType) {
-      setGridSize(newSize);
-      setSize(newSize);
+    setGridSpacing(newSize)
+    setSize(newSize)
   }
 
   return (
     <div style={styles} className="rounded-lg" role="menu">
       <ul role="menu">
-        <li className={`p-2 hover:bg-black rounded-t-lg`} role="menuitem">
+        <li className={`rounded-t-lg p-2 hover:bg-black`} role="menuitem">
           <p className="mb-2">Size</p>
-          <div className="flex flex-row flex-wrap align-center">
+          <div className="align-center flex flex-row flex-wrap">
             {radioBtns}
           </div>
         </li>
@@ -73,5 +77,5 @@ export default function ContextMenu({
         </li>
       </ul>
     </div>
-  );
+  )
 }

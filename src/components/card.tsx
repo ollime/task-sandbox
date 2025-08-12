@@ -46,6 +46,7 @@ export default function Card({
       isActive={label === activeId}
       draggable={!clicked}>
       <div
+        id={label}
         className="flex flex-1 items-center justify-center"
         style={{ height: cardSize.y, width: cardSize.x }}
         onContextMenu={(evt) => handleOpenMenu(evt)}

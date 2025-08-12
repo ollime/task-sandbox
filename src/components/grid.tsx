@@ -6,10 +6,12 @@ import { useContextMenu } from '@/utils/ContextMenuProvider'
 import { CardData } from '@/utils/card.types'
 import Card from './card'
 import { colorPreset, sizePreset, SizeKeys } from '@/utils/card.types'
+import GridMenu from './GridMenu'
 
 export default function Grid() {
-  // const { clicked, setClicked, points, setPoints } = useContextMenu()
+  const { clicked, setClicked, points, setPoints } = useContextMenu()
   const [activeId, setActiveId] = useState<string>()
+  const [gridSpacing, setGridSpacing] = useState<string>('1.0')
 
   const [data, setData] = useState<Array<CardData>>([
     {
@@ -76,13 +78,16 @@ export default function Grid() {
     getCardData()
   }, [])
 
-  // function handleOpenGridMenu(evt: React.MouseEvent) {
-  //   evt.preventDefault()
-  //   setPoints({
-  //     x: evt.pageX,
-  //     y: evt.pageY,
-  //   })
-  // }
+  function handleOpenGridMenu(evt: React.MouseEvent) {
+    evt.preventDefault()
+    if ((evt.target as HTMLElement).id == 'grid') {
+      setClicked('grid')
+      setPoints({
+        x: evt.pageX,
+        y: evt.pageY,
+      })
+    }
+  }
 
   /** Sets activeId so that active card is visually moved to the top */
   function handleDragStart(event: DragStartEvent) {
@@ -117,7 +122,7 @@ export default function Grid() {
         className={styles.grid}
         style={gridBackgroundStyle}
         onContextMenu={(evt) => handleOpenGridMenu(evt)}>
-        <div className={styles.draggable}>
+        <div id="grid" className={styles.draggable}>
           {data.map((card) => (
             <Card
               key={card.label}
@@ -131,6 +136,15 @@ export default function Grid() {
           ))}
         </div>
       </div>
+      {clicked === 'grid' ? (
+        <GridMenu
+          top={points.y}
+          left={points.x}
+          gridSpacing={gridSpacing}
+          setGridSpacing={setGridSpacing}></GridMenu>
+      ) : (
+        ''
+      )}
     </DndContext>
   )
 }
