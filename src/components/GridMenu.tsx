@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { gridSizeType, gridSizes } from '@/utils/grid.types'
+import { cardShapeType, gridSizeType, gridSizes } from '@/utils/grid.types'
 import { CardData, colorPreset } from '@/utils/card.types'
 
 interface ContextMenuProps {
@@ -24,6 +24,8 @@ export default function GridMenu({
   const [size, setSize] = useState<gridSizeType | undefined>(
     gridSpacing ?? undefined
   )
+  const [shape, setShape] = useState<cardShapeType | undefined>('rounded')
+
   const liStyles = 'p-2 hover:cursor-pointer hover:bg-black'
   const radioStyles = 'm-1 mr-2 scale-160'
   const radioButtonStyles =
@@ -37,8 +39,8 @@ export default function GridMenu({
     zIndex: 1000,
   }
 
-  /** Size buttons */
-  const radioBtns: React.ReactNode = gridSizes.map((item) => (
+  /** grid spacing size buttons */
+  const spacingBtns: React.ReactNode = gridSizes.map((item) => (
     <div
       key={item}
       onClick={() => handleUpdateSize(item as gridSizeType)}
@@ -47,9 +49,29 @@ export default function GridMenu({
     </div>
   ))
 
+  /** card shape buttons */
+  const shapeBtns: React.ReactNode = (
+    <>
+      <div
+        onClick={() => handleUpdateShape('sharp')}
+        className={`${radioButtonStyles} ${'sharp' === shape ? 'bg-white text-black' : 'bg-neutral-500'} m-1 flex flex-row`}>
+        Sharp
+      </div>
+      <div
+        onClick={() => handleUpdateShape('rounded')}
+        className={`${radioButtonStyles} ${'rounded' === shape ? 'bg-white text-black' : 'bg-neutral-500'} m-1 flex flex-row`}>
+        Rounded
+      </div>
+    </>
+  )
+
   function handleUpdateSize(newSize: gridSizeType) {
     setGridSpacing(newSize)
     setSize(newSize)
+  }
+
+  function handleUpdateShape(newShape: cardShapeType) {
+    setShape(newShape)
   }
 
   function handleAddCard() {
@@ -70,7 +92,13 @@ export default function GridMenu({
         <li className={`p-2 hover:bg-black`} role="menuitem">
           <p className="mb-2">Grid size</p>
           <div className="align-center flex flex-row flex-wrap">
-            {radioBtns}
+            {spacingBtns}
+          </div>
+        </li>
+        <li className={`p-2 hover:bg-black`} role="menuitem">
+          <p className="mb-2">Card shape</p>
+          <div className="align-center flex flex-row flex-wrap">
+            {shapeBtns}
           </div>
         </li>
         <li className={liStyles} role="menuitem" onClick={handleAddCard}>
