@@ -1,19 +1,19 @@
-"use client";
-import { useState } from "react";
-import Draggable from "./Draggable";
-import { Coordinates } from "@dnd-kit/core/dist/types";
+'use client'
+import { useState } from 'react'
+import Draggable from './Draggable'
+import { Coordinates } from '@dnd-kit/core/dist/types'
 
-import ContextMenu from "./ContextMenu";
-import { useContextMenu } from "@/utils/ContextMenuProvider";
-import { colorPreset, sizePreset } from "../utils/card.types";
+import ContextMenu from './ContextMenu'
+import { useContextMenu } from '@/utils/ContextMenuProvider'
+import { colorPreset, sizePreset } from '../utils/card.types'
 
 interface CardProps {
-  position: Coordinates;
-  size: Coordinates;
-  label: string;
-  color?: string;
-  activeId: string;
-  setActiveId: (value: string) => void;
+  position: Coordinates
+  size: Coordinates
+  label: string
+  color?: string
+  activeId: string
+  setActiveId: (value: string) => void
 }
 
 export default function Card({
@@ -24,18 +24,18 @@ export default function Card({
   size,
   setActiveId,
 }: CardProps) {
-  const [cardSize, setCardSize] = useState<Coordinates>(size);
-  const [cardColor, setCardColor] = useState<string>(color ?? colorPreset.blue);
+  const [cardSize, setCardSize] = useState<Coordinates>(size)
+  const [cardColor, setCardColor] = useState<string>(color ?? colorPreset.blue)
 
-  const { clicked, setClicked, points, setPoints } = useContextMenu();
+  const { clicked, setClicked, points, setPoints } = useContextMenu()
   function handleOpenMenu(evt: React.MouseEvent) {
-    evt.preventDefault();
-    setClicked(label);
+    evt.preventDefault()
+    setClicked(label)
     setPoints({
       x: evt.pageX - position.x - 50,
       y: evt.pageY - position.y - 50,
-    });
-    setActiveId(label);
+    })
+    setActiveId(label)
   }
 
   return (
@@ -44,14 +44,12 @@ export default function Card({
       position={position}
       color={cardColor}
       isActive={label === activeId}
-      draggable={!clicked}
-    >
+      draggable={!clicked}>
       <div
         className="flex flex-1 items-center justify-center"
         style={{ height: cardSize.y, width: cardSize.x }}
         onContextMenu={(evt) => handleOpenMenu(evt)}
-        onDoubleClick={(evt) => handleOpenMenu(evt)}
-      >
+        onDoubleClick={(evt) => handleOpenMenu(evt)}>
         {label}
       </div>
       {clicked === label ? (
@@ -63,11 +61,10 @@ export default function Card({
           }
           setCardSize={setCardSize}
           currentColor={cardColor}
-          setCardColor={setCardColor}
-        ></ContextMenu>
+          setCardColor={setCardColor}></ContextMenu>
       ) : (
-        ""
+        ''
       )}
     </Draggable>
-  );
+  )
 }
