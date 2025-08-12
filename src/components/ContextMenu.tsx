@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { ColorKeys, colorPreset, sizePreset } from '../utils/card.types'
 import { Coordinates } from '@dnd-kit/core/dist/types'
+import RotateLeftIcon from '@mui/icons-material/RotateLeft'
 
 interface ContextMenuProps {
   top: number
@@ -94,7 +95,7 @@ export default function ContextMenu({
           <div className="m-2 mt-0 flex flex-row justify-between">
             <p>Size</p>
             <p className="hover:cursor-pointer" onClick={handleRotateCard}>
-              Rotate
+              <RotateLeftIcon />
             </p>
           </div>
           <div className="align-center flex flex-row flex-wrap">
