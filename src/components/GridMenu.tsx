@@ -83,7 +83,7 @@ export default function GridMenu({
       color: colorPreset.gray,
       size: 'smRect',
       position: { x: 0, y: 0 },
-      rotation: 0,
+      rotated: false,
     }
     addNewCard(newTask)
     setClicked('')

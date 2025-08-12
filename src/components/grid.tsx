@@ -52,7 +52,7 @@ export default function Grid() {
       label: 'Card 3',
       position: { x: 0, y: 0 },
       size: 'lgSquare',
-      rotation: 90,
+      rotated: true,
     },
   ])
 
@@ -152,6 +152,7 @@ export default function Grid() {
               setActiveId={setActiveId}
               size={sizePreset[card.size as SizeKeys]}
               cardId={card._id ?? card.label}
+              rotation={card.rotated}
             />
           ))}
         </div>

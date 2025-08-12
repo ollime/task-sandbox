@@ -15,7 +15,7 @@ interface CardProps {
   activeId: string
   setActiveId: (value: string) => void
   cardId: string
-  rotation?: number
+  rotation?: boolean
 }
 
 export default function Card({
@@ -53,9 +53,8 @@ export default function Card({
         id={label}
         className="flex flex-1 items-center justify-center"
         style={{
-          height: cardSize.y,
-          width: cardSize.x,
-          transform: `rotate(${rotation}deg)`,
+          height: rotation ? cardSize.x : cardSize.y,
+          width: rotation ? cardSize.y : cardSize.x,
         }}
         onContextMenu={(evt) => handleOpenMenu(evt)}
         onDoubleClick={(evt) => handleOpenMenu(evt)}>
