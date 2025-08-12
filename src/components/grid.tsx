@@ -148,6 +148,7 @@ export default function Grid() {
               activeId={activeId ?? ''}
               setActiveId={setActiveId}
               size={sizePreset[card.size as SizeKeys]}
+              cardId={card._id ?? card.label}
             />
           ))}
         </div>

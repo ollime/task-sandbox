@@ -14,6 +14,7 @@ interface CardProps {
   color?: string
   activeId: string
   setActiveId: (value: string) => void
+  cardId: string
 }
 
 export default function Card({
@@ -23,6 +24,7 @@ export default function Card({
   activeId,
   size,
   setActiveId,
+  cardId,
 }: CardProps) {
   const [cardSize, setCardSize] = useState<Coordinates>(size)
   const [cardColor, setCardColor] = useState<string>(color ?? colorPreset.blue)
