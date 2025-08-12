@@ -1,11 +1,15 @@
 import { useState } from 'react'
 import { gridSizeType, gridSizes } from '@/utils/grid.types'
+import { CardData, colorPreset } from '@/utils/card.types'
 
 interface ContextMenuProps {
   top: number
   left: number
   gridSpacing?: gridSizeType
   setGridSpacing: (size: gridSizeType) => void
+  addNewCard: (data: CardData) => void
+  cardCount: number
+  setClicked: (value: string) => void // to close the menu
 }
 
 export default function GridMenu({
@@ -13,6 +17,9 @@ export default function GridMenu({
   left,
   gridSpacing,
   setGridSpacing,
+  addNewCard,
+  cardCount,
+  setClicked,
 }: ContextMenuProps) {
   const [size, setSize] = useState<gridSizeType | undefined>(
     gridSpacing ?? undefined
@@ -57,6 +64,17 @@ export default function GridMenu({
     setSize(newSize)
   }
 
+  function handleAddCard() {
+    const newTask: CardData = {
+      label: 'card ' + cardCount,
+      color: colorPreset.red,
+      size: 'smRect',
+      position: { x: 0, y: 0 },
+    }
+    addNewCard(newTask)
+    setClicked('')
+  }
+
   return (
     <div style={styles} className="rounded-lg" role="menu">
       <ul role="menu">
@@ -67,7 +85,7 @@ export default function GridMenu({
             {radioBtns}
           </div>
         </li>
-        <li className={liStyles} role="menuitem">
+        <li className={liStyles} role="menuitem" onClick={handleAddCard}>
           New card
         </li>
         <li className={`${liStyles} rounded-b-lg`} role="menuitem">

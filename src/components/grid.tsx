@@ -2,12 +2,11 @@ import { useState, useEffect } from 'react'
 import { restrictToParentElement } from '@dnd-kit/modifiers'
 import { DndContext, DragStartEvent, DragEndEvent } from '@dnd-kit/core'
 
-import { useContextMenu } from '@/utils/ContextMenuProvider'
-import { CardData } from '@/utils/card.types'
-import Card from './card'
-import { colorPreset, sizePreset, SizeKeys } from '@/utils/card.types'
-import GridMenu from './GridMenu'
+import { colorPreset, sizePreset, SizeKeys, CardData } from '@/utils/card.types'
 import { gridSizeType } from '@/utils/grid.types'
+import { useContextMenu } from '@/utils/ContextMenuProvider'
+import Card from './card'
+import GridMenu from './GridMenu'
 
 export default function Grid() {
   const { clicked, setClicked, points, setPoints } = useContextMenu()
@@ -72,33 +71,29 @@ export default function Grid() {
         console.log(err)
       }
     }
-
-    /** adds a new card */
-    async function sendCardData(taskData: CardData) {
-      console.log(JSON.stringify(taskData))
-      try {
-        await fetch('/api/cards', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(taskData),
-        })
-      } catch (err) {
-        console.error(err)
-      }
-    }
-
-    // const newTask: CardData = {
-    //   label: "Test Card",
-    //   color: colorPreset.red,
-    //   size: "lgSquare",
-    //   position: { x: 0, y: 0 },
-    // };
-    // sendCardData(newTask);
     getCardData()
   }, [])
 
+  /** adds a new card */
+  async function sendCardData(taskData: CardData) {
+    // local app state
+    data.push(taskData)
+
+    // fetch function
+    try {
+      await fetch('/api/cards', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(taskData),
+      })
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  /** Opens context menu */
   function handleOpenGridMenu(evt: React.MouseEvent) {
     evt.preventDefault()
     if ((evt.target as HTMLElement).id == 'grid') {
@@ -162,7 +157,10 @@ export default function Grid() {
           top={points.y}
           left={points.x}
           gridSpacing={gridSpacing as gridSizeType}
-          setGridSpacing={setGridSpacing}></GridMenu>
+          setGridSpacing={setGridSpacing}
+          addNewCard={sendCardData}
+          cardCount={data.length}
+          setClicked={setClicked}></GridMenu>
       ) : (
         ''
       )}
