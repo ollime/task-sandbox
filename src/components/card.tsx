@@ -30,6 +30,7 @@ export default function Card({
 }: CardProps) {
   const [cardSize, setCardSize] = useState<Coordinates>(size)
   const [cardColor, setCardColor] = useState<string>(color ?? colorPreset.blue)
+  const [cardRotation, setCardRotation] = useState<boolean>(rotation ?? false)
 
   const { clicked, setClicked, points, setPoints } = useContextMenu()
   function handleOpenMenu(evt: React.MouseEvent) {
@@ -53,8 +54,8 @@ export default function Card({
         id={label}
         className="flex flex-1 items-center justify-center"
         style={{
-          height: rotation ? cardSize.x : cardSize.y,
-          width: rotation ? cardSize.y : cardSize.x,
+          height: cardRotation ? cardSize.x : cardSize.y,
+          width: cardRotation ? cardSize.y : cardSize.x,
         }}
         onContextMenu={(evt) => handleOpenMenu(evt)}
         onDoubleClick={(evt) => handleOpenMenu(evt)}>
@@ -69,7 +70,9 @@ export default function Card({
           }
           setCardSize={setCardSize}
           currentColor={cardColor}
-          setCardColor={setCardColor}></ContextMenu>
+          setCardColor={setCardColor}
+          rotate={cardRotation}
+          setRotate={setCardRotation}></ContextMenu>
       ) : (
         ''
       )}

@@ -9,6 +9,8 @@ interface ContextMenuProps {
   setCardSize: (size: Coordinates) => void
   currentColor: string
   setCardColor: (color: string) => void
+  rotate: boolean
+  setRotate: (value: boolean) => void
 }
 
 export default function ContextMenu({
@@ -18,6 +20,8 @@ export default function ContextMenu({
   setCardSize,
   currentColor,
   setCardColor,
+  rotate,
+  setRotate,
 }: ContextMenuProps) {
   const [size, setSize] = useState<string | undefined>(currentSize ?? undefined)
   const liStyles = 'p-2 hover:cursor-pointer hover:bg-black'
@@ -79,11 +83,20 @@ export default function ContextMenu({
     }
   }
 
+  function handleRotateCard() {
+    setRotate(!rotate)
+  }
+
   return (
     <div style={styles} className="rounded-lg" role="menu">
       <ul role="menu">
         <li className={`rounded-t-lg p-2 hover:bg-black`} role="menuitem">
-          <p className="mb-2">Size</p>
+          <div className="m-2 mt-0 flex flex-row justify-between">
+            <p>Size</p>
+            <p className="hover:cursor-pointer" onClick={handleRotateCard}>
+              Rotate
+            </p>
+          </div>
           <div className="align-center flex flex-row flex-wrap">
             {radioBtns}
           </div>
