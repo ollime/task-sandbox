@@ -14,6 +14,7 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
   const { gridSpacing, setGridSpacing } = useStyles()
   const [activeId, setActiveId] = useState<string>()
   const [gridSize, setGridSize] = useState<string>(gridSpacing)
+  const [data, setData] = useState<Array<CardData>>([])
 
   /** Adds background gridlines */
   const gridBackgroundStyle = {
@@ -35,8 +36,6 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
   `,
   }
 
-  const [data, setData] = useState<Array<CardData>>([])
-
   useEffect(() => {
     /** loads initial data */
     async function getCardData() {
@@ -47,9 +46,11 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
           })
           .then((json) => {
             /** Save to local app state */
+            const jsonArray = []
             for (const card of json) {
-              data.push(card)
+              jsonArray.push(card)
             }
+            setData(jsonArray)
           })
       } catch (err) {
         console.log(err)
@@ -64,7 +65,7 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
         if (item._id) {
           return taskId !== item._id
         } else {
-          // getid
+          // TODO: getid
         }
       })
     )
