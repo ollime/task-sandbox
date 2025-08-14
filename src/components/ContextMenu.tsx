@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { ColorKeys, colorPreset, sizePreset } from '../types/card.types'
 import { Coordinates } from '@dnd-kit/core/dist/types'
 import RotateLeftIcon from '@mui/icons-material/RotateLeft'
+import { useContextMenu } from '@/contexts/ContextMenuProvider'
 
 interface ContextMenuProps {
   top: number
@@ -32,6 +33,7 @@ export default function ContextMenu({
   cardLabel,
   setCardLabel,
 }: ContextMenuProps) {
+  const [isRenameOpen, setIsRenameOpen] = useState<boolean>(false)
   const [label, setLabel] = useState<string>(cardLabel ?? '')
   const [size, setSize] = useState<string | undefined>(currentSize ?? undefined)
   const liStyles = 'p-2 hover:cursor-pointer hover:bg-black'
@@ -104,53 +106,60 @@ export default function ContextMenu({
     }
   }
 
-  function handleRotateCard() {
-    setRotate(!rotate)
-  }
-
   function handleCloseInput() {
     setCardLabel(label)
+    setIsRenameOpen(false)
   }
 
   return (
     <div style={styles} className="rounded-lg" role="menu">
-      <ul role="menu">
-        <li className={`rounded-t-lg p-2 hover:bg-black`} role="menuitem">
-          <div className="m-2 mt-0 flex flex-row justify-between">
-            <p>Size</p>
-            <p className="hover:cursor-pointer" onClick={handleRotateCard}>
-              <RotateLeftIcon />
-            </p>
-          </div>
-          <div className="align-center flex flex-row flex-wrap">
-            {radioBtns}
-          </div>
-        </li>
-        <li className={`p-2 hover:bg-black`} role="menuitem">
-          <p className="mb-2">Color</p>
-          {colorBtns}
-        </li>
-        <li className={liStyles} role="menuitem">
-          Rename
-          <RenameInput
-            cardLabel={label}
-            setCardLabel={setLabel}
-            handleCloseInput={handleCloseInput}
-          />
-        </li>
-        <li
-          className={liStyles}
-          role="menuitem"
-          onClick={() => {
-            handleDeleteCard()
-            deleteCard(_id)
-          }}>
-          Delete
-        </li>
-        <li className={`${liStyles} rounded-b-lg`} role="menuitem">
-          Archive
-        </li>
-      </ul>
+      {!isRenameOpen ? (
+        <ul role="menu">
+          <li className={`rounded-t-lg p-2 hover:bg-black`} role="menuitem">
+            <div className="m-2 mt-0 flex flex-row justify-between">
+              <p>Size</p>
+              <p
+                className="hover:cursor-pointer"
+                onClick={() => {
+                  setRotate(!rotate)
+                }}>
+                <RotateLeftIcon />
+              </p>
+            </div>
+            <div className="align-center flex flex-row flex-wrap">
+              {radioBtns}
+            </div>
+          </li>
+          <li className={`p-2 hover:bg-black`} role="menuitem">
+            <p className="mb-2">Color</p>
+            {colorBtns}
+          </li>
+          <li
+            className={liStyles}
+            role="menuitem"
+            onClick={() => setIsRenameOpen(!isRenameOpen)}>
+            Rename
+          </li>
+          <li
+            className={liStyles}
+            role="menuitem"
+            onClick={() => {
+              handleDeleteCard()
+              deleteCard(_id)
+            }}>
+            Delete
+          </li>
+          <li className={`${liStyles} rounded-b-lg`} role="menuitem">
+            Archive
+          </li>
+        </ul>
+      ) : (
+        <RenameInput
+          cardLabel={label}
+          setCardLabel={setLabel}
+          handleCloseInput={handleCloseInput}
+        />
+      )}
     </div>
   )
 }
@@ -166,7 +175,7 @@ function RenameInput({
 }) {
   return (
     <input
-      className="m-1 rounded-lg bg-neutral-500 p-1"
+      className="h-full w-full rounded-lg bg-neutral-500 p-1"
       defaultValue={cardLabel}
       onChange={(evt) => {
         setCardLabel(evt.target.value)
