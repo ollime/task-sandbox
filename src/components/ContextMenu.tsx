@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { ColorKeys, colorPreset, sizePreset } from '../types/card.types'
 import { Coordinates } from '@dnd-kit/core/dist/types'
 import RotateLeftIcon from '@mui/icons-material/RotateLeft'
@@ -173,6 +173,7 @@ function RenameInput({
   setCardLabel: (value: string) => void
   handleCloseInput: () => void
 }) {
+  const { setClicked } = useContextMenu()
   return (
     <input
       className="h-full w-full rounded-lg bg-neutral-500 p-1"
@@ -185,6 +186,7 @@ function RenameInput({
       onKeyDown={(evt) => {
         if (evt.key === 'Enter') {
           evt.preventDefault()
+          setClicked('')
           handleCloseInput()
         }
       }}></input>
