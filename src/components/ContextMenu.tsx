@@ -14,6 +14,8 @@ interface ContextMenuProps {
   setRotate: (value: boolean) => void
   _id: string
   deleteCard: (id: string) => void
+  cardLabel: string
+  setCardLabel: (value: string) => void
 }
 
 export default function ContextMenu({
@@ -27,7 +29,10 @@ export default function ContextMenu({
   setRotate,
   _id,
   deleteCard,
+  cardLabel,
+  setCardLabel,
 }: ContextMenuProps) {
+  const [label, setLabel] = useState<string>(cardLabel ?? '')
   const [size, setSize] = useState<string | undefined>(currentSize ?? undefined)
   const liStyles = 'p-2 hover:cursor-pointer hover:bg-black'
   const radioStyles = 'm-1 mr-2 scale-160'
@@ -103,8 +108,8 @@ export default function ContextMenu({
     setRotate(!rotate)
   }
 
-  function handleRenameTask() {
-    // rename task
+  function handleCloseInput() {
+    setCardLabel(label)
   }
 
   return (
@@ -127,6 +132,11 @@ export default function ContextMenu({
         </li>
         <li className={liStyles} role="menuitem">
           Rename
+          <RenameInput
+            cardLabel={label}
+            setCardLabel={setLabel}
+            handleCloseInput={handleCloseInput}
+          />
         </li>
         <li
           className={liStyles}
@@ -142,5 +152,32 @@ export default function ContextMenu({
         </li>
       </ul>
     </div>
+  )
+}
+
+function RenameInput({
+  cardLabel,
+  setCardLabel,
+  handleCloseInput,
+}: {
+  cardLabel: string
+  setCardLabel: (value: string) => void
+  handleCloseInput: () => void
+}) {
+  return (
+    <input
+      className="m-1 rounded-lg bg-neutral-500 p-1"
+      defaultValue={cardLabel}
+      onChange={(evt) => {
+        setCardLabel(evt.target.value)
+      }}
+      autoFocus={true}
+      onBlur={handleCloseInput}
+      onKeyDown={(evt) => {
+        if (evt.key === 'Enter') {
+          evt.preventDefault()
+          handleCloseInput()
+        }
+      }}></input>
   )
 }

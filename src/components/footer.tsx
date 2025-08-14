@@ -1,6 +1,6 @@
 import CodeIcon from '@mui/icons-material/Code'
 import BugReportIcon from '@mui/icons-material/BugReport'
-import Header from './title'
+import Title from './title'
 
 export default function Footer() {
   return (
@@ -23,7 +23,7 @@ export default function Footer() {
           Report issues
         </a>
       </div>
-      <Header className="hidden sm:flex" />
+      <Title className="hidden sm:flex" />
       <div className="space-x-4">
         <button className="rounded-lg bg-white p-2 text-sm text-black">
           Save position

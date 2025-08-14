@@ -31,6 +31,7 @@ export default function Card({
   rotation,
   deleteCard,
 }: CardProps) {
+  const [cardLabel, setCardLabel] = useState<string>(label)
   const [cardSize, setCardSize] = useState<Coordinates>(size)
   const [cardColor, setCardColor] = useState<string>(color ?? colorPreset.blue)
   const [cardRotation, setCardRotation] = useState<boolean>(rotation ?? false)
@@ -41,13 +42,13 @@ export default function Card({
   const { clicked, setClicked, points, setPoints } = useContextMenu()
   function handleOpenMenu(evt: React.MouseEvent) {
     evt.preventDefault()
-    setClicked(label)
+    setClicked(cardLabel)
     setIsMenuOpen(true)
     setPoints({
       x: evt.pageX - position.x - 50,
       y: evt.pageY - position.y - 50,
     })
-    setActiveId(label)
+    setActiveId(cardLabel)
   }
 
   useEffect(() => {
@@ -55,7 +56,7 @@ export default function Card({
       // update card if the menu was open but closed
       setIsMenuOpen(false)
       sendCardData({
-        label,
+        label: cardLabel,
         color: cardColor,
         size: sizeString,
         position,
@@ -82,13 +83,13 @@ export default function Card({
 
   return (
     <Draggable
-      id={label}
+      id={cardLabel}
       position={position}
       color={cardColor}
-      isActive={label === activeId}
+      isActive={cardLabel === activeId}
       draggable={!clicked}>
       <div
-        id={label}
+        id={cardLabel}
         className="flex flex-1 items-center justify-center"
         style={{
           height: cardRotation ? cardSize.x : cardSize.y,
@@ -96,9 +97,9 @@ export default function Card({
         }}
         onContextMenu={(evt) => handleOpenMenu(evt)}
         onDoubleClick={(evt) => handleOpenMenu(evt)}>
-        {label}
+        {cardLabel}
       </div>
-      {clicked === label ? (
+      {clicked === cardLabel ? (
         <ContextMenu
           top={points.y}
           left={points.x}
@@ -111,7 +112,9 @@ export default function Card({
           _id={cardId}
           deleteCard={() => {
             deleteCard(cardId)
-          }}></ContextMenu>
+          }}
+          cardLabel={cardLabel}
+          setCardLabel={setCardLabel}></ContextMenu>
       ) : (
         ''
       )}

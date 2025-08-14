@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { ContextMenuProvider } from '@/contexts/ContextMenuProvider'
 import { StylesProvider } from '@/contexts/StylesProvider'
 import Footer from '@/components/footer'
-import Header from '@/components/title'
+import Title from '@/components/title'
 import Grid from '@/components/grid'
 
 export default function Home() {
@@ -13,7 +13,7 @@ export default function Home() {
       <StylesProvider>
         <div className={styles.root}>
           <main className={styles.main}>
-            <Header
+            <Title
               className="flex sm:hidden"
               gridTitle={currentGrid}
               setGridTitleLeft={setCurrentGrid}
