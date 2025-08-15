@@ -169,6 +169,6 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
 }
 
 const styles = {
-  grid: 'relative flex flex-1 border-2 border-white rounded-md',
+  grid: 'relative flex flex-1 border-2 rounded-md',
   draggable: 'relative flex flex-1 rounded-md p-2',
 }
