@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { cardShapeType, gridSizeType, gridSizes } from '@/types/grid.types'
 import { CardData, colorPreset } from '@/types/card.types'
 import { useStyles } from '@/contexts/StylesProvider'
+import { LabelData } from '@/types/label.types'
 
 interface ContextMenuProps {
   top: number
@@ -11,6 +12,7 @@ interface ContextMenuProps {
   addNewCard: (data: CardData) => void
   cardCount: number
   setClicked: (value: string) => void // to close the menu
+  addNewLabel: (data: LabelData) => void
 }
 
 export default function GridMenu({
@@ -21,6 +23,7 @@ export default function GridMenu({
   addNewCard,
   cardCount,
   setClicked,
+  addNewLabel,
 }: ContextMenuProps) {
   const { cardShape, setCardShape, isDarkMode, setIsDarkMode } = useStyles()
   const [size, setSize] = useState<gridSizeType | undefined>(
@@ -104,6 +107,14 @@ export default function GridMenu({
     setClicked('')
   }
 
+  function handleAddLabel() {
+    const newLabel: LabelData = {
+      label: 'test',
+      position: { x: 0, y: 0 },
+    }
+    addNewLabel(newLabel)
+  }
+
   return (
     <div style={styles} className="bg-context rounded-lg" role="menu">
       <ul role="menu">
@@ -140,7 +151,8 @@ export default function GridMenu({
         </li>
         <li
           className={`${liStyles} hover:text-hoverText rounded-b-lg`}
-          role="menuitem">
+          role="menuitem"
+          onClick={handleAddLabel}>
           Add label
         </li>
       </ul>

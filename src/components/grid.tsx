@@ -8,12 +8,15 @@ import { useContextMenu } from '@/contexts/ContextMenuProvider'
 import { useStyles } from '@/contexts/StylesProvider'
 import Card from './card'
 import GridMenu from './GridMenu'
+import Label from './label'
+import { LabelData } from '@/types/label.types'
 
 export default function Grid({ gridTitle }: { gridTitle: string }) {
   const { clicked, setClicked, points, setPoints } = useContextMenu()
   const { gridSpacing, setGridSpacing } = useStyles()
   const [activeId, setActiveId] = useState<string>()
   const [data, setData] = useState<Array<CardData>>([])
+  const [labelData, setLabelData] = useState<Array<LabelData>>([])
 
   /** Adds background gridlines */
   const gridBackgroundStyle = {
@@ -126,6 +129,10 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
     )
   }
 
+  function handleAddNewLabel(data: LabelData) {
+    setLabelData([...labelData, data])
+  }
+
   return (
     <DndContext
       onDragStart={handleDragStart}
@@ -150,6 +157,13 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
               deleteCard={deleteCard}
             />
           ))}
+          {labelData.map((label) => (
+            <Label
+              key={label.label}
+              label={label.label}
+              position={label.position}
+            />
+          ))}
         </div>
       </div>
       {clicked === 'grid' ? (
@@ -160,7 +174,8 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
           setGridSpacing={setGridSpacing}
           addNewCard={sendCardData}
           cardCount={data.length}
-          setClicked={setClicked}></GridMenu>
+          setClicked={setClicked}
+          addNewLabel={handleAddNewLabel}></GridMenu>
       ) : (
         ''
       )}
