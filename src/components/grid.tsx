@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { restrictToParentElement } from '@dnd-kit/modifiers'
 import { DndContext, DragStartEvent, DragEndEvent } from '@dnd-kit/core'
 
-import { colorPreset, sizePreset, SizeKeys, CardData } from '@/types/card.types'
+import { sizePreset, SizeKeys, CardData } from '@/types/card.types'
 import { gridSizeType } from '@/types/grid.types'
 import { useContextMenu } from '@/contexts/ContextMenuProvider'
 import { useStyles } from '@/contexts/StylesProvider'
@@ -13,7 +13,6 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
   const { clicked, setClicked, points, setPoints } = useContextMenu()
   const { gridSpacing, setGridSpacing } = useStyles()
   const [activeId, setActiveId] = useState<string>()
-  const [gridSize, setGridSize] = useState<string>(gridSpacing)
   const [data, setData] = useState<Array<CardData>>([])
 
   /** Adds background gridlines */
@@ -24,14 +23,14 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
       #505050,
       #505050 1px,
       transparent 1px,
-      transparent ${Number(gridSize) * 100}px
+      transparent ${Number(gridSpacing) * 100}px
     ),
     repeating-linear-gradient(
       to bottom,
       #505050,
       #505050 1px,
       transparent 1px,
-      transparent ${Number(gridSize) * 100}px
+      transparent ${Number(gridSpacing) * 100}px
     )
   `,
   }
@@ -134,7 +133,7 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
       modifiers={[restrictToParentElement]}>
       <div
         className={styles.grid}
-        style={gridSize === 'none' ? {} : gridBackgroundStyle}
+        style={gridSpacing === 'none' ? {} : gridBackgroundStyle}
         onContextMenu={(evt) => handleOpenGridMenu(evt)}>
         <div id="grid" className={styles.draggable}>
           {data.map((card) => (
@@ -157,8 +156,8 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
         <GridMenu
           top={points.y}
           left={points.x}
-          gridSpacing={gridSize as gridSizeType}
-          setGridSpacing={setGridSize}
+          gridSpacing={gridSpacing as gridSizeType}
+          setGridSpacing={setGridSpacing}
           addNewCard={sendCardData}
           cardCount={data.length}
           setClicked={setClicked}></GridMenu>
