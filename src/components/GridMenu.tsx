@@ -108,14 +108,16 @@ export default function GridMenu({
     <div style={styles} className="bg-context rounded-lg" role="menu">
       <ul role="menu">
         <div className="p-2 text-center font-bold">Grid settings</div>
-        <li className={`p-2 hover:bg-black`} role="menuitem">
+        <li
+          className={`hover:text-hoverText p-2 hover:bg-black`}
+          role="menuitem">
           <p className="mb-2">Grid size</p>
           <div className="align-center flex flex-row flex-wrap">
             {spacingBtns}
           </div>
         </li>
         <li
-          className={`flex flex-row items-center p-2 hover:bg-black`}
+          className={`hover:text-hoverText flex flex-row items-center p-2 hover:bg-black`}
           role="menuitem">
           <p className="mr-2 mb-2">Card shape</p>
           <div className="align-center flex flex-row flex-wrap">
@@ -123,17 +125,22 @@ export default function GridMenu({
           </div>
         </li>
         <li
-          className={`flex flex-row items-center p-2 hover:bg-black`}
+          className={`hover:text-hoverText flex flex-row items-center p-2 hover:bg-black`}
           role="menuitem">
           <p className="mr-2 mb-2">Dark mode</p>
           <div className="align-center flex flex-row flex-wrap">
             {darkModeBtns}
           </div>
         </li>
-        <li className={liStyles} role="menuitem" onClick={handleAddCard}>
+        <li
+          className={`${liStyles} hover:text-hoverText`}
+          role="menuitem"
+          onClick={handleAddCard}>
           New card
         </li>
-        <li className={`${liStyles} rounded-b-lg`} role="menuitem">
+        <li
+          className={`${liStyles} hover:text-hoverText rounded-b-lg`}
+          role="menuitem">
           Add label
         </li>
       </ul>

@@ -119,7 +119,9 @@ export default function ContextMenu({
       role="menu">
       {!isRenameOpen ? (
         <ul role="menu">
-          <li className={`rounded-t-lg p-2 hover:bg-black`} role="menuitem">
+          <li
+            className={`hover:text-hoverText rounded-t-lg p-2 hover:bg-black`}
+            role="menuitem">
             <div className="m-2 mt-0 flex flex-row justify-between">
               <p>Size</p>
               <p
@@ -134,18 +136,20 @@ export default function ContextMenu({
               {radioBtns}
             </div>
           </li>
-          <li className={`p-2 hover:bg-black`} role="menuitem">
+          <li
+            className={`hover:text-hoverText p-2 hover:bg-black`}
+            role="menuitem">
             <p className="mb-2">Color</p>
             {colorBtns}
           </li>
           <li
-            className={liStyles}
+            className={`${liStyles} hover:text-hoverText`}
             role="menuitem"
             onClick={() => setIsRenameOpen(!isRenameOpen)}>
             Rename
           </li>
           <li
-            className={liStyles}
+            className={`${liStyles} hover:text-hoverText`}
             role="menuitem"
             onClick={() => {
               handleDeleteCard()
@@ -153,7 +157,9 @@ export default function ContextMenu({
             }}>
             Delete
           </li>
-          <li className={`${liStyles} rounded-b-lg`} role="menuitem">
+          <li
+            className={`${liStyles} hover:text-hoverText rounded-b-lg`}
+            role="menuitem">
             Archive
           </li>
         </ul>
