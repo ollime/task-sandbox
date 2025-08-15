@@ -29,13 +29,11 @@ export default function GridMenu({
   const [shape, setShape] = useState<cardShapeType | undefined>(cardShape)
 
   const liStyles = 'p-2 hover:cursor-pointer hover:bg-black'
-  const radioStyles = 'm-1 mr-2 scale-160'
   const radioButtonStyles =
     'hover:bg-neutral-400 hover:text-white rounded-lg px-2 py-1 hover:cursor-pointer'
   const styles: React.CSSProperties = {
     position: 'absolute',
     minWidth: '250px',
-    backgroundColor: '#383838',
     top: top,
     left: left,
     zIndex: 1000,
@@ -56,7 +54,7 @@ export default function GridMenu({
     <>
       <div
         onClick={() => setIsDarkMode(true)}
-        className={`${radioButtonStyles} ${isDarkMode ? 'bg-white text-black' : 'bg-neutral-500'} m-1 flex flex-row`}>
+        className={`${radioButtonStyles} bg-button m-1 flex flex-row`}>
         Dark
       </div>
       <div
@@ -107,7 +105,7 @@ export default function GridMenu({
   }
 
   return (
-    <div style={styles} className="rounded-lg" role="menu">
+    <div style={styles} className="bg-context rounded-lg" role="menu">
       <ul role="menu">
         <div className="p-2 text-center font-bold">Grid settings</div>
         <li className={`p-2 hover:bg-black`} role="menuitem">
