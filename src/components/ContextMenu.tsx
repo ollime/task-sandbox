@@ -3,6 +3,7 @@ import { ColorKeys, colorPreset, sizePreset } from '../types/card.types'
 import { Coordinates } from '@dnd-kit/core/dist/types'
 import RotateLeftIcon from '@mui/icons-material/RotateLeft'
 import { useContextMenu } from '@/contexts/ContextMenuProvider'
+import { useStyles } from '@/contexts/StylesProvider'
 
 interface ContextMenuProps {
   top: number
@@ -33,6 +34,7 @@ export default function ContextMenu({
   cardLabel,
   setCardLabel,
 }: ContextMenuProps) {
+  const { isDarkMode, setIsDarkMode } = useStyles()
   const [isRenameOpen, setIsRenameOpen] = useState<boolean>(false)
   const [label, setLabel] = useState<string>(cardLabel ?? '')
   const [size, setSize] = useState<string | undefined>(currentSize ?? undefined)
@@ -43,7 +45,6 @@ export default function ContextMenu({
   const styles: React.CSSProperties = {
     position: 'absolute',
     minWidth: '250px',
-    backgroundColor: '#383838',
     top: top,
     left: left,
     zIndex: 1000,
@@ -65,7 +66,7 @@ export default function ContextMenu({
     <div
       key={item}
       onClick={() => handleUpdateSize(item)}
-      className={`${radioButtonStyles} ${item === size ? 'bg-white text-black' : 'bg-neutral-500'} m-1 flex flex-row`}>
+      className={`${radioButtonStyles} ${item === size ? 'bg-white text-black' : 'bg-button'} m-1 flex flex-row`}>
       {isValidSizeKey(item) ? sizePreset[item].label : item}
     </div>
   ))
@@ -112,7 +113,10 @@ export default function ContextMenu({
   }
 
   return (
-    <div style={styles} className="rounded-lg" role="menu">
+    <div
+      style={styles}
+      className={`bg-context rounded-lg ${isDarkMode ? 'text-white' : 'text-black'}`}
+      role="menu">
       {!isRenameOpen ? (
         <ul role="menu">
           <li className={`rounded-t-lg p-2 hover:bg-black`} role="menuitem">
@@ -176,7 +180,7 @@ function RenameInput({
   const { setClicked } = useContextMenu()
   return (
     <input
-      className="h-full w-full rounded-lg bg-neutral-500 p-1"
+      className="bg-button h-full w-full rounded-lg p-1"
       defaultValue={cardLabel}
       onChange={(evt) => {
         setCardLabel(evt.target.value)

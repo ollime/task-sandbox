@@ -44,38 +44,38 @@ export default function GridMenu({
     <div
       key={item}
       onClick={() => handleUpdateSize(item as gridSizeType)}
-      className={`${radioButtonStyles} ${item === size ? 'bg-white text-black' : 'bg-neutral-500'} m-1 flex flex-row`}>
+      className={`${radioButtonStyles} ${item === size ? 'bg-white text-black' : 'bg-button'} m-1 flex flex-row`}>
       {item}
     </div>
   ))
-
-  /** card shape buttons */
-  const shapeBtns: React.ReactNode = (
-    <>
-      <div
-        onClick={() => setIsDarkMode(true)}
-        className={`${radioButtonStyles} bg-button m-1 flex flex-row`}>
-        Dark
-      </div>
-      <div
-        onClick={() => setIsDarkMode(false)}
-        className={`${radioButtonStyles} ${!isDarkMode ? 'bg-white text-black' : 'bg-neutral-500'} m-1 flex flex-row`}>
-        Light
-      </div>
-    </>
-  )
 
   /** dark mode buttons */
   const darkModeBtns: React.ReactNode = (
     <>
       <div
+        onClick={() => setIsDarkMode(true)}
+        className={`${radioButtonStyles} ${isDarkMode ? 'bg-white text-black' : 'bg-button'} m-1 flex flex-row`}>
+        Dark
+      </div>
+      <div
+        onClick={() => setIsDarkMode(false)}
+        className={`${radioButtonStyles} ${!isDarkMode ? 'bg-white text-black' : 'bg-button'} m-1 flex flex-row`}>
+        Light
+      </div>
+    </>
+  )
+
+  /** card shape buttons */
+  const shapeBtns: React.ReactNode = (
+    <>
+      <div
         onClick={() => handleUpdateShape('sharp')}
-        className={`${radioButtonStyles} ${'sharp' === shape ? 'bg-white text-black' : 'bg-neutral-500'} m-1 flex flex-row`}>
+        className={`${radioButtonStyles} ${'sharp' === shape ? 'bg-white text-black' : 'bg-button'} m-1 flex flex-row`}>
         Sharp
       </div>
       <div
         onClick={() => handleUpdateShape('rounded')}
-        className={`${radioButtonStyles} ${'rounded' === shape ? 'bg-white text-black' : 'bg-neutral-500'} m-1 flex flex-row`}>
+        className={`${radioButtonStyles} ${'rounded' === shape ? 'bg-white text-black' : 'bg-button'} m-1 flex flex-row`}>
         Rounded
       </div>
     </>
@@ -114,14 +114,18 @@ export default function GridMenu({
             {spacingBtns}
           </div>
         </li>
-        <li className={`p-2 hover:bg-black`} role="menuitem">
-          <p className="mb-2">Card shape</p>
+        <li
+          className={`flex flex-row items-center p-2 hover:bg-black`}
+          role="menuitem">
+          <p className="mr-2 mb-2">Card shape</p>
           <div className="align-center flex flex-row flex-wrap">
             {shapeBtns}
           </div>
         </li>
-        <li className={`p-2 hover:bg-black`} role="menuitem">
-          <p className="mb-2">Dark mode</p>
+        <li
+          className={`flex flex-row items-center p-2 hover:bg-black`}
+          role="menuitem">
+          <p className="mr-2 mb-2">Dark mode</p>
           <div className="align-center flex flex-row flex-wrap">
             {darkModeBtns}
           </div>
