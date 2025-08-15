@@ -22,7 +22,7 @@ export default function GridMenu({
   cardCount,
   setClicked,
 }: ContextMenuProps) {
-  const { cardShape, setCardShape } = useStyles()
+  const { cardShape, setCardShape, isDarkMode, setIsDarkMode } = useStyles()
   const [size, setSize] = useState<gridSizeType | undefined>(
     gridSpacing ?? undefined
   )
@@ -53,6 +53,22 @@ export default function GridMenu({
 
   /** card shape buttons */
   const shapeBtns: React.ReactNode = (
+    <>
+      <div
+        onClick={() => setIsDarkMode(true)}
+        className={`${radioButtonStyles} ${isDarkMode ? 'bg-white text-black' : 'bg-neutral-500'} m-1 flex flex-row`}>
+        Dark
+      </div>
+      <div
+        onClick={() => setIsDarkMode(false)}
+        className={`${radioButtonStyles} ${!isDarkMode ? 'bg-white text-black' : 'bg-neutral-500'} m-1 flex flex-row`}>
+        Light
+      </div>
+    </>
+  )
+
+  /** dark mode buttons */
+  const darkModeBtns: React.ReactNode = (
     <>
       <div
         onClick={() => handleUpdateShape('sharp')}
@@ -104,6 +120,12 @@ export default function GridMenu({
           <p className="mb-2">Card shape</p>
           <div className="align-center flex flex-row flex-wrap">
             {shapeBtns}
+          </div>
+        </li>
+        <li className={`p-2 hover:bg-black`} role="menuitem">
+          <p className="mb-2">Dark mode</p>
+          <div className="align-center flex flex-row flex-wrap">
+            {darkModeBtns}
           </div>
         </li>
         <li className={liStyles} role="menuitem" onClick={handleAddCard}>
