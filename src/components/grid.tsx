@@ -150,6 +150,33 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
     setLabelData([...labelData, data])
   }
 
+  function deleteLabel(cardId: string) {
+    setLabelData(
+      data.filter((item) => {
+        if (item._id) {
+          return cardId !== item._id
+        } else {
+          // TODO: getid
+        }
+      })
+    )
+  }
+
+  /** updates existing label data*/
+  async function updateLabelData(data: LabelData) {
+    const element = labelData.find((e) => e._id === data._id)
+    if (element) {
+      console.log(data.label, data._id)
+      element.label += data.label
+    } else {
+      labelData.push(data)
+    }
+  }
+
+  useEffect(() => {
+    console.log(labelData)
+  }, [labelData])
+
   return (
     <DndContext
       onDragStart={handleDragStart}
@@ -180,6 +207,8 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
               label={label.label}
               position={label.position}
               _id={label._id}
+              deleteLabel={deleteLabel}
+              sendLabel={updateLabelData}
             />
           ))}
         </div>

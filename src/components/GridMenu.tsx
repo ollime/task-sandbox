@@ -110,14 +110,13 @@ export default function GridMenu({
   }
 
   function handleAddLabel() {
-    console.log(labelCount)
-    console.log(labelCount + 1 + '-label')
     const newLabel: LabelData = {
       label: '',
       position: { x: 0, y: 0 },
-      _id: labelCount + 1 + '-label',
+      _id: String(labelCount + 1),
     }
     addNewLabel(newLabel)
+    setClicked('')
   }
 
   return (

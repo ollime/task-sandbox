@@ -2,8 +2,25 @@ import { useState, useEffect } from 'react'
 
 import { LabelData } from '@/types/label.types'
 import Draggable from './Draggable'
+import { useContextMenu } from '@/contexts/ContextMenuProvider'
+import { Coordinates } from '@dnd-kit/core/dist/types'
 
-export default function Label({ label, position, _id }: LabelData) {
+interface LabelPropsType {
+  label: string
+  position: Coordinates
+  _id: string
+  deleteLabel: (_id: string) => void
+  sendLabel: (data: LabelData) => void
+}
+
+export default function Label({
+  label,
+  position,
+  _id,
+  deleteLabel,
+  sendLabel,
+}: LabelPropsType) {
+  const { setClicked } = useContextMenu()
   const [isEditable, setIsEditable] = useState<boolean>(false)
   const [text, setText] = useState<string>(label ?? '')
 
@@ -15,6 +32,13 @@ export default function Label({ label, position, _id }: LabelData) {
 
   function handleToggleEdit() {
     setIsEditable(!isEditable)
+    sendLabel({ label: text, position, _id })
+    if (!isEditable) {
+      setClicked('')
+    }
+    if (text.length === 0) {
+      deleteLabel(_id)
+    }
   }
 
   function handleEditText(value: string) {
@@ -36,22 +60,21 @@ export default function Label({ label, position, _id }: LabelData) {
           onChange={(evt) => {
             handleEditText(evt.target.value)
           }}
-          onBlur={() => {
-            setIsEditable(false)
-          }}
+          onBlur={() => handleToggleEdit}
           autoFocus={true}
           onKeyDown={(evt) => {
             if (evt.key === 'Enter') {
               evt.preventDefault()
-              setIsEditable(false)
+              handleToggleEdit()
             }
           }}
         />
       ) : (
         <p
           id={_id + '-label'}
-          className="text-lg hover:cursor-pointer"
-          onDoubleClick={handleToggleEdit}>
+          className="text-lg hover:cursor-move"
+          onDoubleClick={handleToggleEdit}
+          onContextMenu={handleToggleEdit}>
           {text}
         </p>
       )}
