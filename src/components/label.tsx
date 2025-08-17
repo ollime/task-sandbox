@@ -1,7 +1,9 @@
-import { LabelData } from '@/types/label.types'
 import { useState } from 'react'
 
-export default function Label({ label, position }: LabelData) {
+import { LabelData } from '@/types/label.types'
+import Draggable from './Draggable'
+
+export default function Label({ label, position, _id }: LabelData) {
   const [isEditable, setIsEditable] = useState<boolean>(false)
   const [text, setText] = useState<string>(label ?? '')
 
@@ -14,9 +16,15 @@ export default function Label({ label, position }: LabelData) {
   }
 
   return (
-    <div>
+    <Draggable
+      id={_id + '-label'}
+      position={position}
+      color={'transparent'}
+      isActive={true}
+      draggable={!isEditable}>
       {isEditable ? (
         <input
+          id={_id + '-label'}
           type="text"
           value={text}
           onChange={(evt) => {
@@ -32,11 +40,12 @@ export default function Label({ label, position }: LabelData) {
         />
       ) : (
         <p
+          id={_id + '-label'}
           className="text-lg hover:cursor-pointer"
           onDoubleClick={handleToggleEdit}>
           {text}
         </p>
       )}
-    </div>
+    </Draggable>
   )
 }

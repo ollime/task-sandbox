@@ -4,12 +4,12 @@ import { DndContext, DragStartEvent, DragEndEvent } from '@dnd-kit/core'
 
 import { sizePreset, SizeKeys, CardData } from '@/types/card.types'
 import { gridSizeType } from '@/types/grid.types'
+import { LabelData } from '@/types/label.types'
 import { useContextMenu } from '@/contexts/ContextMenuProvider'
 import { useStyles } from '@/contexts/StylesProvider'
 import Card from './card'
 import GridMenu from './GridMenu'
 import Label from './label'
-import { LabelData } from '@/types/label.types'
 
 export default function Grid({ gridTitle }: { gridTitle: string }) {
   const { clicked, setClicked, points, setPoints } = useContextMenu()
@@ -114,19 +114,36 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
   /** Updates position data for card when being dragged */
   function handleDragEnd(event: DragEndEvent) {
     const { active, delta } = event
-    setData(
-      data.map((card: CardData) =>
-        card.label === active.id
-          ? {
-              ...card,
-              position: {
-                x: card.position.x + delta.x,
-                y: card.position.y + delta.y,
-              },
-            }
-          : card
+    console.log(active.id)
+    if (String(active.id)?.endsWith('-label')) {
+      setLabelData(
+        labelData.map((label: LabelData) =>
+          label._id + '-label' === active.id
+            ? {
+                ...label,
+                position: {
+                  x: label.position.x + delta.x,
+                  y: label.position.y + delta.y,
+                },
+              }
+            : label
+        )
       )
-    )
+    } else {
+      setData(
+        data.map((card: CardData) =>
+          card.label === active.id
+            ? {
+                ...card,
+                position: {
+                  x: card.position.x + delta.x,
+                  y: card.position.y + delta.y,
+                },
+              }
+            : card
+        )
+      )
+    }
   }
 
   function handleAddNewLabel(data: LabelData) {
@@ -159,9 +176,10 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
           ))}
           {labelData.map((label) => (
             <Label
-              key={label.label}
+              key={label._id + '-label'}
               label={label.label}
               position={label.position}
+              _id={label._id}
             />
           ))}
         </div>
@@ -175,7 +193,8 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
           addNewCard={sendCardData}
           cardCount={data.length}
           setClicked={setClicked}
-          addNewLabel={handleAddNewLabel}></GridMenu>
+          addNewLabel={handleAddNewLabel}
+          labelCount={labelData.length}></GridMenu>
       ) : (
         ''
       )}

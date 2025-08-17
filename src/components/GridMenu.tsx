@@ -13,6 +13,7 @@ interface ContextMenuProps {
   cardCount: number
   setClicked: (value: string) => void // to close the menu
   addNewLabel: (data: LabelData) => void
+  labelCount: number
 }
 
 export default function GridMenu({
@@ -24,6 +25,7 @@ export default function GridMenu({
   cardCount,
   setClicked,
   addNewLabel,
+  labelCount,
 }: ContextMenuProps) {
   const { cardShape, setCardShape, isDarkMode, setIsDarkMode } = useStyles()
   const [size, setSize] = useState<gridSizeType | undefined>(
@@ -108,9 +110,12 @@ export default function GridMenu({
   }
 
   function handleAddLabel() {
+    console.log(labelCount)
+    console.log(labelCount + 1 + '-label')
     const newLabel: LabelData = {
-      label: 'test',
+      label: 'double click to edit label',
       position: { x: 0, y: 0 },
+      _id: labelCount + 1 + '-label',
     }
     addNewLabel(newLabel)
   }

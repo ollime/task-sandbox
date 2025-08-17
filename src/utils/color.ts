@@ -67,6 +67,9 @@ function hexToHSL(hex: string): { h: number; s: number; l: number } {
 }
 
 export function darkenHex(hex: string, amt: number) {
+  if (hex === 'transparent') {
+    return hex
+  }
   const { h, s, l } = hexToHSL(hex)
   const newL = Math.max(0, l - amt) // reduce lightness by amount
   return hslToHex({ h, s, l: newL })
