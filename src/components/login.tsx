@@ -1,0 +1,47 @@
+import { FormEvent } from 'react'
+import { useRouter } from 'next/compat/router'
+
+export default function LoginPage() {
+  const router = useRouter()
+  async function handleSubmit(evt: FormEvent<HTMLFormElement>) {
+    evt.preventDefault()
+
+    const formData = new FormData(evt.currentTarget)
+    const username = formData.get('username')
+    const password = formData.get('password')
+
+    try {
+      const res = await fetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      })
+
+      if (res.ok) {
+        router?.push('/grid')
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="username"
+          name="username"
+          placeholder="username"
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+        />
+        <button type="submit">Login</button>{' '}
+      </form>
+    </div>
+  )
+}

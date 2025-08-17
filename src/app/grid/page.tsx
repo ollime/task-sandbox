@@ -2,15 +2,25 @@
 import { useState } from 'react'
 import { ContextMenuProvider } from '@/contexts/ContextMenuProvider'
 import { StylesProvider } from '@/contexts/StylesProvider'
-import LoginPage from '../components/login'
+import Footer from '@/components/footer'
+import Title from '@/components/title'
+import Grid from '@/components/grid'
 
-export default function Home() {
+export default function GridPage() {
+  const [currentGrid, setCurrentGrid] = useState<string>('Grid')
   return (
     <ContextMenuProvider>
       <StylesProvider>
         <div className={styles.root}>
           <main className={styles.main}>
-            <LoginPage></LoginPage>
+            <Title
+              className="flex sm:hidden"
+              gridTitle={currentGrid}
+              setGridTitleLeft={setCurrentGrid}
+              setGridTitleRight={setCurrentGrid}
+            />
+            <Grid gridTitle={currentGrid} />
+            <Footer />
           </main>
         </div>
       </StylesProvider>

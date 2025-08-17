@@ -44,7 +44,6 @@ export async function POST(req: NextRequest) {
     }
 
     const user = new User({ username, password })
-
     await user.save()
 
     try {

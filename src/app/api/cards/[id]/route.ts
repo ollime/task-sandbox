@@ -37,6 +37,8 @@ export async function PUT(
     const taskUpdated = await Task.findByIdAndUpdate(params.id, body, {
       new: true,
     })
+      .populate('user')
+      .exec()
 
     if (!taskUpdated)
       return NextResponse.json(
