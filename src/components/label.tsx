@@ -10,7 +10,6 @@ export default function Label({ label, position, _id }: LabelData) {
   useEffect(() => {
     if (label === '') {
       setIsEditable(true)
-      setText('')
     }
   }, [])
 
