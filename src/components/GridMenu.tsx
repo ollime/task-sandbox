@@ -112,7 +112,7 @@ export default function GridMenu({
   function handleAddLabel() {
     const newLabel: LabelData = {
       label: '',
-      position: { x: 0, y: 0 },
+      position: { x: left, y: top },
       _id: String(labelCount + 1),
     }
     addNewLabel(newLabel)
