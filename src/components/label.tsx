@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { LabelData } from '@/types/label.types'
 import Draggable from './Draggable'
@@ -6,6 +6,13 @@ import Draggable from './Draggable'
 export default function Label({ label, position, _id }: LabelData) {
   const [isEditable, setIsEditable] = useState<boolean>(false)
   const [text, setText] = useState<string>(label ?? '')
+
+  useEffect(() => {
+    if (label === '') {
+      setIsEditable(true)
+      setText('')
+    }
+  }, [])
 
   function handleToggleEdit() {
     setIsEditable(!isEditable)
@@ -29,6 +36,9 @@ export default function Label({ label, position, _id }: LabelData) {
           value={text}
           onChange={(evt) => {
             handleEditText(evt.target.value)
+          }}
+          onBlur={() => {
+            setIsEditable(false)
           }}
           autoFocus={true}
           onKeyDown={(evt) => {
