@@ -150,11 +150,11 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
     setLabelData([...labelData, data])
   }
 
-  function deleteLabel(cardId: string) {
+  function deleteLabel(labelId: string) {
     setLabelData(
-      data.filter((item) => {
+      labelData.filter((item) => {
         if (item._id) {
-          return cardId !== item._id
+          return labelId !== item._id
         } else {
           // TODO: getid
         }
@@ -166,16 +166,11 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
   async function updateLabelData(data: LabelData) {
     const element = labelData.find((e) => e._id === data._id)
     if (element) {
-      console.log(data.label, data._id)
       element.label += data.label
     } else {
       labelData.push(data)
     }
   }
-
-  useEffect(() => {
-    console.log(labelData)
-  }, [labelData])
 
   return (
     <DndContext
