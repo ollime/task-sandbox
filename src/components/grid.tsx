@@ -114,7 +114,6 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
   /** Updates position data for card when being dragged */
   function handleDragEnd(event: DragEndEvent) {
     const { active, delta } = event
-    console.log(active.id)
     if (String(active.id)?.endsWith('-label')) {
       setLabelData(
         labelData.map((label: LabelData) =>
