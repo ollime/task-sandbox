@@ -45,20 +45,29 @@ export default function LoginPage() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <h1 className="p-4 text-center text-2xl">App name</h1>
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col items-center space-y-4 p-2">
         <input
           type="username"
           name="username"
-          placeholder="username"
+          placeholder="testuser"
+          className="w-60 p-2"
           required
         />
         <input
           type="password"
           name="password"
-          placeholder="Password"
+          placeholder="testtest"
+          className="w-60 p-2"
           required
         />
-        <button type="submit">Login</button>
+        <button
+          type="submit"
+          className="w-fit rounded-lg bg-neutral-800 p-2 px-6">
+          Login
+        </button>
       </form>
     </div>
   )
