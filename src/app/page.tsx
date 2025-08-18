@@ -1,24 +1,11 @@
 'use client'
-import { useState } from 'react'
-import { ContextMenuProvider } from '@/contexts/ContextMenuProvider'
-import { StylesProvider } from '@/contexts/StylesProvider'
-import LoginPage from '../components/login'
+import Container from '@/components/container'
+import LoginPage from '@/components/login'
 
 export default function Home() {
   return (
-    <ContextMenuProvider>
-      <StylesProvider>
-        <div className={styles.root}>
-          <main className={styles.main}>
-            <LoginPage></LoginPage>
-          </main>
-        </div>
-      </StylesProvider>
-    </ContextMenuProvider>
+    <Container>
+      <LoginPage></LoginPage>
+    </Container>
   )
-}
-
-const styles = {
-  root: 'font-sans grid grid-rows-[20px_1fr_20px] min-h-screen px-8 py-2 pt-0',
-  main: 'flex flex-col gap-4 row-start-2 w-full mx-auto',
 }

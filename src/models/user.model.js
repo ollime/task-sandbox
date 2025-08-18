@@ -18,7 +18,7 @@ const userSchema = new Schema(
       minlength: 6,
       maxlength: 30,
     },
-    cards: [{ type: Schema.Types.ObjectId, ref: 'Task' }],
+    grids: [{ type: Schema.Types.ObjectId, ref: 'Grid' }],
   },
   {
     timestamps: true,

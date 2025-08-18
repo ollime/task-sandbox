@@ -1,8 +1,10 @@
 import { FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
+import { useUser } from '@/contexts/CurrentUserProvider'
 
 export default function LoginPage() {
   const router = useRouter()
+  const user = useUser()
   async function handleSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault()
 
@@ -18,6 +20,7 @@ export default function LoginPage() {
       })
       if (res.ok || res.status === 409) {
         console.log(res.json())
+        // user.setUsername(res.json)
         const id = 0
         router?.push(`/grid/${id}`)
       }
