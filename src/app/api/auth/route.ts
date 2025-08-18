@@ -27,29 +27,24 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     await connectToDatabase()
     const { username, password } = body
-
     if (!username || !password) {
       return NextResponse.json(
         { error: 'All fields are required.' },
         { status: 400 }
       )
     }
-
     const existingUser = await User.findOne({ username })
     if (existingUser) {
       return NextResponse.json(
-        { error: 'User already exists.' },
+        { message: 'User already exists.' },
         { status: 409 }
       )
     }
-
     const user = new User({ username, password })
     await user.save()
-
     try {
       const accessToken = user.generateAccessToken()
       const refreshToken = user.generateRefreshToken()
-
       return NextResponse.json(
         {
           message: 'User registered successfully.',
@@ -64,7 +59,6 @@ export async function POST(req: NextRequest) {
       )
     } catch (tokenError) {
       console.log('Token generation error:' + tokenError)
-
       return NextResponse.json(
         {
           message: 'User registered successfully. (Token generation failed)',

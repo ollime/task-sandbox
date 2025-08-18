@@ -1,5 +1,5 @@
 import { FormEvent } from 'react'
-import { useRouter } from 'next/compat/router'
+import { useRouter } from 'next/navigation'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -16,8 +16,7 @@ export default function LoginPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
       })
-
-      if (res.ok) {
+      if (res.ok || res.status === 409) {
         router?.push('/grid')
       }
     } catch (err) {
@@ -40,7 +39,7 @@ export default function LoginPage() {
           placeholder="Password"
           required
         />
-        <button type="submit">Login</button>{' '}
+        <button type="submit">Login</button>
       </form>
     </div>
   )
