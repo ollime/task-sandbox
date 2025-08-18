@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       )
     }
-    const user = await User.findOne({ username: username, password: password })
+    const user = await User.findOne({ username: username })
 
     // checks if password is correct
     const isPasswordCorrect = await user.isPasswordCorrect(password)
