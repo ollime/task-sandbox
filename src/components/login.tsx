@@ -22,20 +22,23 @@ export default function LoginPage() {
         user.setUsername(username as string)
         const id = 0
         // router?.push(`/grid/${id}`)
-      }
-    } catch (err: any) {
-      if (err.status === 409) {
+      } else if (res.status === 409) {
         try {
-          const res = await fetch('/api/auth/login', {
+          const loginResponse = await fetch('/api/auth/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, password }),
           })
-          console.log(res)
+          const json = await loginResponse.json()
+          console.log(json)
+          // if (res.ok) {
+          //   user.setUsername(username as string)
+          // }
         } catch (err: any) {
           console.error(err)
         }
       }
+    } catch (err: any) {
       console.error(err)
     }
   }
