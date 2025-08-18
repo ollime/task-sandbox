@@ -45,21 +45,21 @@ export default function LoginPage() {
 
   return (
     <div>
-      <h1 className="p-4 text-center text-2xl">App name</h1>
+      <h1 className="p-4 text-center text-2xl">Taskbox</h1>
       <form
         onSubmit={handleSubmit}
         className="flex flex-col items-center space-y-4 p-2">
         <input
           type="username"
           name="username"
-          placeholder="testuser"
+          placeholder="username"
           className="w-60 p-2"
           required
         />
         <input
           type="password"
           name="password"
-          placeholder="testtest"
+          placeholder="password"
           className="w-60 p-2"
           required
         />
