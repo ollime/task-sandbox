@@ -2,7 +2,7 @@ import { Task } from '@/models/cards.model'
 import { connectToDatabase } from '@/lib/mongodb'
 import { NextRequest, NextResponse } from 'next/server'
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
     await connectToDatabase()
     const cards = await Task.find({})

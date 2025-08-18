@@ -44,4 +44,10 @@ userSchema.methods.generateRefreshToken = function () {
   })
 }
 
+// userSchema.methods.generateAccessToken = function () {
+//   return jwt.sign({ _id: this._id }, process.env.ACCESS_TOKEN_SECRET, {
+//     expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
+//   })
+// }
+
 export const User = mongoose.models.User || mongoose.model('User', userSchema)
