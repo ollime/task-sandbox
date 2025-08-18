@@ -19,10 +19,11 @@ export default function LoginPage() {
         body: JSON.stringify({ username, password }),
       })
       if (res.ok || res.status === 409) {
-        console.log(res.json())
-        // user.setUsername(res.json)
+        const json = await res.json()
+        console.log(json)
+        // user.setUsername(json)
         const id = 0
-        router?.push(`/grid/${id}`)
+        // router?.push(`/grid/${id}`)
       }
     } catch (err) {
       console.error(err)
