@@ -1,15 +1,18 @@
 import { ContextMenuProvider } from '@/contexts/ContextMenuProvider'
+import { UserProvider } from '@/contexts/CurrentUserProvider'
 import { StylesProvider } from '@/contexts/StylesProvider'
 
 export default function Container({ children }: { children: React.ReactNode }) {
   return (
-    <ContextMenuProvider>
-      <StylesProvider>
-        <div className={styles.root}>
-          <main className={styles.main}>{children}</main>
-        </div>
-      </StylesProvider>
-    </ContextMenuProvider>
+    <UserProvider>
+      <ContextMenuProvider>
+        <StylesProvider>
+          <div className={styles.root}>
+            <main className={styles.main}>{children}</main>
+          </div>
+        </StylesProvider>
+      </ContextMenuProvider>
+    </UserProvider>
   )
 }
 

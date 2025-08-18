@@ -13,18 +13,29 @@ export default function LoginPage() {
     const password = formData.get('password')
 
     try {
-      const res = await fetch('/api/auth', {
+      const res = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
       })
-      if (res.ok || res.status === 409) {
-        console.log(res.json())
-        // user.setUsername(res.json)
+      if (res.ok) {
+        user.setUsername(username as string)
         const id = 0
-        router?.push(`/grid/${id}`)
+        // router?.push(`/grid/${id}`)
       }
-    } catch (err) {
+    } catch (err: any) {
+      if (err.status === 409) {
+        try {
+          const res = await fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password }),
+          })
+          console.log(res)
+        } catch (err: any) {
+          console.error(err)
+        }
+      }
       console.error(err)
     }
   }

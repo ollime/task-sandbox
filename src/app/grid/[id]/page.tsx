@@ -1,16 +1,21 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, use } from 'react'
 
 import Container from '@/components/container'
 import Footer from '@/components/footer'
 import Title from '@/components/title'
 import Grid from '@/components/grid'
 
-export default function GridPage({ params }: { params: { id: string } }) {
+export default function GridPage({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
   const [currentGridName, setCurrentGridName] = useState<string>('Grid')
 
   useEffect(() => {
-    console.log(params.id)
+    const { id } = use(params)
+    console.log(id)
     setCurrentGridName('Grid')
   }, [])
 
