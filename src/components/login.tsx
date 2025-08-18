@@ -17,7 +17,9 @@ export default function LoginPage() {
         body: JSON.stringify({ username, password }),
       })
       if (res.ok || res.status === 409) {
-        router?.push('/grid')
+        console.log(res.json())
+        const id = 0
+        router?.push(`/grid/${id}`)
       }
     } catch (err) {
       console.error(err)

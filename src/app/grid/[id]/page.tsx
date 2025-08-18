@@ -1,13 +1,21 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ContextMenuProvider } from '@/contexts/ContextMenuProvider'
 import { StylesProvider } from '@/contexts/StylesProvider'
 import Footer from '@/components/footer'
 import Title from '@/components/title'
 import Grid from '@/components/grid'
 
-export default function GridPage() {
-  const [currentGrid, setCurrentGrid] = useState<string>('Grid')
+export default function GridPage({ params }: { params: { id: string } }) {
+  const [currentGridName, setCurrentGridName] = useState<string>('Grid')
+
+  // TODO: get current grid
+  // TODO: save current grid to StylesProvider
+  useEffect(() => {
+    alert(params.id)
+    setCurrentGridName('Grid')
+  }, [])
+
   return (
     <ContextMenuProvider>
       <StylesProvider>
@@ -15,11 +23,11 @@ export default function GridPage() {
           <main className={styles.main}>
             <Title
               className="flex sm:hidden"
-              gridTitle={currentGrid}
-              setGridTitleLeft={setCurrentGrid}
-              setGridTitleRight={setCurrentGrid}
+              gridTitle={currentGridName}
+              setGridTitleLeft={setCurrentGridName}
+              setGridTitleRight={setCurrentGridName}
             />
-            <Grid gridTitle={currentGrid} />
+            <Grid gridTitle={currentGridName} />
             <Footer />
           </main>
         </div>
