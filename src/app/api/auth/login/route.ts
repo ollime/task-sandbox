@@ -1,6 +1,8 @@
 import { User } from '@/models/user.model.js'
 import { NextRequest, NextResponse } from 'next/server'
 import { connectToDatabase } from '@/lib/mongodb'
+import { setAccessToken } from '@/lib/jwt'
+import { access } from 'fs'
 
 // log a user in
 export async function POST(req: NextRequest) {
@@ -21,6 +23,10 @@ export async function POST(req: NextRequest) {
     // checks if password is correct
     const isPasswordCorrect = await user.isPasswordCorrect(password)
     if (isPasswordCorrect) {
+      // set cookie & return json
+      const accessToken = user.generateAccessToken()
+      const expiry = user.getAccessTokenExpiry()
+      setAccessToken(accessToken, expiry)
       return NextResponse.json(user)
     } else {
       return NextResponse.json(

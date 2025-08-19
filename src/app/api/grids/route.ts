@@ -11,6 +11,7 @@ export async function GET() {
     const cookieStore = cookies()
     const data = (await cookieStore).get('token')
     const token = data?.value
+    console.log(token)
 
     // verify token
     try {
@@ -36,6 +37,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     await connectToDatabase()
 
+    // get user
     const user = await User.findOne({ _id: body.user })
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
@@ -45,6 +47,7 @@ export async function POST(req: NextRequest) {
     const newGrid = new Grid(body)
     const savedGrid = await newGrid.save()
 
+    // populate fields
     try {
       const populatedGrid = await Grid.findById(savedGrid._id)
         .populate('user', 'username')
