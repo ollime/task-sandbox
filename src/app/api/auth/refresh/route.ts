@@ -17,7 +17,11 @@ export async function POST(req: NextRequest) {
         const accessToken = user.generateAccessToken()
 
         return NextResponse.json(
-          { error: false, message: 'Access token created successfully.' },
+          {
+            error: false,
+            message: 'Access token created successfully.',
+            accessToken,
+          },
           { status: 200 }
         )
       })
