@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect, use } from 'react'
+import { useState, useEffect } from 'react'
 
 import Container from '@/components/container'
 import Footer from '@/components/footer'
@@ -14,17 +14,17 @@ export default function GridPage({
   const [currentGridName, setCurrentGridName] = useState<string>('Grid')
 
   async function getCurrentGrid() {
-    fetch('/api/grid', {
+    const res = await fetch('/api/grids', {
       method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      credentials: 'same-origin',
     })
+    return res
   }
 
   useEffect(() => {
     // const { id } = use(params)
     // console.log(id)
+    console.log(getCurrentGrid())
     setCurrentGridName('Grid')
   }, [])
 

@@ -200,7 +200,7 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
               key={label._id + '-label'}
               label={label.label}
               position={label.position}
-              _id={label._id}
+              _id={label._id ?? 'label'}
               deleteLabel={deleteLabel}
               sendLabel={updateLabelData}
             />

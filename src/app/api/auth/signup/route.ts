@@ -46,7 +46,8 @@ export async function POST(req: NextRequest) {
       const refreshToken = user.generateRefreshToken()
       user.refreshToken = refreshToken
       await user.save()
-      return NextResponse.json(
+
+      const res = NextResponse.json(
         {
           message: 'User registered successfully.',
           accessToken,
@@ -58,6 +59,13 @@ export async function POST(req: NextRequest) {
         },
         { status: 201 }
       )
+      // set cookie
+      res.cookies.set('token', accessToken, {
+        httpOnly: true,
+        secure: true,
+        maxAge: user.getAccessTokenExpiry(),
+      })
+      return res
     } catch (tokenError) {
       await user.save()
       console.log('Token generation error:' + tokenError)

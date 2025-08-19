@@ -64,4 +64,8 @@ userSchema.methods.verifyAccessToken = function (token) {
   })
 }
 
+userSchema.methods.getAccessTokenExpiry = function () {
+  return process.env.ACCESS_TOKEN_SECRET
+}
+
 export const User = mongoose.models.User || mongoose.model('User', userSchema)

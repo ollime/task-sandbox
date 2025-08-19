@@ -1,6 +1,7 @@
 import { User } from '@/models/user.model.js'
 import { NextRequest, NextResponse } from 'next/server'
 import { connectToDatabase } from '@/lib/mongodb'
+import { cookies } from 'next/headers'
 
 // get new access token
 export async function POST(req: NextRequest) {
@@ -14,14 +15,19 @@ export async function POST(req: NextRequest) {
       const payload = { _id: tokenDetails._id, roles: tokenDetails.roles }
       const accessToken = user.generateAccessToken()
 
-      return NextResponse.json(
+      let res = NextResponse.json(
         {
           error: false,
           message: 'Access token created successfully.',
-          accessToken,
         },
         { status: 200 }
       )
+      res.cookies.set('token', accessToken, {
+        httpOnly: true,
+        secure: true,
+        maxAge: user.getAccessTokenExpiry(),
+      })
+      return res
     })
   } catch (err) {
     return NextResponse.json({ error: 'Server error.' }, { status: 500 })
@@ -43,6 +49,9 @@ export async function DELETE(req: NextRequest) {
         { status: 200 }
       )
     await userToken.remove()
+    // delete cookie
+    const cookieStore = await cookies()
+    cookieStore.delete('token')
     return NextResponse.json(
       { error: false, message: 'Logged out successfully' },
       { status: 200 }
