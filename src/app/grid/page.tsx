@@ -13,18 +13,18 @@ export default function GridPage({
 }) {
   const [currentGridName, setCurrentGridName] = useState<string>('Grid')
 
-  async function getCurrentGrid() {
+  async function getAllGrids() {
     const res = await fetch('/api/grids', {
       method: 'GET',
       credentials: 'same-origin',
     })
-    return res
+    return res.json()
   }
 
   useEffect(() => {
     // const { id } = use(params)
     // console.log(id)
-    console.log(getCurrentGrid())
+    console.log(getAllGrids())
     setCurrentGridName('Grid')
   }, [])
 

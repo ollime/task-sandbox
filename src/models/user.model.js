@@ -51,19 +51,6 @@ userSchema.methods.generateAccessToken = function () {
   })
 }
 
-// verify token jwt
-userSchema.methods.verifyAccessToken = function (token) {
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-    if (err) {
-      console.log('Token is invalid')
-      return
-    } else {
-      console.log('Decoded Token:', decoded)
-      return token
-    }
-  })
-}
-
 userSchema.methods.getAccessTokenExpiry = function () {
   return process.env.ACCESS_TOKEN_SECRET
 }
