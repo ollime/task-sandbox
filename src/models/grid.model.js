@@ -15,4 +15,8 @@ const gridSchema = new Schema(
   }
 )
 
+// gridSchema.pre('find', function () {
+//   this.populate('user')
+// })
+
 export const Grid = mongoose.models.Grid || mongoose.model('Grid', gridSchema)

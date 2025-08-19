@@ -3,6 +3,7 @@ import { connectToDatabase } from '@/lib/mongodb'
 import { verifyAccessToken } from '@/lib/jwt'
 import { Grid } from '@/models/grid.model'
 import { cookies } from 'next/headers'
+import { User } from '@/models/user.model'
 
 export async function GET() {
   try {
@@ -34,16 +35,27 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
     await connectToDatabase()
-    const newGrid = new Grid(body)
 
+    const user = await User.findOne({ _id: body.user })
+    if (!user) {
+      return NextResponse.json({ error: 'User not found' }, { status: 404 })
+    }
+    body.user = user._id
+
+    const newGrid = new Grid(body)
     const savedGrid = await newGrid.save()
 
-    const populatedGrid = await Grid.findById(savedGrid._id)
-      .populate('user')
-      .populate('cards')
-      .exec()
+    try {
+      const populatedGrid = await Grid.findById(savedGrid._id)
+        .populate('user', 'username')
+        .populate('cards')
+        .exec()
 
-    return NextResponse.json(populatedGrid)
+      return NextResponse.json(populatedGrid)
+    } catch (err) {
+      console.error(err)
+      return NextResponse.json({ error: 'Grid not found' }, { status: 400 })
+    }
   } catch (err) {
     console.error(err)
     return NextResponse.json({ error: 'Bad Request' }, { status: 400 })

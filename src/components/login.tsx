@@ -19,9 +19,9 @@ export default function LoginPage() {
         body: JSON.stringify({ username, password }),
       })
       if (res.ok) {
+        const json = await res.json()
         user.setUsername(username as string)
-        const id = 0
-        router?.push('/grid')
+        router?.push(`/grid/${json._id}`)
       } else if (res.status === 409) {
         try {
           const loginResponse = await fetch('/api/auth/login', {
@@ -32,7 +32,7 @@ export default function LoginPage() {
           const json = await loginResponse.json()
           if (loginResponse.ok) {
             user.setUsername(username as string)
-            router?.push('/grid')
+            router?.push(`/grid/${json._id}`)
           }
         } catch (err: any) {
           console.error(err)

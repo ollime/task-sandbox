@@ -1,13 +1,17 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, use } from 'react'
 
 import Container from '@/components/container'
 import Footer from '@/components/footer'
 import Title from '@/components/title'
-import Grid from '@/components/grid'
 import { GridData } from '@/types/grid.types'
 
-export default function GridPage() {
+export default function GridPage({
+  params,
+}: {
+  params: Promise<{ userId: string }>
+}) {
+  const { userId } = use(params)
   const [currentGridName, setCurrentGridName] = useState<string>('Grid')
   const [grids, setGrids] = useState<Array<GridData>>([])
 
@@ -25,8 +29,9 @@ export default function GridPage() {
   }
 
   async function createNewGrid() {
-    // TODO: need to pass in username
+    console.log(userId)
     const newGrid = {
+      user: userId,
       name: 'Grid',
       cards: [],
     }
@@ -58,7 +63,7 @@ export default function GridPage() {
         setGridTitleLeft={setCurrentGridName}
         setGridTitleRight={setCurrentGridName}
       />
-      <Grid gridTitle={currentGridName} />
+      {/* <Grid gridTitle={currentGridName} /> */}
       <Footer />
     </Container>
   )
