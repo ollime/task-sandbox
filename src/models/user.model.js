@@ -51,4 +51,15 @@ userSchema.methods.generateAccessToken = function () {
   })
 }
 
+// verify token jwt
+userSchema.methods.verifyToken = function (token, secret) {
+  jwt.verify(token, secret, (err, decoded) => {
+    if (err) {
+      console.log('Token is invalid')
+    } else {
+      console.log('Decoded Token:', decoded)
+    }
+  })
+}
+
 export const User = mongoose.models.User || mongoose.model('User', userSchema)
