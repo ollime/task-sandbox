@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { connectToDatabase } from '@/lib/mongodb'
 import { verifyAccessToken } from '@/lib/jwt'
 import { Grid } from '@/models/grid.model'
@@ -27,5 +27,25 @@ export async function GET() {
       { error: 'Internal Server Error' },
       { status: 500 }
     )
+  }
+}
+
+export async function POST(req: NextRequest) {
+  try {
+    const body = await req.json()
+    await connectToDatabase()
+    const newGrid = new Grid(body)
+
+    const savedGrid = await newGrid.save()
+
+    const populatedGrid = await Grid.findById(savedGrid._id)
+      .populate('user')
+      .populate('cards')
+      .exec()
+
+    return NextResponse.json(populatedGrid)
+  } catch (err) {
+    console.error(err)
+    return NextResponse.json({ error: 'Bad Request' }, { status: 400 })
   }
 }

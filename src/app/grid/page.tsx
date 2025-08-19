@@ -5,26 +5,48 @@ import Container from '@/components/container'
 import Footer from '@/components/footer'
 import Title from '@/components/title'
 import Grid from '@/components/grid'
+import { GridData } from '@/types/grid.types'
 
-export default function GridPage({
-  params,
-}: {
-  params: Promise<{ id: string }>
-}) {
+export default function GridPage() {
   const [currentGridName, setCurrentGridName] = useState<string>('Grid')
+  const [grids, setGrids] = useState<Array<GridData>>([])
 
   async function getAllGrids() {
-    const res = await fetch('/api/grids', {
+    await fetch('/api/grids', {
       method: 'GET',
       credentials: 'same-origin',
     })
-    return res.json()
+      .then((res) => {
+        return res.json()
+      })
+      .then((json) => {
+        setGrids(json)
+      })
+  }
+
+  async function createNewGrid() {
+    // TODO: need to pass in username
+    const newGrid = {
+      name: 'Grid',
+      cards: [],
+    }
+    await fetch('/api/grids', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newGrid),
+    }).then(() => {
+      setGrids([...grids, newGrid])
+    })
   }
 
   useEffect(() => {
-    // const { id } = use(params)
-    // console.log(id)
-    console.log(getAllGrids())
+    getAllGrids()
+    if (grids.length < 1) {
+      createNewGrid()
+    }
+    console.log(grids)
     setCurrentGridName('Grid')
   }, [])
 
