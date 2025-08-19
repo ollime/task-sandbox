@@ -11,7 +11,6 @@ export async function GET() {
     const cookieStore = cookies()
     const data = (await cookieStore).get('token')
     const token = data?.value
-    console.log(token)
 
     // verify token
     try {
@@ -34,6 +33,18 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
+    // get token
+    const cookieStore = cookies()
+    const data = (await cookieStore).get('token')
+    const token = data?.value
+
+    // verify token
+    try {
+      verifyAccessToken(token)
+    } catch (err) {
+      return NextResponse.json({ message: 'Invalid token' }, { status: 403 })
+    }
+
     const body = await req.json()
     await connectToDatabase()
 

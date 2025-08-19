@@ -52,7 +52,7 @@ export default function GridPage({
       createNewGrid()
     }
     console.log(grids)
-    setCurrentGridName('Grid')
+    setCurrentGridName(grids[0]?.name ?? '')
   }, [])
 
   return (
