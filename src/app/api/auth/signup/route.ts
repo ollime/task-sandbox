@@ -41,10 +41,11 @@ export async function POST(req: NextRequest) {
       )
     }
     const user = new User({ username, password })
-    await user.save()
     try {
       const accessToken = user.generateAccessToken()
       const refreshToken = user.generateRefreshToken()
+      user.refreshToken = refreshToken
+      await user.save()
       return NextResponse.json(
         {
           message: 'User registered successfully.',
@@ -58,6 +59,7 @@ export async function POST(req: NextRequest) {
         { status: 201 }
       )
     } catch (tokenError) {
+      await user.save()
       console.log('Token generation error:' + tokenError)
       return NextResponse.json(
         {
