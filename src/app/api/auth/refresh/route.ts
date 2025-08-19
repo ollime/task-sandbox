@@ -10,21 +10,19 @@ export async function POST(req: NextRequest) {
     const { username, refreshToken } = body
     const user = await User.findOne({ username: username })
 
-    user
-      .verifyToken(refreshToken, process.env.ACCESS_TOKEN_SECRET)
-      .then((tokenDetails: any) => {
-        const payload = { _id: tokenDetails._id, roles: tokenDetails.roles }
-        const accessToken = user.generateAccessToken()
+    user.verifyAccessToken(refreshToken).then((tokenDetails: any) => {
+      const payload = { _id: tokenDetails._id, roles: tokenDetails.roles }
+      const accessToken = user.generateAccessToken()
 
-        return NextResponse.json(
-          {
-            error: false,
-            message: 'Access token created successfully.',
-            accessToken,
-          },
-          { status: 200 }
-        )
-      })
+      return NextResponse.json(
+        {
+          error: false,
+          message: 'Access token created successfully.',
+          accessToken,
+        },
+        { status: 200 }
+      )
+    })
   } catch (err) {
     return NextResponse.json({ error: 'Server error.' }, { status: 500 })
   }

@@ -52,12 +52,14 @@ userSchema.methods.generateAccessToken = function () {
 }
 
 // verify token jwt
-userSchema.methods.verifyToken = function (token, secret) {
-  jwt.verify(token, secret, (err, decoded) => {
+userSchema.methods.verifyAccessToken = function (token) {
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
     if (err) {
       console.log('Token is invalid')
+      return
     } else {
       console.log('Decoded Token:', decoded)
+      return token
     }
   })
 }
