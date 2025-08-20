@@ -6,7 +6,6 @@ import { Coordinates } from '@dnd-kit/core/dist/types'
 import ContextMenu from './ContextMenu'
 import { useContextMenu } from '@/contexts/ContextMenuProvider'
 import { CardData, colorPreset, sizePreset } from '../types/card.types'
-import { Task } from '@mui/icons-material'
 
 interface CardProps {
   position: Coordinates
