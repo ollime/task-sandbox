@@ -11,7 +11,11 @@ export default function ArchivePage({
 }: {
   params: Promise<{ userId: string }>
 }) {
-  const [data, setData] = useState<Array<CardData>>([])
+  const [data, setData] = useState<Array<CardData>>([
+    { label: 'djflsfd', size: 'lgRect', rotated: true },
+    { label: 'djflsfd', size: 'mdSquare', rotated: true },
+    { label: 'djflsfd', size: 'lgSquare', rotated: true },
+  ])
   const { userId } = use(params)
   const router = useRouter()
 
@@ -48,19 +52,18 @@ export default function ArchivePage({
         <ArrowBack onClick={handleRedirectToGrid}></ArrowBack>
         <h1 className="text-xl">Archive</h1>
       </div>
-      <ArchiveCard
-        size={sizePreset.smRect}
-        label="This is a card"></ArchiveCard>
-      {data.map((item) => (
-        <ArchiveCard
-          key={item.label}
-          label={item.label}
-          color={item.color}
-          size={sizePreset[item.size as SizeKeys]}
-          cardId={item._id ?? item.label}
-          rotation={item.rotated}
-        />
-      ))}
+      <div className="flex flex-wrap space-y-4 space-x-4">
+        {data.map((item) => (
+          <ArchiveCard
+            key={item.label}
+            label={item.label}
+            color={item.color}
+            size={sizePreset[item.size as SizeKeys]}
+            cardId={item._id ?? item.label}
+            rotation={item.rotated}
+          />
+        ))}
+      </div>
     </Container>
   )
 }

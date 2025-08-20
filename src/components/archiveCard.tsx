@@ -24,11 +24,18 @@ export default function ArchiveCard({
   const [cardSize, setCardSize] = useState<Coordinates>(size)
   const [cardColor, setCardColor] = useState<string>(color ?? colorPreset.blue)
   const [cardRotation, setCardRotation] = useState<boolean>(rotation ?? false)
+  const [hover, setHover] = useState<boolean>(false)
   const { cardShape } = useStyles()
-  console.log(cardShape)
 
   return (
-    <div>
+    <div
+      onMouseEnter={() => {
+        setHover(true)
+      }}
+      onMouseLeave={() => {
+        setHover(false)
+      }}
+      className="flex flex-row space-x-2">
       <div
         id={cardLabel}
         className="flex flex-1 items-center justify-center select-none"
@@ -39,6 +46,12 @@ export default function ArchiveCard({
           backgroundColor: cardColor,
         }}>
         {cardLabel}
+      </div>
+      <div
+        style={{
+          visibility: hover ? 'visible' : 'hidden',
+        }}>
+        jsdlfjd
       </div>
     </div>
   )
