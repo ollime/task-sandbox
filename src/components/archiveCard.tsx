@@ -1,11 +1,9 @@
 'use client'
 import { useEffect, useState } from 'react'
-import Draggable from './Draggable'
 import { Coordinates } from '@dnd-kit/core/dist/types'
 
-import ContextMenu from './ContextMenu'
-import { useContextMenu } from '@/contexts/ContextMenuProvider'
 import { CardData, colorPreset, sizePreset } from '../types/card.types'
+import { useStyles } from '@/contexts/StylesProvider'
 
 interface CardProps {
   size: Coordinates
@@ -26,6 +24,8 @@ export default function ArchiveCard({
   const [cardSize, setCardSize] = useState<Coordinates>(size)
   const [cardColor, setCardColor] = useState<string>(color ?? colorPreset.blue)
   const [cardRotation, setCardRotation] = useState<boolean>(rotation ?? false)
+  const { cardShape } = useStyles()
+  console.log(cardShape)
 
   return (
     <div>
@@ -35,6 +35,7 @@ export default function ArchiveCard({
         style={{
           height: cardRotation ? cardSize.x : cardSize.y,
           width: cardRotation ? cardSize.y : cardSize.x,
+          borderRadius: cardShape === 'rounded' ? 8 : 0,
           backgroundColor: cardColor,
         }}>
         {cardLabel}

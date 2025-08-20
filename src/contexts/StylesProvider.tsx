@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { cardShapeType, gridSizeType } from '../types/grid.types'
+import { KeyboardOptionKey } from '@mui/icons-material'
 
 type StylesType = {
   cardShape: cardShapeType
@@ -29,10 +30,12 @@ export function StylesProvider({ children }: { children: React.ReactNode }) {
     setCardShape(localStorage.getItem('cardShape') as cardShapeType)
     setGridSpacing(localStorage.getItem('gridSpacing') as gridSizeType)
     setIsDarkMode(localStorage.getItem('isDarkMode') === 'true')
+    console.log(cardShape)
   }, [])
 
   function setData(key: string, value: string) {
     localStorage.setItem(key, value)
+    console.log(key, value)
   }
 
   return (
@@ -41,7 +44,7 @@ export function StylesProvider({ children }: { children: React.ReactNode }) {
         cardShape,
         setCardShape: (value: cardShapeType) => {
           setCardShape(value)
-          setData('cardData', value)
+          setData('cardShape', value)
         },
         isDarkMode,
         setIsDarkMode: (value: boolean) => {

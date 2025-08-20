@@ -27,7 +27,7 @@ export default function Draggable({
     useDraggable({
       id: id,
     })
-  const { cardShape, setCardShape } = useStyles()
+  const { cardShape } = useStyles()
 
   const style: React.CSSProperties = {
     position: 'absolute',

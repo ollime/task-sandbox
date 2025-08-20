@@ -4,6 +4,7 @@ import { useState, useEffect, use } from 'react'
 import Container from '@/components/container'
 import Footer from '@/components/footer'
 import Title from '@/components/title'
+import Grid from '@/components/grid'
 import { GridData } from '@/types/grid.types'
 
 export default function GridPage({
@@ -63,7 +64,7 @@ export default function GridPage({
         setGridTitleLeft={setCurrentGridName}
         setGridTitleRight={setCurrentGridName}
       />
-      {/* <Grid gridTitle={currentGridName} /> */}
+      <Grid gridTitle={currentGridName} />
       <Footer />
     </Container>
   )
