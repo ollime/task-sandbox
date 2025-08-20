@@ -1,11 +1,19 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, use } from 'react'
 import { CardData, sizePreset, SizeKeys } from '@/types/card.types'
 import Container from '@/components/container'
 import ArchiveCard from '@/components/archiveCard'
+import { ArrowBack } from '@mui/icons-material'
+import { useRouter } from 'next/navigation'
 
-export default function ArchivePage() {
+export default function ArchivePage({
+  params,
+}: {
+  params: Promise<{ userId: string }>
+}) {
   const [data, setData] = useState<Array<CardData>>([])
+  const { userId } = use(params)
+  const router = useRouter()
 
   useEffect(() => {
     /** loads initial data */
@@ -30,8 +38,16 @@ export default function ArchivePage() {
     getCardData()
   }, [])
 
+  function handleRedirectToGrid() {
+    router?.push(`/grid/${userId}`)
+  }
+
   return (
     <Container>
+      <div className="flex flex-row items-center space-x-2">
+        <ArrowBack onClick={handleRedirectToGrid}></ArrowBack>
+        <h1 className="text-xl">Archive</h1>
+      </div>
       <ArchiveCard
         size={sizePreset.smRect}
         label="This is a card"></ArchiveCard>
