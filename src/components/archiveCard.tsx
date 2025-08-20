@@ -1,9 +1,11 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Coordinates } from '@dnd-kit/core/dist/types'
 
-import { CardData, colorPreset, sizePreset } from '../types/card.types'
+import { colorPreset } from '../types/card.types'
 import { useStyles } from '@/contexts/StylesProvider'
+import DeleteIcon from '@mui/icons-material/Delete'
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn'
 
 interface CardProps {
   size: Coordinates
@@ -38,7 +40,7 @@ export default function ArchiveCard({
       className="flex flex-row space-x-2">
       <div
         id={cardLabel}
-        className="flex flex-1 items-center justify-center select-none"
+        className="flex items-center justify-center select-none"
         style={{
           height: cardRotation ? cardSize.x : cardSize.y,
           width: cardRotation ? cardSize.y : cardSize.x,
@@ -50,8 +52,10 @@ export default function ArchiveCard({
       <div
         style={{
           visibility: hover ? 'visible' : 'hidden',
-        }}>
-        jsdlfjd
+        }}
+        className="flex flex-col space-y-1">
+        <DeleteIcon />
+        <KeyboardReturnIcon />
       </div>
     </div>
   )

@@ -49,7 +49,7 @@ export default function ArchivePage({
   return (
     <Container>
       <div className="flex flex-row items-center space-x-2">
-        <ArrowBack onClick={handleRedirectToGrid}></ArrowBack>
+        <ArrowBack onClick={handleRedirectToGrid} />
         <h1 className="text-xl">Archive</h1>
       </div>
       <div className="flex flex-wrap space-y-4 space-x-4">
