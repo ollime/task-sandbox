@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { cardShapeType, gridSizeType } from '../types/grid.types'
-import { KeyboardOptionKey } from '@mui/icons-material'
 
 type StylesType = {
   cardShape: cardShapeType

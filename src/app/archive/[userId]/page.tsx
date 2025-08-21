@@ -15,11 +15,7 @@ export default function ArchivePage({
 }: {
   params: Promise<{ userId: string }>
 }) {
-  const [data, setData] = useState<Array<CardData>>([
-    { label: 'dskf', size: 'lgRect', rotated: true },
-    { label: 'eep', size: 'mdSquare', rotated: true },
-    { label: 'djflsfd', size: 'lgSquare', rotated: true },
-  ])
+  const [data, setData] = useState<Array<CardData>>([])
   const [isCompact, setIsCompact] = useState<boolean>()
   const { userId } = use(params)
   const router = useRouter()
