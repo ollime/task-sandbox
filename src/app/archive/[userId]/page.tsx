@@ -1,10 +1,14 @@
 'use client'
 import { useEffect, useState, use } from 'react'
+import { useRouter } from 'next/navigation'
+
+import DeleteIcon from '@mui/icons-material/Delete'
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn'
+import { ArrowBack } from '@mui/icons-material'
+
 import { CardData, sizePreset, SizeKeys } from '@/types/card.types'
 import Container from '@/components/container'
 import ArchiveCard from '@/components/archiveCard'
-import { ArrowBack } from '@mui/icons-material'
-import { useRouter } from 'next/navigation'
 
 export default function ArchivePage({
   params,
@@ -58,7 +62,7 @@ export default function ArchivePage({
           onClick={() => {
             setIsCompact(!isCompact)
           }}>
-          Display: {isCompact ? 'Compact' : 'Table'}
+          Display: {isCompact ? 'Cards' : 'Table'}
         </div>
       </div>
       {isCompact ? (
@@ -75,17 +79,41 @@ export default function ArchivePage({
           ))}
         </div>
       ) : (
-        <table className="flex flex-col space-y-4">
+        <table>
           <thead>
             <tr>
-              <th scope="col">Name</th>
-              <th scope="col">Actions</th>
+              <th scope="col" className="text-start">
+                Name
+              </th>
+              <th scope="col" className="text-start">
+                Color
+              </th>
+              <th scope="col" className="text-start">
+                Size
+              </th>
+              <th scope="col" className="text-start">
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>itlsfjsldfem</td>
-            </tr>
+            {data.map((item) => (
+              <tr key={item.label}>
+                <td className="break-all">{item.label}</td>
+                <td>{item.color}</td>
+                <td>{item.size}</td>
+                <td className="flex flex-row flex-wrap space-x-4">
+                  <span className="flex items-center space-x-1 hover:cursor-pointer hover:underline">
+                    <KeyboardReturnIcon sx={{ fontSize: 20 }} />
+                    <p>Send to...</p>
+                  </span>
+                  <span className="flex items-center space-x-1 text-red-500 hover:cursor-pointer hover:underline">
+                    <DeleteIcon sx={{ fontSize: 20 }} />
+                    <p>Delete</p>
+                  </span>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       )}
