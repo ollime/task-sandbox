@@ -3,6 +3,7 @@ import { cardShapeType, gridSizeType, gridSizes } from '@/types/grid.types'
 import { CardData, colorPreset } from '@/types/card.types'
 import { useStyles } from '@/contexts/StylesProvider'
 import { LabelData } from '@/types/label.types'
+import { useUser } from '@/contexts/CurrentUserProvider'
 
 interface ContextMenuProps {
   top: number
@@ -14,6 +15,7 @@ interface ContextMenuProps {
   setClicked: (value: string) => void // to close the menu
   addNewLabel: (data: LabelData) => void
   labelCount: number
+  userId: string
 }
 
 export default function GridMenu({
@@ -26,6 +28,7 @@ export default function GridMenu({
   setClicked,
   addNewLabel,
   labelCount,
+  userId,
 }: ContextMenuProps) {
   const { cardShape, setCardShape, isDarkMode, setIsDarkMode } = useStyles()
   const [size, setSize] = useState<gridSizeType | undefined>(
@@ -97,7 +100,8 @@ export default function GridMenu({
   }
 
   function handleAddCard() {
-    const newTask: CardData = {
+    const newCard: CardData = {
+      user: userId,
       label: 'card ' + cardCount,
       color: colorPreset.gray,
       size: 'smRect',
@@ -105,7 +109,8 @@ export default function GridMenu({
       rotated: false,
       striped: false,
     }
-    addNewCard(newTask)
+    console.log(userId)
+    addNewCard(newCard)
     setClicked('')
   }
 

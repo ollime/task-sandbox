@@ -13,8 +13,8 @@ export const verifyAccessToken = function (token) {
   })
 }
 
-export const setAccessToken = function (token, expiry) {
-  const cookieStore = cookies()
+export const setAccessToken = async function (token, expiry) {
+  const cookieStore = await cookies()
 
   cookieStore.set('token', token, {
     httpOnly: true,

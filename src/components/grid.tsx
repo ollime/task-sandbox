@@ -11,7 +11,13 @@ import Card from './card'
 import GridMenu from './GridMenu'
 import Label from './label'
 
-export default function Grid({ gridTitle }: { gridTitle: string }) {
+export default function Grid({
+  gridTitle,
+  userId,
+}: {
+  gridTitle: string
+  userId: string
+}) {
   const { clicked, setClicked, points, setPoints } = useContextMenu()
   const { gridSpacing, setGridSpacing } = useStyles()
   const [activeId, setActiveId] = useState<string>()
@@ -217,7 +223,8 @@ export default function Grid({ gridTitle }: { gridTitle: string }) {
           cardCount={data.length}
           setClicked={setClicked}
           addNewLabel={handleAddNewLabel}
-          labelCount={labelData.length}></GridMenu>
+          labelCount={labelData.length}
+          userId={userId}></GridMenu>
       ) : (
         ''
       )}

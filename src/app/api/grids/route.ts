@@ -53,6 +53,15 @@ export async function POST(req: NextRequest) {
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
+
+    const existingGrid = await Grid.findOne({ user: user._id })
+    if (existingGrid) {
+      return NextResponse.json(
+        { error: 'User already exists.' },
+        { status: 409 }
+      )
+    }
+    // if user's grid doesn't already exist, set the new grid user
     body.user = user._id
 
     const newGrid = new Grid(body)

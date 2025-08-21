@@ -2,13 +2,13 @@ import mongoose, { Schema } from 'mongoose'
 
 const gridSchema = new Schema(
   {
-    user: { type: Schema.Types.ObjectId, ref: 'User' },
+    user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     name: {
       type: String,
       required: true,
       unique: true,
     },
-    cards: [{ type: Schema.Types.ObjectId, ref: 'Task' }],
+    cards: [{ type: Schema.Types.ObjectId, ref: 'Task', required: true }],
   },
   {
     timestamps: true,
