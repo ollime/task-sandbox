@@ -26,10 +26,11 @@ export default function GridPage({
       })
       .then((json) => {
         setGrids(json)
-        if (json.length < 1) {
-          createNewGrid()
-        }
-        setCurrentGridName(json[0]?.name ?? '')
+        // if (json.length < 1) {
+        //   createNewGrid()
+        // }
+        // setCurrentGridName(json[0]?.name ?? '')
+        console.log(json)
       })
   }
 

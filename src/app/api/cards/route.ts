@@ -8,6 +8,18 @@ import { Grid } from '@/models/grid.model'
 
 export async function GET() {
   try {
+    // get token
+    const cookieStore = cookies()
+    const data = (await cookieStore).get('token')
+    const token = data?.value
+
+    // verify token
+    try {
+      verifyAccessToken(token)
+    } catch (err) {
+      return NextResponse.json({ message: 'Invalid token' }, { status: 403 })
+    }
+
     await connectToDatabase()
     const cards = await Task.find({})
     return NextResponse.json(cards)
@@ -36,6 +48,7 @@ export async function POST(req: NextRequest) {
 
     // get and validate request data
     const body = await req.json()
+    // TODO: get specific grid name
     const { gridName } = body
     console.log(body)
 

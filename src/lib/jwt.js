@@ -10,6 +10,7 @@ export const verifyAccessToken = function (token) {
       // TODO: redirect to error page
     } else {
       console.log('Decoded Token:', decoded)
+      return decoded
     }
   })
 }

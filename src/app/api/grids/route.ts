@@ -12,15 +12,22 @@ export async function GET() {
     const data = (await cookieStore).get('token')
     const token = data?.value
 
+    let tokenId = ''
+
     // verify token
     try {
-      verifyAccessToken(token)
+      const tokenData = verifyAccessToken(token)
+      tokenId = tokenData._id
     } catch (err) {
       return NextResponse.json({ message: 'Invalid token' }, { status: 403 })
     }
 
+    // get userId ObjectId reference type
+    var ObjectId = require('mongoose').Types.ObjectId
+    var userId = new ObjectId(tokenId)
+
     await connectToDatabase()
-    const grids = await Grid.find({})
+    const grids = await Grid.find({ user: userId })
     return NextResponse.json(grids)
   } catch (err) {
     console.error(err)
