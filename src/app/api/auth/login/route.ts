@@ -2,7 +2,6 @@ import { User } from '@/models/user.model.js'
 import { NextRequest, NextResponse } from 'next/server'
 import { connectToDatabase } from '@/lib/mongodb'
 import { setAccessToken } from '@/lib/jwt'
-import { access } from 'fs'
 
 // log a user in
 export async function POST(req: NextRequest) {

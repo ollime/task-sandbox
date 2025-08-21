@@ -34,19 +34,29 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: 'Invalid token' }, { status: 403 })
     }
 
+    // get and validate request data
     const body = await req.json()
+    const { gridName } = body
+    console.log(body)
+
+    // get userId ObjectId reference type
+    var ObjectId = require('mongoose').Types.ObjectId
+    var userId = new ObjectId(body.user)
+
     // get user
-    const user = await User.findOne({ _id: body.user })
+    const user = await User.findById(userId)
     if (!user) {
       console.log('User not found')
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
+
     // get grid
-    const grid = await Grid.findOne({ user: user._id, _id: body.user })
+    const grid = await Grid.findOne({ user: userId })
     if (!grid) {
       console.log('Grid not found')
       return NextResponse.json({ error: 'Grid not found' }, { status: 404 })
     }
+
     body.user = user._id
     body.grid = grid._id
 

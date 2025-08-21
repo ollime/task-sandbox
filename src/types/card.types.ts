@@ -2,6 +2,7 @@ import { Coordinates } from '@dnd-kit/core/dist/types'
 
 export interface CardData {
   user: string
+  grid: string
   label: string
   color: string
   size: string

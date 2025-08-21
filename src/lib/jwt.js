@@ -4,7 +4,8 @@ import { cookies } from 'next/headers'
 export const verifyAccessToken = function (token) {
   return jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
     if (err) {
-      console.log('Token is invalid:', token)
+      console.log('Token validation failed. Token:', token)
+      console.log('Token validation failed. Decoded: ', decoded)
       throw Error('Token is invalid')
       // TODO: redirect to error page
     } else {

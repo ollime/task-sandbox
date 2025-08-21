@@ -70,7 +70,7 @@ export async function POST(req: NextRequest) {
     // populate fields
     try {
       const populatedGrid = await Grid.findById(savedGrid._id)
-        .populate('user', 'username')
+        .populate('user')
         .populate('cards')
         .exec()
 

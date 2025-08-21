@@ -16,6 +16,7 @@ interface ContextMenuProps {
   addNewLabel: (data: LabelData) => void
   labelCount: number
   userId: string
+  gridName: string
 }
 
 export default function GridMenu({
@@ -29,6 +30,7 @@ export default function GridMenu({
   addNewLabel,
   labelCount,
   userId,
+  gridName,
 }: ContextMenuProps) {
   const { cardShape, setCardShape, isDarkMode, setIsDarkMode } = useStyles()
   const [size, setSize] = useState<gridSizeType | undefined>(
@@ -100,8 +102,10 @@ export default function GridMenu({
   }
 
   function handleAddCard() {
+    console.log('GRID NAME: ', gridName)
     const newCard: CardData = {
       user: userId,
+      grid: gridName,
       label: 'card ' + cardCount,
       color: colorPreset.gray,
       size: 'smRect',
@@ -109,7 +113,6 @@ export default function GridMenu({
       rotated: false,
       striped: false,
     }
-    console.log(userId)
     addNewCard(newCard)
     setClicked('')
   }

@@ -26,11 +26,14 @@ export default function GridPage({
       })
       .then((json) => {
         setGrids(json)
+        if (json.length < 1) {
+          createNewGrid()
+        }
+        setCurrentGridName(json[0]?.name ?? '')
       })
   }
 
   async function createNewGrid() {
-    console.log(userId)
     const newGrid = {
       user: userId,
       name: 'Grid',
@@ -49,11 +52,6 @@ export default function GridPage({
 
   useEffect(() => {
     getAllGrids()
-    if (grids.length < 1) {
-      createNewGrid()
-    }
-    console.log(grids)
-    setCurrentGridName(grids[0]?.name ?? '')
   }, [])
 
   return (

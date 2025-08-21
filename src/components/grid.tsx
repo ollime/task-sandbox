@@ -224,7 +224,8 @@ export default function Grid({
           setClicked={setClicked}
           addNewLabel={handleAddNewLabel}
           labelCount={labelData.length}
-          userId={userId}></GridMenu>
+          userId={userId}
+          gridName={gridTitle}></GridMenu>
       ) : (
         ''
       )}

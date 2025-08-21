@@ -21,6 +21,7 @@ export default function LoginPage() {
       if (res.ok) {
         const json = await res.json()
         user.setUsername(username as string)
+        // TODO: Bug???
         router?.push(`/grid/${json._id}`)
       } else if (res.status === 409) {
         try {
@@ -32,6 +33,7 @@ export default function LoginPage() {
           const json = await loginResponse.json()
           if (loginResponse.ok) {
             user.setUsername(username as string)
+            console.log(json._id)
             router?.push(`/grid/${json._id}`)
           }
         } catch (err: any) {

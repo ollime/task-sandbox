@@ -67,6 +67,8 @@ export async function POST(req: NextRequest) {
       })
       return res
     } catch (tokenError) {
+      user.populate('grids').exec()
+
       await user.save()
       console.log('Token generation error:' + tokenError)
       return NextResponse.json(
