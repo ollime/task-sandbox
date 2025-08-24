@@ -6,6 +6,7 @@ import Footer from '@/components/footer'
 import Title from '@/components/title'
 import Grid from '@/components/grid'
 import { GridData } from '@/types/grid.types'
+import { useRouter } from 'next/navigation'
 
 export default function GridPage({
   params,
@@ -13,6 +14,7 @@ export default function GridPage({
   params: Promise<{ userId: string }>
 }) {
   const { userId } = use(params)
+  const router = useRouter()
   const [currentGridName, setCurrentGridName] = useState<string>('Grid')
   const [grids, setGrids] = useState<Array<GridData>>([])
 
@@ -26,10 +28,13 @@ export default function GridPage({
       })
       .then((json) => {
         setGrids(json)
-        // if (json.length < 1) {
-        //   createNewGrid()
-        // }
-        // setCurrentGridName(json[0]?.name ?? '')
+        if (json.length < 1) {
+          createNewGrid()
+        }
+        return json
+      })
+      .then((json) => {
+        setCurrentGridName(json[0]?.name ?? '')
         console.log(json)
       })
   }
@@ -52,6 +57,9 @@ export default function GridPage({
   }
 
   useEffect(() => {
+    if (userId === 'undefined' || !userId) {
+      router.push('/')
+    }
     getAllGrids()
   }, [])
 

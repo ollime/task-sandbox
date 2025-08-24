@@ -103,6 +103,7 @@ export default function GridMenu({
 
   function handleAddCard() {
     console.log('GRID NAME: ', gridName)
+    console.log(userId)
     const newCard: CardData = {
       user: userId,
       grid: gridName,
