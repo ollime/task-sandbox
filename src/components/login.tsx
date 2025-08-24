@@ -21,8 +21,11 @@ export default function LoginPage() {
       if (res.ok) {
         const json = await res.json()
         user.setUsername(username as string)
-        // TODO: Bug???
-        router?.push(`/grid/${json._id}`)
+        if (json._id) {
+          router?.push(`/grid/${json._id}`)
+        } else {
+          alert('Successfully created account. Please log in again.')
+        }
       } else if (res.status === 409) {
         try {
           const loginResponse = await fetch('/api/auth/login', {

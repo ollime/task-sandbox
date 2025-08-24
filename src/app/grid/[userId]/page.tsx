@@ -6,7 +6,6 @@ import Footer from '@/components/footer'
 import Title from '@/components/title'
 import Grid from '@/components/grid'
 import { GridData } from '@/types/grid.types'
-import { useRouter } from 'next/navigation'
 
 export default function GridPage({
   params,
@@ -42,6 +41,12 @@ export default function GridPage({
     async function createNewGrid() {
       if (userId === 'undefined') {
         alert('user not found')
+      }
+
+      // do not create duplicate grid
+      const containsGrid = grids.some((grid) => grid.name === 'Grid')
+      if (containsGrid) {
+        return
       }
 
       const newGrid = {
