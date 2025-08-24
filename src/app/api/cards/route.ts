@@ -15,14 +15,13 @@ export async function GET() {
 
     // verify token
     try {
-      verifyAccessToken(token)
+      const decoded = verifyAccessToken(token)
+      await connectToDatabase()
+      const cards = await Task.find({ user: decoded })
+      return NextResponse.json(cards)
     } catch (err) {
       return NextResponse.json({ message: 'Invalid token' }, { status: 403 })
     }
-
-    await connectToDatabase()
-    const cards = await Task.find({})
-    return NextResponse.json(cards)
   } catch (err) {
     console.error(err)
     return NextResponse.json(
