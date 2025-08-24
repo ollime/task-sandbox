@@ -61,10 +61,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
 
-    const existingGrid = await Grid.findOne({ user: user._id })
+    const existingGrid = await Grid.findOne({ user: user._id, name: body.name })
     if (existingGrid) {
       return NextResponse.json(
-        { error: 'User already exists.' },
+        { error: 'Grid already exists.' },
         { status: 409 }
       )
     }

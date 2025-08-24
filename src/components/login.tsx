@@ -47,7 +47,7 @@ export default function LoginPage() {
 
   return (
     <div>
-      <h1 className="p-4 text-center text-2xl">Taskbox</h1>
+      <h1 className="p-4 text-center text-2xl">Task Sandbox</h1>
       <form
         onSubmit={handleSubmit}
         className="flex flex-col items-center space-y-4 p-2">
