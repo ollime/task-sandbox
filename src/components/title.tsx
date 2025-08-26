@@ -17,10 +17,6 @@ export default function Title({
     try {
       const res = await fetch('/api/auth/refresh', {
         method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({}),
       })
       console.log(res)
     } catch (e) {
@@ -39,9 +35,9 @@ export default function Title({
           <ChevronRightIcon fontSize="large" />
         </div>
       </div>
-      {/* <div className="text-sm">
+      <div className="text-sm" onClick={handleLogout}>
         Log out <LogoutIcon />
-      </div> */}
+      </div>
     </div>
   )
 }

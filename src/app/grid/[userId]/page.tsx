@@ -71,7 +71,9 @@ export default function GridPage({
       })
     }
 
-    getAllGrids()
+    if (userId) {
+      getAllGrids()
+    }
   }, [])
 
   return (
