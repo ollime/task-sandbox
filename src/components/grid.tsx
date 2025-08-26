@@ -93,7 +93,7 @@ export default function Grid({
       // update local app state
       const json = await res.json()
       taskData._id = json._id
-      data.push(taskData)
+      setData([taskData, ...data])
     } catch (err) {
       console.error(err)
     }
