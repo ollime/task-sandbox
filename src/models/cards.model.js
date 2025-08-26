@@ -7,7 +7,6 @@ const taskSchema = new Schema(
     label: {
       type: String,
       required: true,
-      unique: true,
     },
     color: {
       type: String,
