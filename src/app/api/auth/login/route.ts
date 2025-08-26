@@ -26,7 +26,14 @@ export async function POST(req: NextRequest) {
       const accessToken = user.generateAccessToken()
       const expiry = user.getAccessTokenExpiry()
       setAccessToken(accessToken, expiry)
-      return NextResponse.json(user)
+      const res = NextResponse.json(user)
+      // set cookie
+      res.cookies.set('token', accessToken, {
+        httpOnly: true,
+        secure: true,
+        maxAge: user.getAccessTokenExpiry(),
+      })
+      return res
     } else {
       return NextResponse.json(
         { error: 'Invalid credentials.' },
