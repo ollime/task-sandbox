@@ -1,6 +1,7 @@
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import LogoutIcon from '@mui/icons-material/Logout'
+import { useRouter } from 'next/navigation'
 
 export default function Title({
   className,
@@ -13,12 +14,15 @@ export default function Title({
   setGridTitleLeft: (value: string) => void
   setGridTitleRight: (value: string) => void
 }) {
+  const router = useRouter()
   async function handleLogout() {
     try {
-      const res = await fetch('/api/auth/refresh', {
+      await fetch('/api/auth/refresh', {
         method: 'DELETE',
+      }).then((res) => {
+        console.log(res)
+        router?.push('/')
       })
-      console.log(res)
     } catch (e) {
       console.log(e)
     }

@@ -35,20 +35,20 @@ export async function POST(req: NextRequest) {
 }
 
 // log a user out
-export async function DELETE(req: NextRequest) {
+export async function DELETE() {
   try {
-    const body = await req.json()
-    await connectToDatabase()
-    const { username, refreshToken } = body
-    const user = await User.findOne({ username: username })
+    // const body = await req.json()
+    // await connectToDatabase()
+    // const { username, refreshToken } = body
+    // const user = await User.findOne({ username: username })
 
-    const userToken = await user.findOne({ token: refreshToken })
-    if (!userToken)
-      return NextResponse.json(
-        { error: false, message: 'Logged out successfully' },
-        { status: 200 }
-      )
-    await userToken.remove()
+    // const userToken = await user.findOne({ token: refreshToken })
+    // if (!userToken)
+    //   return NextResponse.json(
+    //     { error: false, message: 'Logged out successfully' },
+    //     { status: 200 }
+    //   )
+    // await userToken.remove()
     // delete cookie
     const cookieStore = await cookies()
     cookieStore.delete('token')
