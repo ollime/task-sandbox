@@ -36,8 +36,9 @@ export default function LoginPage() {
           const json = await loginResponse.json()
           if (loginResponse.ok) {
             user.setUsername(username as string)
-            console.log(json._id)
             router?.push(`/grid/${json._id}`)
+          } else if (loginResponse.status === 401) {
+            alert('Invalid credentials')
           }
         } catch (err: any) {
           console.error(err)
