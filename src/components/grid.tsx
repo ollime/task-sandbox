@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { restrictToParentElement } from '@dnd-kit/modifiers'
 import { DndContext, DragStartEvent, DragEndEvent } from '@dnd-kit/core'
+import { useErrorBoundary } from 'react-error-boundary'
 
 import { sizePreset, SizeKeys, CardData } from '@/types/card.types'
 import { gridSizeType } from '@/types/grid.types'
@@ -18,6 +19,7 @@ export default function Grid({
   gridTitle: string
   userId: string
 }) {
+  const { showBoundary } = useErrorBoundary()
   const { clicked, setClicked, points, setPoints } = useContextMenu()
   const { gridSpacing, setGridSpacing } = useStyles()
   const [activeId, setActiveId] = useState<string>()
@@ -63,6 +65,7 @@ export default function Grid({
           })
       } catch (err) {
         console.log(err)
+        showBoundary(err)
       }
     }
     getCardData()
@@ -97,6 +100,7 @@ export default function Grid({
       setData([taskData, ...data])
     } catch (err) {
       console.error(err)
+      showBoundary(err)
     }
   }
 

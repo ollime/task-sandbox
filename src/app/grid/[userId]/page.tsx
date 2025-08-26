@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect, use } from 'react'
+import { useErrorBoundary } from 'react-error-boundary'
 
 import Container from '@/components/container'
 import Footer from '@/components/footer'
@@ -18,24 +19,28 @@ export default function GridPage({
 
   useEffect(() => {
     async function getAllGrids() {
-      await fetch('/api/grids', {
-        method: 'GET',
-        credentials: 'same-origin',
-      })
-        .then((res) => {
-          return res.json()
+      try {
+        await fetch('/api/grids', {
+          method: 'GET',
+          credentials: 'same-origin',
         })
-        .then((json) => {
-          setGrids(json)
-          if (json.length < 1) {
-            createNewGrid()
-          }
-          return json
-        })
-        .then((json) => {
-          setCurrentGridName(json[0]?.name ?? '')
-          console.log(json)
-        })
+          .then((res) => {
+            return res.json()
+          })
+          .then((json) => {
+            setGrids(json)
+            if (json.length < 1) {
+              createNewGrid()
+            }
+            return json
+          })
+          .then((json) => {
+            setCurrentGridName(json[0]?.name ?? '')
+            console.log(json)
+          })
+      } catch (err: any) {
+        console.log(err)
+      }
     }
 
     async function createNewGrid() {
