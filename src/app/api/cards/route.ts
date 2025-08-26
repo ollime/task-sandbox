@@ -14,14 +14,21 @@ export async function GET() {
     const token = data?.value
 
     // verify token
+    let tokenId = ''
     try {
-      const decoded = verifyAccessToken(token)
-      await connectToDatabase()
-      const cards = await Task.find({ user: decoded })
-      return NextResponse.json(cards)
+      const tokenData = verifyAccessToken(token)
+      tokenId = tokenData._id
     } catch (err) {
       return NextResponse.json({ message: 'Invalid token' }, { status: 403 })
     }
+
+    // get userId ObjectId reference type
+    var ObjectId = require('mongoose').Types.ObjectId
+    var userId = new ObjectId(tokenId)
+
+    await connectToDatabase()
+    const cards = await Task.find({ user: userId })
+    return NextResponse.json(cards)
   } catch (err) {
     console.error(err)
     return NextResponse.json(
@@ -51,19 +58,14 @@ export async function POST(req: NextRequest) {
     const { gridName } = body
     console.log(body)
 
-    // get userId ObjectId reference type
-    var ObjectId = require('mongoose').Types.ObjectId
-    var userId = new ObjectId(body.user)
-
     // get user
-    const user = await User.findById(userId)
+    const user = await User.findOne({ _id: body.user })
     if (!user) {
-      console.log('User not found')
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
 
     // get grid
-    const grid = await Grid.findOne({ user: userId })
+    const grid = await Grid.findOne({ user: user._id })
     if (!grid) {
       console.log('Grid not found')
       return NextResponse.json({ error: 'Grid not found' }, { status: 404 })

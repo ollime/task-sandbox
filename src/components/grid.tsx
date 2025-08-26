@@ -58,6 +58,7 @@ export default function Grid({
             for (const card of json) {
               jsonArray.push(card)
             }
+            console.log(json)
             setData(jsonArray)
           })
       } catch (err) {
