@@ -3,7 +3,7 @@ import { cardShapeType, gridSizeType, gridSizes } from '@/types/grid.types'
 import { CardData, colorPreset } from '@/types/card.types'
 import { useStyles } from '@/contexts/StylesProvider'
 import { LabelData } from '@/types/label.types'
-import { useUser } from '@/contexts/CurrentUserProvider'
+import AddIcon from '@mui/icons-material/Add'
 
 interface ContextMenuProps {
   top: number
@@ -102,8 +102,6 @@ export default function GridMenu({
   }
 
   function handleAddCard() {
-    console.log('GRID NAME: ', gridName)
-    console.log(userId)
     const newCard: CardData = {
       user: userId,
       grid: gridName,
@@ -131,7 +129,12 @@ export default function GridMenu({
   return (
     <div style={styles} className="bg-context rounded-lg" role="menu">
       <ul role="menu">
-        <div className="p-2 text-center font-bold">Grid settings</div>
+        <div className="flex flex-row p-2 text-center font-bold">
+          <span className="flex flex-1 justify-center">Grid settings</span>
+          <span className="hover:cursor-pointer" onClick={handleAddCard}>
+            <AddIcon />
+          </span>
+        </div>
         <li
           className={`hover:text-hoverText p-2 hover:bg-black`}
           role="menuitem">

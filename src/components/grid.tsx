@@ -11,6 +11,7 @@ import { useStyles } from '@/contexts/StylesProvider'
 import Card from './card'
 import GridMenu from './GridMenu'
 import Label from './label'
+import Footer from './footer'
 
 export default function Grid({
   gridTitle,
@@ -182,59 +183,89 @@ export default function Grid({
     }
   }
 
+  /** update card data */
+  async function updateCardData(taskData: CardData) {
+    try {
+      await fetch(`/api/cards/${taskData._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(taskData),
+      })
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  async function saveAllCards() {
+    for (let card of data) {
+      updateCardData(card as unknown as CardData)
+    }
+  }
+
+  function handleLockPosition() {}
+
   return (
-    <DndContext
-      onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}
-      modifiers={[restrictToParentElement]}>
-      <div
-        className={styles.grid}
-        style={gridSpacing === 'none' ? {} : gridBackgroundStyle}
-        onContextMenu={(evt) => handleOpenGridMenu(evt)}>
-        <div id="grid" className={styles.draggable}>
-          {data.map((card) => (
-            <Card
-              key={card.label}
-              label={card.label}
-              color={card.color}
-              position={card.position}
-              activeId={activeId ?? ''}
-              setActiveId={setActiveId}
-              size={sizePreset[card.size as SizeKeys]}
-              cardId={card._id ?? card.label}
-              rotation={card.rotated}
-              deleteCard={deleteCard}
-            />
-          ))}
-          {labelData.map((label) => (
-            <Label
-              key={label._id + '-label'}
-              label={label.label}
-              position={label.position}
-              _id={label._id ?? 'label'}
-              deleteLabel={deleteLabel}
-              sendLabel={updateLabelData}
-            />
-          ))}
+    <>
+      <DndContext
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+        modifiers={[restrictToParentElement]}>
+        <div
+          className={styles.grid}
+          style={gridSpacing === 'none' ? {} : gridBackgroundStyle}
+          onContextMenu={(evt) => handleOpenGridMenu(evt)}>
+          <div id="grid" className={styles.draggable}>
+            {data.map((card) => (
+              <Card
+                key={card.label}
+                label={card.label}
+                color={card.color}
+                position={card.position}
+                activeId={activeId ?? ''}
+                setActiveId={setActiveId}
+                size={sizePreset[card.size as SizeKeys]}
+                cardId={card._id ?? card.label}
+                rotation={card.rotated}
+                deleteCard={deleteCard}
+              />
+            ))}
+            {labelData.map((label) => (
+              <Label
+                key={label._id + '-label'}
+                label={label.label}
+                position={label.position}
+                _id={label._id ?? 'label'}
+                deleteLabel={deleteLabel}
+                sendLabel={updateLabelData}
+              />
+            ))}
+          </div>
         </div>
-      </div>
-      {clicked === 'grid' ? (
-        <GridMenu
-          top={points.y}
-          left={points.x}
-          gridSpacing={gridSpacing as gridSizeType}
-          setGridSpacing={setGridSpacing}
-          addNewCard={sendCardData}
-          cardCount={data.length}
-          setClicked={setClicked}
-          addNewLabel={handleAddNewLabel}
-          labelCount={labelData.length}
-          userId={userId}
-          gridName={gridTitle}></GridMenu>
-      ) : (
-        ''
-      )}
-    </DndContext>
+        {clicked === 'grid' ? (
+          <GridMenu
+            top={points.y}
+            left={points.x}
+            gridSpacing={gridSpacing as gridSizeType}
+            setGridSpacing={setGridSpacing}
+            addNewCard={sendCardData}
+            cardCount={data.length}
+            setClicked={setClicked}
+            addNewLabel={handleAddNewLabel}
+            labelCount={labelData.length}
+            userId={userId}
+            gridName={gridTitle}></GridMenu>
+        ) : (
+          ''
+        )}
+      </DndContext>
+      <Footer
+        gridTitle={gridTitle}
+        saveAllCards={saveAllCards}
+        handleLockPosition={handleLockPosition}
+      />
+    </>
   )
 }
 

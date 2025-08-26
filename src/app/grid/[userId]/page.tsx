@@ -85,7 +85,6 @@ export default function GridPage({
         setGridTitleRight={setCurrentGridName}
       />
       <Grid gridTitle={currentGridName} userId={userId} />
-      <Footer />
     </Container>
   )
 }

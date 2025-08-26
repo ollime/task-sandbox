@@ -2,7 +2,17 @@ import CodeIcon from '@mui/icons-material/Code'
 import BugReportIcon from '@mui/icons-material/BugReport'
 import Title from './title'
 
-export default function Footer() {
+interface FooterPropType {
+  gridTitle: string
+  saveAllCards: () => void
+  handleLockPosition: () => void
+}
+
+export default function Footer({
+  gridTitle,
+  saveAllCards,
+  handleLockPosition,
+}: FooterPropType) {
   return (
     <footer className="row-start-3 flex w-full flex-wrap items-center justify-between">
       <div className="space-x-4">
@@ -23,14 +33,18 @@ export default function Footer() {
           Report issues
         </a>
       </div>
-      <Title className="hidden sm:flex" />
+      <Title className="hidden w-80 sm:flex" gridTitle={gridTitle} />
       <div className="space-x-4">
-        <button className="rounded-lg bg-white p-2 text-sm text-black">
-          Save position
+        <button
+          className="rounded-lg bg-white p-2 text-sm text-black"
+          onClick={saveAllCards}>
+          Save cards
         </button>
-        <button className="rounded-lg bg-white p-2 text-sm text-black">
+        {/* <button
+          className="rounded-lg bg-white p-2 text-sm text-black"
+          onClick={handleLockPosition}>
           Lock position
-        </button>
+        </button> */}
       </div>
     </footer>
   )
