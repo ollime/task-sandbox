@@ -39,9 +39,9 @@ export default function Title({
           <ChevronRightIcon fontSize="large" />
         </div>
       </div>
-      <div className="text-sm">
+      {/* <div className="text-sm">
         Log out <LogoutIcon />
-      </div>
+      </div> */}
     </div>
   )
 }
