@@ -1,26 +1,43 @@
 import { ContextMenuProvider } from '@/contexts/ContextMenuProvider'
 import { UserProvider } from '@/contexts/CurrentUserProvider'
 import { StylesProvider } from '@/contexts/StylesProvider'
+import { useRouter } from 'next/navigation'
+import { ReactNode } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 
 export default function Container({ children }: { children: React.ReactNode }) {
+  const router = useRouter()
   function fallbackRender({
     error,
     resetErrorBoundary,
   }: {
     error: any
     resetErrorBoundary: () => void
-  }) {
+  }): ReactNode {
     return (
-      <div role="alert">
+      <div
+        role="alert"
+        className="m-4 flex h-full flex-1 flex-col items-center justify-center">
         <p>Something went wrong:</p>
         <pre style={{ color: 'red' }}>{error.message}</pre>
+
+        <p
+          onClick={() => {
+            router?.push('/')
+          }}
+          className="hover:cursor-pointer hover:underline">
+          Return to login page
+        </p>
       </div>
     )
   }
 
   return (
-    <ErrorBoundary fallback={<div>Something went wrong</div>}>
+    <ErrorBoundary
+      fallbackRender={fallbackRender}
+      onReset={(details) => {
+        // reset app
+      }}>
       <UserProvider>
         <ContextMenuProvider>
           <StylesProvider>
