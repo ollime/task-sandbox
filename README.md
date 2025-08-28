@@ -6,18 +6,19 @@
 
 A sandbox with drag and drop cards for task management.
 
-### Features
-
 <img src="images/blocks.png" width=400>
 
+### Features
 - **Stack your tasks:** visually see how many tasks you have
 - **Drag and drop interface:** convenient and easy to use with the help of the `dnd-kit` React package
 - **Context menus:** right click for card options and customization
 - **Set different task sizes and colors:** larger cards require more attention
 - **Labels:** add freely draggable text to the screen
 - **User authentication:** sessions stored using httpOnly browser cookies
-<!-- - **Workspaces:** easily move tasks between different screens
-- **Archive cards:** Store completed cards in a card or table view -->
+
+### Work in progress
+- **Workspaces:** easily move tasks between different screens
+- **Archive cards:** Store completed cards in a card or table view
 
 \
 <img src="images/grid.png" width=400>
