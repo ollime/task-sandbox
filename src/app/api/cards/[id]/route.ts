@@ -2,13 +2,10 @@ import { Task } from '@/models/cards.model'
 import { connectToDatabase } from '@/lib/mongodb'
 import { NextResponse, NextRequest } from 'next/server'
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET({ params }: { params: Promise<{ id: string }> }) {
   connectToDatabase()
   try {
-    const taskFound = await Task.findById(params.id)
+    const taskFound = await Task.findById((await params).id)
 
     if (!taskFound)
       return NextResponse.json(
