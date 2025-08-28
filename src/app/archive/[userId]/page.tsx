@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import DeleteIcon from '@mui/icons-material/Delete'
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn'
 import { ArrowBack } from '@mui/icons-material'
+import LogoutIcon from '@mui/icons-material/Logout'
 
 import { CardData, sizePreset, SizeKeys } from '@/types/card.types'
 import Container from '@/components/container'
@@ -19,6 +20,19 @@ export default function ArchivePage({
   const [isCompact, setIsCompact] = useState<boolean>()
   const { userId } = use(params)
   const router = useRouter()
+
+  async function handleLogout() {
+    try {
+      await fetch('/api/auth/refresh', {
+        method: 'DELETE',
+      }).then((res) => {
+        console.log(res)
+        router?.push('/')
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   useEffect(() => {
     /** loads initial data */
@@ -113,6 +127,11 @@ export default function ArchivePage({
           </tbody>
         </table>
       )}
+      <div
+        className="flex flex-1 items-end justify-end text-sm"
+        onClick={handleLogout}>
+        Log out <LogoutIcon />
+      </div>
     </Container>
   )
 }

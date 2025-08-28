@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     const user = await User.findOne({ username: username })
 
     user.verifyAccessToken(refreshToken).then((tokenDetails: any) => {
-      const payload = { _id: tokenDetails._id, roles: tokenDetails.roles }
+      // const payload = { _id: tokenDetails._id, roles: tokenDetails.roles }
       const accessToken = user.generateAccessToken()
 
       let res = NextResponse.json(
