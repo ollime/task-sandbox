@@ -23,8 +23,8 @@ export async function GET() {
     }
 
     // get userId ObjectId reference type
-    var ObjectId = require('mongoose').Types.ObjectId
-    var userId = new ObjectId(tokenId)
+    const ObjectId = require('mongoose').Types.ObjectId
+    const userId = new ObjectId(tokenId)
 
     await connectToDatabase()
     const cards = await Task.find({ user: userId })

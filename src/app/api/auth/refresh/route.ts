@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
       // const payload = { _id: tokenDetails._id, roles: tokenDetails.roles }
       const accessToken = user.generateAccessToken()
 
-      let res = NextResponse.json(
+      const res = NextResponse.json(
         {
           error: false,
           message: 'Access token created successfully.',

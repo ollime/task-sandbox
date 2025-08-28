@@ -199,7 +199,7 @@ export default function Grid({
   }
 
   async function saveAllCards() {
-    for (let card of data) {
+    for (const card of data) {
       updateCardData(card as unknown as CardData)
     }
   }
