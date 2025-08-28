@@ -28,7 +28,10 @@ export function StylesProvider({ children }: { children: React.ReactNode }) {
     // gets data from local storage
     setCardShape(localStorage.getItem('cardShape') as cardShapeType)
     setGridSpacing(localStorage.getItem('gridSpacing') as gridSizeType)
-    setIsDarkMode(localStorage.getItem('isDarkMode') === 'true')
+    setIsDarkMode(
+      localStorage.getItem('isDarkMode') === 'true' ||
+        !localStorage.getItem('isDarkMode')
+    )
   }, [])
 
   function setData(key: string, value: string) {
