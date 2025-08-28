@@ -1,9 +1,7 @@
 'use client'
 import { useState, useEffect, use } from 'react'
-import { useErrorBoundary } from 'react-error-boundary'
 
 import Container from '@/components/container'
-import Footer from '@/components/footer'
 import Title from '@/components/title'
 import Grid from '@/components/grid'
 import { GridData } from '@/types/grid.types'

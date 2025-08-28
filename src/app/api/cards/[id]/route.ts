@@ -1,11 +1,16 @@
+/** Routes for getting, updating, and deleting a specific card's info. */
+
 import { Task } from '@/models/cards.model'
 import { connectToDatabase } from '@/lib/mongodb'
 import { NextResponse, NextRequest } from 'next/server'
 
-export async function GET({ params }: { params: Promise<{ id: string }> }) {
+type Params = Promise<{ id: string }>
+
+export async function GET(req: NextRequest, { params }: { params: Params }) {
   connectToDatabase()
   try {
-    const taskFound = await Task.findById((await params).id)
+    const { id } = await params
+    const taskFound = await Task.findById(id)
 
     if (!taskFound)
       return NextResponse.json(
@@ -23,15 +28,13 @@ export async function GET({ params }: { params: Promise<{ id: string }> }) {
   }
 }
 
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function PUT(req: NextRequest, { params }: { params: Params }) {
   const body = await req.json()
+  const { id } = await params
   connectToDatabase()
 
   try {
-    const taskUpdated = await Task.findByIdAndUpdate(params.id, body, {
+    const taskUpdated = await Task.findByIdAndUpdate(id, body, {
       new: true,
     })
       .populate('user')
@@ -53,14 +56,12 @@ export async function PUT(
   }
 }
 
-export async function DELETE(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(req: NextRequest, { params }: { params: Params }) {
   connectToDatabase()
+  const { id } = await params
 
   try {
-    const taskDeleted = await Task.findByIdAndDelete(params.id)
+    const taskDeleted = await Task.findByIdAndDelete(id)
 
     if (!taskDeleted)
       return NextResponse.json(

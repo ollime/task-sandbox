@@ -1,3 +1,5 @@
+/** Gets general grid info and grid creation. */
+
 import { NextRequest, NextResponse } from 'next/server'
 import { connectToDatabase } from '@/lib/mongodb'
 import { verifyAccessToken } from '@/lib/jwt'

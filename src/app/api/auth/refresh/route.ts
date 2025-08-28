@@ -37,6 +37,7 @@ export async function POST(req: NextRequest) {
 // log a user out
 export async function DELETE() {
   try {
+    // TODO: Manage refresh token and regenerate access token if refresh token is active
     // const body = await req.json()
     // await connectToDatabase()
     // const { username, refreshToken } = body

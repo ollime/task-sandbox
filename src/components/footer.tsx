@@ -33,7 +33,12 @@ export default function Footer({
           Report issues
         </a>
       </div>
-      <Title className="hidden w-80 sm:flex" gridTitle={gridTitle} />
+      <Title
+        className="hidden w-80 sm:flex"
+        gridTitle={gridTitle}
+        setGridTitleLeft={() => {}}
+        setGridTitleRight={() => {}}
+      />
       <div className="space-x-4">
         <button
           className="rounded-lg bg-white p-2 text-sm text-black"
