@@ -4,7 +4,7 @@
 [![React](https://img.shields.io/badge/React-%2320232a.svg?logo=react&logoColor=%2361DAFB)](#)
 [![Next.js](https://img.shields.io/badge/Next.js-black?logo=next.js&logoColor=white)](#)
 
-A sandbox with drag and drop cards for task management.
+A sandbox with drag and drop cards for task management.\
 Demo: https://task-sandbox.vercel.app/
 
 <img src="images/blocks.png" width=400>
